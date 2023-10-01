@@ -17,10 +17,8 @@ const baseQueryDefault = fetchBaseQuery({
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
-    headers.set("language", lang != null ? lang : "ru");
     headers.set("accept", "application/json");
     headers.set("Sec-Fetch-Site", "cross-site");
-    headers.set("credentials", "includes");
 
     return headers;
   },
