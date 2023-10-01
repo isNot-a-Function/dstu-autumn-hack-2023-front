@@ -3,8 +3,10 @@ import { ReactComponent as Eye } from "../../assets/img/eye.svg";
 import { ReactComponent as Speech } from "../../assets/img/speech.svg";
 import { ReactComponent as Time } from "../../assets/img/time.svg";
 import { ReactComponent as Money } from "../../assets/img/money.svg";
+import { useNavigate } from "react-router-dom";
 
 interface CaseProps {
+  id: string;
   title: string;
   createdAt: string;
   views: number;
@@ -14,6 +16,7 @@ interface CaseProps {
   tags: string[];
 }
 const Case = ({
+  id,
   title,
   createdAt,
   views,
@@ -23,14 +26,14 @@ const Case = ({
   tags,
 }: CaseProps) => {
   var ONE_HOUR = 60 * 60 * 1000; /* ms */
-
+  const navigate = useNavigate();
   const getHours = () => {
     //@ts-ignorets
     return Math.round((new Date() - new Date(createdAt)) / ONE_HOUR);
   };
 
   return (
-    <div className="box-case">
+    <div className="box-case" onClick={() => navigate(`/deal/${id}`)}>
       <div className="header-box-case">
         <span>{title}</span>
       </div>

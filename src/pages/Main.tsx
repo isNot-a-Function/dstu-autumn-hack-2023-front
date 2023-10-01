@@ -4,6 +4,7 @@ import Menu from "../components/Main/Menu";
 import { ReactComponent as Trash } from "../assets/img/trashSort.svg";
 import Case from "../components/Main/Case";
 import { casesApi } from "../store";
+import Pagination from "../components/Pagination/Pagination";
 
 const Main = () => {
   const [activeSection, setActiveSection] = useState<string[]>([]);
@@ -79,6 +80,7 @@ const Main = () => {
         <div className="box-list-cases">
           {orders?.orders.map((order: any) => (
             <Case
+              id={order.id}
               title={order.title}
               createdAt={order.createdAt}
               views={order.views}
@@ -88,13 +90,16 @@ const Main = () => {
               tags={order.tags}
             />
           ))}
-          {/* <Case />
-          <Case /> */}
         </div>
+        <Pagination
+          currentPage={page}
+          setCurrentPage={setPage}
+          pagesAmount={orders?.count || 1}
+          perPage={15}
+        />
       </div>
       <div style={{ paddingRight: 12 }}>
         <button className="lightBtn btn">Создать заказ</button>
-
         <Menu
           setActiveSection={setActiveSection}
           activeSection={activeSection}

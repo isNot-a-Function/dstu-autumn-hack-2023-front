@@ -47,6 +47,7 @@
   display: grid;
   grid-template-columns: 0.7fr 0.3fr;
   column-gap: 20px;
+  padding-bottom: 20px;
   .lightBtn {
     width: 100%;
     padding: 15px;
@@ -169,7 +170,7 @@ p.section-list-filter {
 }
 .box-list-cases {
   margin-top: 24px;
-  height: 100%;
+  // height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;

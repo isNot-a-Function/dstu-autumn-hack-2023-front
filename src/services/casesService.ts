@@ -12,7 +12,7 @@ export const casesApi = createApi({
         method: "GET",
       }),
     }),
-    getOrders: build.query<{ orders: getOrdersData[] }, number>({
+    getOrders: build.query<{ orders: getOrdersData[]; count: number }, number>({
       query: (id) => ({
         url: `/order/?page=${id}`,
         method: "GET",
