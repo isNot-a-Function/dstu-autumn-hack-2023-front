@@ -7,6 +7,7 @@ import MainLayout from "./layout/MainLayout";
 import ScrollToTop from "./utils/scrollToTop";
 import { useEffect } from "react";
 import Login from "./pages/Login";
+import Deal from "./pages/Deal";
 
 function App() {
   let vh = window.innerHeight * 0.01;
@@ -28,6 +29,7 @@ function App() {
           <Route path="store" element={<Main />} />
           <Route path="profile" element={<Profile />} />
           <Route path="login" element={<Login />} />
+          <Route path="deal/:id" element={<Deal />} />
         </Route>
         <Route path="*" element={<Navigate to={"/"} replace />} />
       </Routes>

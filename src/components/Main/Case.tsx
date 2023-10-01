@@ -2,6 +2,7 @@ import "../../assets/scss/components/main/_case.scss";
 import { ReactComponent as Eye } from "../../assets/img/eye.svg";
 import { ReactComponent as Speech } from "../../assets/img/speech.svg";
 import { ReactComponent as Time } from "../../assets/img/time.svg";
+import { ReactComponent as Money } from "../../assets/img/money.svg";
 
 const Case = () => {
   return (
@@ -11,6 +12,16 @@ const Case = () => {
           Убрать баг в форме с картой на реакте вызываемой web app телеграмм
           sfбрать баг в форме с картой на реакте вызываемой web app телеграмм
         </span>
+      </div>
+      <div className="box-list-tags">
+        <p className="box-tags">React</p>
+        <p className="box-tags"> React</p>
+        {/* <p className="box-tags">
+          Убрать баг в форме с картой на реакте вызываемой web app телеграммжжжж
+        </p>
+        <p className="box-tags">
+          Убрать баг в форме с картой на реакте вызываемой web app телеграммжжжж
+        </p> */}
       </div>
       <div className="body-box-case">
         <div className="base-value-case">
@@ -36,8 +47,12 @@ const Case = () => {
             <p>назад</p>
           </div>
         </div>
-        <div className="box-specializations">
+        {/* <div className="box-specializations">
           <p className="case-specialization">Мобильные приложения</p>
+        </div> */}
+        <div className="box-price">
+          <Money />
+          <p>договорная</p>
         </div>
       </div>
     </div>

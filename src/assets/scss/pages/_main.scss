@@ -130,6 +130,8 @@ p.section-list-filter {
   justify-content: start;
   gap: 20px;
   padding-top: 12px;
+  height: max-content;
+  padding-bottom: 12px;
 }
 .box-item-sort {
   background-color: #dac2aa;
@@ -159,7 +161,7 @@ p.section-list-filter {
   padding-left: 8px;
 }
 .box-list-cases {
-  margin-top: 20px;
+  margin-top: 24px;
   height: 100%;
   width: 100%;
   display: flex;
