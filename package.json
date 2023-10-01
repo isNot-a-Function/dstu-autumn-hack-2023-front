@@ -1,5 +1,5 @@
 {
-  "name": "magicow-shop-front",
+  "name": "delo-front",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,6 +16,7 @@
     "aws-amplify": "^5.3.10",
     "axios": "^1.4.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "formik": "^2.4.5",
     "lodash.debounce": "^4.0.8",
     "prettier": "^2.8.8",
     "react": "^18.2.0",

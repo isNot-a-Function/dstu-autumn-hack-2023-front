@@ -11,3 +11,14 @@ export interface UserData {
   steamId: string;
   name: string;
 }
+
+export interface ISignUpUser {
+  email: string;
+  password: string;
+  role: "executor" | "customer";
+}
+
+export interface ISignInUser {
+  email: string;
+  password: string;
+}

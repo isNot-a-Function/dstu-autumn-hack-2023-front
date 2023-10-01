@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ScaleOnline from './ScaleOnline';
-import { ReactComponent as OnlineIcon } from '../../assets/img/footer/onlineIcon.svg';
-import { useWindowSize } from '../../hooks/useWindowSize';
-import { rustApi } from '../../store';
-import { Link } from 'react-router-dom';
-import { getSettingsData } from '../../types/customPageTypes';
-import Loader from '../Loader';
-import MonitoringModal from './MonitoringModal';
-import LangSelect from '../LangSelect';
-import { useLang } from '../../hooks/useLang';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import ScaleOnline from "./ScaleOnline";
+import { ReactComponent as OnlineIcon } from "../../assets/img/footer/onlineIcon.svg";
+import { useWindowSize } from "../../hooks/useWindowSize";
+import { rustApi } from "../../store";
+import { Link } from "react-router-dom";
+import { getSettingsData } from "../../types/customPageTypes";
+import Loader from "../Loader";
+import MonitoringModal from "./MonitoringModal";
+import LangSelect from "../LangSelect";
+import { useLang } from "../../hooks/useLang";
 import {
   footerConditionsOfUse,
   footerInformafionPosted,
   footerPrivacyPolicy,
   footerTermsOfUse,
-} from '../../consts/footer';
-import { notificationModalOpenServers } from '../../consts/modal';
+} from "../../consts/footer";
+import { notificationModalOpenServers } from "../../consts/modal";
 
-interface FooterProps {
-  data: getSettingsData;
-}
-const Footer = ({ data }: FooterProps) => {
+const Footer = () => {
   const navigate = useNavigate();
   const { data: info, isLoading } = rustApi.useGetServersQuery();
   const [modalShow, setModalShow] = useState(false);
@@ -29,9 +26,15 @@ const Footer = ({ data }: FooterProps) => {
   if (isLoading) return <></>;
   return (
     <>
-      {info && modalShow && <MonitoringModal isActive={modalShow} setIsActive={setModalShow} data={info?.result} />}
+      {info && modalShow && (
+        <MonitoringModal
+          isActive={modalShow}
+          setIsActive={setModalShow}
+          data={info?.result}
+        />
+      )}
       <div className="container containerFooter">
-        <div className={`${dimensions.width < 700 ? 'boxStaticticMobile' : ''}`}>
+        {/* <div className={`${dimensions.width < 700 ? 'boxStaticticMobile' : ''}`}>
           <div>
             <div className="headerFooter">
               <OnlineIcon />
@@ -60,22 +63,20 @@ const Footer = ({ data }: FooterProps) => {
               ))}
             </div>
           )}
-        </div>
+        </div> */}
 
         <div className="bottomFooter">
-          <div>
-            <p>{useLang(footerInformafionPosted)}</p>
-          </div>
+          <div>{/* <p>{useLang(footerInformafionPosted)}</p> */}</div>
 
           <div className="infoRightBootomFooter">
             <LangSelect />
 
             <div className="contactsFooter">
-              {data.panelURLs.footer.contacts.map(it => (
-                <a href={it.url} target="_blank" key={it.id}>
+              {/* {data.panelURLs.footer.contacts.map((it) => (
+                <a href={it.url} target="_blank" key={it.id} rel="noreferrer">
                   <img src={it.icon} className="iconContactFooter" />
                 </a>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
@@ -90,22 +91,27 @@ const Footer = ({ data }: FooterProps) => {
               <br />
               Beneficiary's address:
               <br />
-              SAN JOSE-SANTA ANA,THREE HUNDRED AND FIFTY METERS OF THE RESTAURANT CEVICHE DEL REY,
+              SAN JOSE-SANTA ANA,THREE HUNDRED AND FIFTY METERS OF THE
+              RESTAURANT CEVICHE DEL REY,
               <br />
               COSTA-RICA
             </p>
           </div>
 
           <div className="listBottom">
-            <Link to={data.panelURLs.footer.privacyPolicy}>
-              <p className="conditionalsLabel">{useLang(footerPrivacyPolicy)}</p>
+            {/* <Link to={data.panelURLs.footer.privacyPolicy}>
+              <p className="conditionalsLabel">
+                {useLang(footerPrivacyPolicy)}
+              </p>
             </Link>
             <Link to={data.panelURLs.footer.termOfUse}>
               <p className="conditionalsLabel">{useLang(footerTermsOfUse)}</p>
             </Link>
             <Link to={data.panelURLs.footer.conditionsOfUse}>
-              <p className="conditionalsLabel">{useLang(footerConditionsOfUse)}</p>
-            </Link>
+              <p className="conditionalsLabel">
+                {useLang(footerConditionsOfUse)}
+              </p>
+            </Link> */}
           </div>
         </div>
       </div>

@@ -13,21 +13,24 @@
   }
 
   &::-webkit-scrollbar-track {
-    background-color: #140f21;
+    background-color: #384661;
   }
 
   &::-webkit-scrollbar-thumb {
     border: none;
     border-radius: 100px;
-    background-color: $lightPurple;
+    background-color: #384661;
   }
 }
 
 body {
-  background-color: #171226;
+  background-color: #f2f3ee;
   color: $white;
+  height: 100%;
 }
-
+html {
+  height: 100%;
+}
 body::-webkit-scrollbar {
   width: 5px; /* ширина всей полосы прокрутки */
 }
@@ -72,14 +75,14 @@ input {
     color: $lightPurple;
   }
 }
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none; // Yeah, yeah everybody write about it
 }
 
-input[type='number'],
-input[type='number']:hover,
-input[type='number']:focus {
+input[type="number"],
+input[type="number"]:hover,
+input[type="number"]:focus {
   appearance: none;
   -moz-appearance: textfield;
 }

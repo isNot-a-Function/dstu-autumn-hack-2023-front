@@ -1,4 +1,4 @@
-@import '../../variables';
+@import "../../variables";
 
 .inputWrap {
   position: relative;
@@ -17,12 +17,13 @@
 
 .input {
   border-radius: 12px;
-  background-color: $purple;
+  border: 1px solid #76532d;
+  // background-color: #f2f3ee;
   padding: 13px 12px;
-  border: none;
+  // border: none;
   width: 100%;
   font-size: 14px;
-
+  color: #76532d;
   &PaddingRight {
     padding-right: 48px;
   }

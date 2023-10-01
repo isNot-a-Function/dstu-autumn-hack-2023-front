@@ -1,5 +1,5 @@
-@import '../../mixins';
-@import '../../variables';
+@import "../../mixins";
+@import "../../variables";
 
 .btn {
   @include displayFlexAIC;
@@ -33,18 +33,18 @@
 }
 
 .lightBtn {
-  background: linear-gradient(90deg, #4046eb 0%, #419fff 100%);
-  color: $white;
+  background-color: #384661;
+  color: #f2f3ee;
   background-size: 200% 100%;
   background-position: right bottom;
   transition: all 0.5s ease-out;
 
   &:hover {
     background-position: left bottom;
-    background-color: linear-gradient(90deg, #4046eb 0%, #4046eb 100%);
+    background-color: #3f5071;
   }
   span {
-    color: $white;
+    color: #f2f3ee;
   }
 }
 

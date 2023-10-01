@@ -1,20 +1,18 @@
-import { Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer/Footer';
-import { customPageApi } from '../store';
-import Loader from '../components/Loader';
-import { useEffect } from 'react';
-import useDocumentTitle from '../hooks/useDocumentTitle';
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer/Footer";
+
+import { useLocation } from "react-router-dom";
 
 const MainLayout = () => {
-  const { data: baseInfo, isLoading } = customPageApi.useGetSettingsQuery();
-  useDocumentTitle(baseInfo?.header);
-  if (isLoading) return <Loader />;
+  const location = useLocation();
+  const pathNoNavbar = ["/login"];
   return (
     <>
-      {baseInfo && <Navbar navbar={baseInfo} />}
+      {!pathNoNavbar.includes(location.pathname) && <Navbar />}
+
       <Outlet />
-      {baseInfo && <Footer data={baseInfo} />}
+      {/* {baseInfo && <Footer />} */}
     </>
   );
 };
