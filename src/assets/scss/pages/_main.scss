@@ -158,3 +158,11 @@ p.section-list-filter {
 .arrow-symbol {
   padding-left: 8px;
 }
+.box-list-cases {
+  margin-top: 20px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

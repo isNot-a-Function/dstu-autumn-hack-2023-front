@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchInput from "../components/UI/SearchInput";
 import Menu from "../components/Main/Menu";
 import { ReactComponent as Trash } from "../assets/img/trashSort.svg";
+import Case from "../components/Main/Case";
 
 const Main = () => {
   const [activeSection, setActiveSection] = useState<string[]>([]);
@@ -69,7 +70,10 @@ const Main = () => {
           })}
           {sortValue !== null && <Trash onClick={() => setSortValue(null)} />}
         </div>
-        {String(activeSection)}
+        <div className="box-list-cases">
+          <Case />
+          <Case />
+        </div>
       </div>
       <Menu
         setActiveSection={setActiveSection}
