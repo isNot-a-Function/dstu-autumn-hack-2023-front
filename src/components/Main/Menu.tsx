@@ -137,12 +137,6 @@ const Menu = ({
                 ) === 1 && <div className="active-flag-center"></div>}
               </div>
               <div onClick={() => handlerOpenSubSection(section.label)}>
-                {String(
-                  checkArray(
-                    section.subsections.map((e: any) => e.title),
-                    activeSection
-                  )
-                )}
                 {section?.label}
               </div>
             </p>

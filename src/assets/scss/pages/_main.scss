@@ -135,7 +135,15 @@ p.section-list-filter {
   background-color: #dac2aa;
   padding: 5px;
   border-radius: 5px;
+  border: none;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 14px;
+  }
 }
 .active-flag-center {
   width: calc(100% - 2px);
@@ -143,4 +151,10 @@ p.section-list-filter {
   margin: 1px;
   border-radius: 5px;
   background-color: #87501d;
+}
+.box-active-item-sort {
+  background-color: #384661;
+}
+.arrow-symbol {
+  padding-left: 8px;
 }
