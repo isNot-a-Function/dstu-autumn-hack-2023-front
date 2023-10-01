@@ -1,7 +1,7 @@
-import React, { useState, useCallback, ChangeEvent } from 'react';
-import debounce from 'lodash.debounce';
-import { ReactComponent as SearchIcon } from '../../assets/img/profile/SearchIcon.svg';
-import '../../assets/scss/components/UI/_search-input.scss';
+import React, { useState, useCallback, ChangeEvent } from "react";
+import debounce from "lodash.debounce";
+import { ReactComponent as SearchIcon } from "../../assets/img/profile/SearchIcon.svg";
+import "../../assets/scss/components/UI/_search-input.scss";
 
 interface SearchInputProps {
   placeholder: string;
@@ -9,14 +9,18 @@ interface SearchInputProps {
   setValue: (val: string) => void;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ placeholder, value, setValue }) => {
-  const [inputValue, setInputValue] = useState('');
+const SearchInput: React.FC<SearchInputProps> = ({
+  placeholder,
+  value,
+  setValue,
+}) => {
+  const [inputValue, setInputValue] = useState("");
 
   const updateValue = useCallback(
-    debounce(str => {
+    debounce((str) => {
       setValue(str);
     }, 1000),
-    [],
+    []
   );
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {

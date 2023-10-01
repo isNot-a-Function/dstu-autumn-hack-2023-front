@@ -7,7 +7,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { authApi } from "../store";
 import { access } from "fs";
 import { UserData } from "../types/authTypes";
-import ProductItem from "../components/Shop/Modals/ProductItemModal";
 
 const Profile = () => {
   // const [logIn, { data: dataLogIn = null, error: errorLogIn }] = authApi.useLazySteamLoginQuery();

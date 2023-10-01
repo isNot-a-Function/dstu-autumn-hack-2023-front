@@ -9,9 +9,9 @@ import "../assets/scss/pages/_login.scss";
 import { sign } from "crypto";
 
 const Login = () => {
-  const [signUp, { data: dataSignUp = null, error: errorSignUp }] =
+  const [signUp, { data: dataSignUp, error: errorSignUp }] =
     authApi.useLazySignUpQuery();
-  const [logIn, { data: dataLogIn = null, error: errorLogIn }] =
+  const [logIn, { data: dataLogIn, error: errorLogIn }] =
     authApi.useLazySignInQuery();
   const [isLogIn, setIsLogIng] = useState(true);
   const location = useLocation();
@@ -44,22 +44,22 @@ const Login = () => {
 
   useEffect(() => {
     if (errorLogIn) {
-      navigate("/");
+      navigate("/login");
     } else {
-      if (dataLogIn !== null) {
-        const token: string | undefined = dataLogIn?.accessToken;
+      if (dataLogIn !== undefined || dataSignUp != undefined) {
+        const token: string | undefined = dataLogIn?.token || dataSignUp?.token;
+        console.log("token", token);
         const user: UserData | undefined = dataLogIn?.user;
-        const refreshToken: string | undefined = dataLogIn?.refreshToken;
-        if (token !== undefined && refreshToken != undefined) {
+        if (token !== undefined) {
           localStorage.setItem("accessToken", token);
           localStorage.setItem("user", JSON.stringify(user));
-          window.location.reload();
+          navigate("/store");
         } else {
           navigate("/");
         }
       }
     }
-  }, [dataLogIn, errorLogIn]);
+  }, [dataLogIn, dataSignUp]);
 
   return (
     <div className="box-login-page">
@@ -99,7 +99,6 @@ const Login = () => {
               : signUp({
                   email: values.email,
                   password: values.password,
-                  role: "executor",
                 });
           }}
         >

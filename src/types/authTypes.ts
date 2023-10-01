@@ -15,10 +15,14 @@ export interface UserData {
 export interface ISignUpUser {
   email: string;
   password: string;
-  role: "executor" | "customer";
 }
 
 export interface ISignInUser {
   email: string;
   password: string;
+}
+export interface ISignUpUserData {
+  user: any;
+  token: string;
+  message: string;
 }

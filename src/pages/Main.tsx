@@ -1,88 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as Trash } from "../assets/img/trash.svg";
+import SearchInput from "../components/UI/SearchInput";
+import Menu from "../components/Main/Menu";
 
 const Main = () => {
-  const [activeSection, setActiveSection] = useState<number[]>([]);
-
-  const sectionList = ["РАЗРАБОТКА", "ДИЗАЙН", "МАРКЕТИНГ", "РАЗНОЕ"];
-
+  const [activeSection, setActiveSection] = useState<string[]>([]);
+  const [openSection, setOpenSection] = useState<number | null>(null);
   const sortList = [
     "ПО ДАТЕ СОЗДАНИЯ",
     "ПО РЕЙТИНГУ ЗАКАЗЧИКА",
     "ПО КОЛИЧЕСТВУ ОТКЛИКОВ",
     "ПО РАЗМЕРУ СТОИМОСТИ",
   ];
-
-  const handlerClickSection = (index: number) => {
-    if (activeSection.includes(index)) {
-      setActiveSection(activeSection.filter((item) => item !== index));
-    } else {
-      setActiveSection([...activeSection, index]);
-    }
-  };
+  const [value, setValue] = useState("");
 
   return (
-    <div className="box-main-page">
+    <div className="box-main-page container">
       <div>
-        <></>
-      </div>
-      <div className="list-filter">
-        <div className="header-box-filter">
-          <h1>CФЕРЫ</h1>
-          {activeSection.length !== 0 && (
-            <p
-              onClick={() => {
-                setActiveSection([]);
-              }}
-            >
-              <Trash />
-            </p>
-          )}
+        <SearchInput
+          placeholder="Найти заказ"
+          value={value}
+          setValue={setValue}
+        />
+        <div className="box-list-sort">
+          {sortList.map((sort: any, index: number) => {
+            return (
+              <div className="box-item-sort">
+                <p>{sort}</p>
+              </div>
+            );
+          })}
         </div>
-
-        {sectionList.map((section, index) => {
-          return (
-            <p
-              onClick={() => handlerClickSection(index)}
-              className={`${
-                activeSection.includes(index)
-                  ? "active-section-list-filter"
-                  : "section-list-filter"
-              }`}
-            >
-              {section}
-              {activeSection.includes(index) ? " ×" : ""}
-            </p>
-          );
-        })}
-        <div className="header-box-filter">
-          <h1>ОТСОРТИРОВАТЬ</h1>
-          {activeSection.length !== 0 && (
-            <p
-              onClick={() => {
-                setActiveSection([]);
-              }}
-            >
-              <Trash />
-            </p>
-          )}
-        </div>
-        {sortList.map((section, index) => {
-          return (
-            <p
-              onClick={() => handlerClickSection(index)}
-              className={`${
-                activeSection.includes(index)
-                  ? "active-section-list-filter"
-                  : "section-list-filter"
-              }`}
-            >
-              {section}
-              {activeSection.includes(index) ? " ×" : ""}
-            </p>
-          );
-        })}
+        {String(activeSection)}
       </div>
+      <Menu
+        setActiveSection={setActiveSection}
+        activeSection={activeSection}
+        openSection={openSection}
+        setOpenSection={setOpenSection}
+      />
     </div>
   );
 };

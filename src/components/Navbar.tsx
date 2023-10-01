@@ -10,20 +10,20 @@ import { getUser } from "../utils/getUser";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { userApi } from "../store";
 import { getSettingsData } from "../types/customPageTypes";
-import TopUpModal from "./Shop/Modals/TopUp/TopUpModal";
+
 import { handleSteamLogin } from "../utils/handleSteamLogin";
 
 const Navbar = () => {
   const token = useGetToken();
-  const user = getUser();
-  const [getBalance, { data: userBalace }] = userApi.useLazyGetBalanceQuery();
+  // const user = getUser();
+  // const [getBalance, { data: userBalace }] = userApi.useLazyGetBalanceQuery();
   const [activeNavbarItem, setActiveNavbarItem] = useState(0);
 
   const dimensions = useWindowSize();
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
-      getBalance();
+      // getBalance();
     }
   }, []);
 
@@ -107,12 +107,12 @@ const Navbar = () => {
               </div>
             )} */}
 
-            {isActiveModal && <TopUpModal setIsActive={setIsActiveModal} />}
+            {/* {isActiveModal && <TopUpModal setIsActive={setIsActiveModal} />} */}
 
             {token !== null ? (
               <div className="profile">
                 <div className="balanse" onClick={() => setIsActiveModal(true)}>
-                  <span>{userBalace?.balance} ₽</span>
+                  {/* <span>{userBalace?.balance} ₽</span> */}
                   <Plus />
                 </div>
                 <Link
@@ -120,7 +120,7 @@ const Navbar = () => {
                   className="profile__icon"
                   onClick={() => setActiveNavbarItem(0)}
                 >
-                  <img src={user?.avatar} alt="" className="avatar-in-navbar" />
+                  <img alt="" className="avatar-in-navbar" />
                   {/* <div className="lvlIconBlock">
                     <div className="lvlIcon">
                       <LvlIcon />
