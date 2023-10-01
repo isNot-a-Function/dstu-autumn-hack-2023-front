@@ -7,6 +7,7 @@ import Input from "../components/UI/Input";
 import { Formik } from "formik";
 import "../assets/scss/pages/_login.scss";
 import { sign } from "crypto";
+import "../assets/scss/components/UI/_input.scss";
 
 const Login = () => {
   const [signUp, { data: dataSignUp, error: errorSignUp }] =

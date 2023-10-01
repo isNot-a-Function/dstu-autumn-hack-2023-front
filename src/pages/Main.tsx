@@ -3,12 +3,18 @@ import SearchInput from "../components/UI/SearchInput";
 import Menu from "../components/Main/Menu";
 import { ReactComponent as Trash } from "../assets/img/trashSort.svg";
 import Case from "../components/Main/Case";
+import { casesApi } from "../store";
 
 const Main = () => {
   const [activeSection, setActiveSection] = useState<string[]>([]);
   const [openSection, setOpenSection] = useState<number | null>(null);
   const [sortValue, setSortValue] = useState<string | null>(null);
   const [directionSort, setDirectionSort] = useState("asc"); //asc - по возрастанию, desc - по убыванию
+  const [page, setPage] = useState(1);
+  const { data: orders } = casesApi.useGetOrdersQuery(page);
+  useEffect(() => {
+    console.log("orders", orders);
+  }, [orders]);
   const sortList = [
     {
       id: 1,
@@ -71,16 +77,31 @@ const Main = () => {
           {sortValue !== null && <Trash onClick={() => setSortValue(null)} />}
         </div>
         <div className="box-list-cases">
-          <Case />
-          <Case />
+          {orders?.orders.map((order: any) => (
+            <Case
+              title={order.title}
+              createdAt={order.createdAt}
+              views={order.views}
+              cost={order.cost}
+              costType={order.costType}
+              responsesCount={order.responsesCount}
+              tags={order.tags}
+            />
+          ))}
+          {/* <Case />
+          <Case /> */}
         </div>
       </div>
-      <Menu
-        setActiveSection={setActiveSection}
-        activeSection={activeSection}
-        openSection={openSection}
-        setOpenSection={setOpenSection}
-      />
+      <div style={{ paddingRight: 12 }}>
+        <button className="lightBtn btn">Создать заказ</button>
+
+        <Menu
+          setActiveSection={setActiveSection}
+          activeSection={activeSection}
+          openSection={openSection}
+          setOpenSection={setOpenSection}
+        />
+      </div>
     </div>
   );
 };

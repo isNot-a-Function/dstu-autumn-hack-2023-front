@@ -4,45 +4,63 @@ import { ReactComponent as Speech } from "../../assets/img/speech.svg";
 import { ReactComponent as Time } from "../../assets/img/time.svg";
 import { ReactComponent as Money } from "../../assets/img/money.svg";
 
-const Case = () => {
+interface CaseProps {
+  title: string;
+  createdAt: string;
+  views: number;
+  cost: number;
+  costType: string;
+  responsesCount: number;
+  tags: string[];
+}
+const Case = ({
+  title,
+  createdAt,
+  views,
+  cost,
+  costType,
+  responsesCount,
+  tags,
+}: CaseProps) => {
+  var ONE_HOUR = 60 * 60 * 1000; /* ms */
+
+  const getHours = () => {
+    //@ts-ignorets
+    return Math.round((new Date() - new Date(createdAt)) / ONE_HOUR);
+  };
+
   return (
     <div className="box-case">
       <div className="header-box-case">
-        <span>
-          Убрать баг в форме с картой на реакте вызываемой web app телеграмм
-          sfбрать баг в форме с картой на реакте вызываемой web app телеграмм
-        </span>
+        <span>{title}</span>
       </div>
       <div className="box-list-tags">
-        <p className="box-tags">React</p>
-        <p className="box-tags"> React</p>
-        {/* <p className="box-tags">
-          Убрать баг в форме с картой на реакте вызываемой web app телеграммжжжж
-        </p>
-        <p className="box-tags">
-          Убрать баг в форме с картой на реакте вызываемой web app телеграммжжжж
-        </p> */}
+        {tags.map((tag) => (
+          <p className="box-tags" key={tag}>
+            {tag}
+          </p>
+        ))}
       </div>
       <div className="body-box-case">
         <div className="base-value-case">
           <div className="item-base-value-case">
             <div className="value-case">
               <Eye />
-              <p>120</p>
+              <p>{views}</p>
             </div>
             <p>просмотров</p>
           </div>
           <div className="item-base-value-case">
             <div className="value-case">
               <Speech />
-              <p>120</p>
+              <p>{responsesCount}</p>
             </div>
             <p>откликов</p>
           </div>
           <div className="item-base-value-case">
             <div className="value-case">
               <Time />
-              <p>120 ч</p>
+              <p>{getHours()} ч</p>
             </div>
             <p>назад</p>
           </div>
@@ -52,7 +70,13 @@ const Case = () => {
         </div> */}
         <div className="box-price">
           <Money />
-          <p>договорная</p>
+          <p>
+            {cost === null
+              ? "договорная"
+              : costType === "inOrder"
+              ? cost + "р за проект"
+              : cost + "р / в час"}
+          </p>
         </div>
       </div>
     </div>

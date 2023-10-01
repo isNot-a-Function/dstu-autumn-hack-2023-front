@@ -47,6 +47,13 @@
   display: grid;
   grid-template-columns: 0.7fr 0.3fr;
   column-gap: 20px;
+  .lightBtn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 14px;
+    margin-right: 12px;
+  }
 }
 
 .list-filter {
@@ -54,7 +61,7 @@
   flex-direction: column;
   gap: 12px;
   // background-color: #87501d;
-  margin-right: 12px;
+  // margin-right: 12px;
   margin-top: 20px;
   border: 2px solid #87501d;
 

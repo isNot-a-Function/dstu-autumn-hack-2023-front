@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./settings";
-import { getSpecializationsData } from "../types/casesTypes";
+import { getSpecializationsData, getOrdersData } from "../types/casesTypes";
 
 export const casesApi = createApi({
   reducerPath: "casesApi",
@@ -9,6 +9,12 @@ export const casesApi = createApi({
     getSpecializations: build.query<getSpecializationsData, void>({
       query: () => ({
         url: `/specialization/`,
+        method: "GET",
+      }),
+    }),
+    getOrders: build.query<{ orders: getOrdersData[] }, number>({
+      query: (id) => ({
+        url: `/order/?page=${id}`,
         method: "GET",
       }),
     }),
