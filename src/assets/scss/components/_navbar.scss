@@ -6,7 +6,7 @@
 }
 
 .header {
-  background-color: $blue;
+  background-color: #384661;
   height: 90px;
   width: 100vw;
   position: fixed;
@@ -91,39 +91,6 @@
   @media (max-width: $largeScreens) {
     display: none;
   }
-}
-
-.contacts {
-  @include displayFlexAIC;
-  gap: 20px;
-  &_item {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: transparent;
-    display: grid;
-    place-items: center;
-    margin-right: 8px;
-    cursor: pointer;
-    transition: 0.2s;
-
-    &:hover {
-      background-color: transparent;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-
-  @media (max-width: $largeScreens) {
-    display: none;
-  }
-}
-.icon-contact {
-  fill: #fff;
-  width: 24px;
-  height: 24px;
 }
 
 .profile {

@@ -6,6 +6,13 @@ const Main = () => {
 
   const sectionList = ["РАЗРАБОТКА", "ДИЗАЙН", "МАРКЕТИНГ", "РАЗНОЕ"];
 
+  const sortList = [
+    "ПО ДАТЕ СОЗДАНИЯ",
+    "ПО РЕЙТИНГУ ЗАКАЗЧИКА",
+    "ПО КОЛИЧЕСТВУ ОТКЛИКОВ",
+    "ПО РАЗМЕРУ СТОИМОСТИ",
+  ];
+
   const handlerClickSection = (index: number) => {
     if (activeSection.includes(index)) {
       setActiveSection(activeSection.filter((item) => item !== index));
@@ -16,10 +23,12 @@ const Main = () => {
 
   return (
     <div className="box-main-page">
-      <div> {String(activeSection)}</div>
+      <div>
+        <></>
+      </div>
       <div className="list-filter">
         <div className="header-box-filter">
-          <h1>ФИЛЬТР</h1>
+          <h1>CФЕРЫ</h1>
           {activeSection.length !== 0 && (
             <p
               onClick={() => {
@@ -32,6 +41,33 @@ const Main = () => {
         </div>
 
         {sectionList.map((section, index) => {
+          return (
+            <p
+              onClick={() => handlerClickSection(index)}
+              className={`${
+                activeSection.includes(index)
+                  ? "active-section-list-filter"
+                  : "section-list-filter"
+              }`}
+            >
+              {section}
+              {activeSection.includes(index) ? " ×" : ""}
+            </p>
+          );
+        })}
+        <div className="header-box-filter">
+          <h1>ОТСОРТИРОВАТЬ</h1>
+          {activeSection.length !== 0 && (
+            <p
+              onClick={() => {
+                setActiveSection([]);
+              }}
+            >
+              <Trash />
+            </p>
+          )}
+        </div>
+        {sortList.map((section, index) => {
           return (
             <p
               onClick={() => handlerClickSection(index)}
