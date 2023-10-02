@@ -4,6 +4,7 @@ import { ReactComponent as Speech } from "../../assets/img/speech.svg";
 import { ReactComponent as Time } from "../../assets/img/time.svg";
 import { ReactComponent as Money } from "../../assets/img/money.svg";
 import { useNavigate } from "react-router-dom";
+import { getHours } from "../../utils/getHours";
 
 interface CaseProps {
   id: string;
@@ -25,15 +26,10 @@ const Case = ({
   responsesCount,
   tags,
 }: CaseProps) => {
-  var ONE_HOUR = 60 * 60 * 1000; /* ms */
   const navigate = useNavigate();
-  const getHours = () => {
-    //@ts-ignorets
-    return Math.round((new Date() - new Date(createdAt)) / ONE_HOUR);
-  };
 
   return (
-    <div className="box-case" onClick={() => navigate(`/deal/${id}`)}>
+    <div className="box-case" onClick={() => navigate(`/order/${id}`)}>
       <div className="header-box-case">
         <span>{title}</span>
       </div>
@@ -63,7 +59,7 @@ const Case = ({
           <div className="item-base-value-case">
             <div className="value-case">
               <Time />
-              <p>{getHours()} ч</p>
+              <p>{getHours(createdAt)} ч</p>
             </div>
             <p>назад</p>
           </div>

@@ -39,7 +39,6 @@ const ProfileTop = ({ activeNav, setActiveNav }: ProfileTopProps) => {
   const logOutFunc = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
-    // logOut();
     navigate("/");
     window.location.reload();
   };

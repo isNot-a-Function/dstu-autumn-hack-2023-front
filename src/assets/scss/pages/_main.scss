@@ -178,6 +178,7 @@ p.section-list-filter {
   gap: 20px;
 }
 .box-form-create-case-modal {
+  margin-top: 12px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -187,8 +188,22 @@ p.section-list-filter {
     color: #76532d;
     font-size: 12px;
     padding-bottom: 8px;
+    padding-top: 8px;
   }
+  .lightBtn {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-right: 12px;
+  }
+  // input {
+  //   margin-bottom: 8px;
+  // }
 }
+
 textarea.textarea-description {
   width: 100%;
   border-radius: 12px;

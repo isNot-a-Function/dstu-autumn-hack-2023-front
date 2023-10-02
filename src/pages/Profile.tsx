@@ -23,7 +23,7 @@ const Profile = () => {
 
   const [activeNav, setActiveNav] = useState(0);
   return token ? (
-    <div>
+    <div className="container">
       <ProfileTop activeNav={activeNav} setActiveNav={setActiveNav} />
       {activeNav === 0 ? <Inventory /> : <Details />}
     </div>

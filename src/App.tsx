@@ -25,11 +25,11 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<Navigate to={"/store"} />} />
-          <Route path="store" element={<Main />} />
+          <Route path="/" element={<Navigate to={"/orders"} />} />
+          <Route path="orders" element={<Main />} />
           <Route path="profile" element={<Profile />} />
           <Route path="login" element={<Login />} />
-          <Route path="deal/:id" element={<Deal />} />
+          <Route path="order/:id" element={<Deal />} />
         </Route>
         <Route path="*" element={<Navigate to={"/"} replace />} />
       </Routes>

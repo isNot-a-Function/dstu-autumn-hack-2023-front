@@ -13,7 +13,7 @@ interface MonitoringModalProps {
 }
 
 const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
-  const [createCase, {}] = casesApi.useLazyCreateOrderQuery();
+  const [createCase, {}] = casesApi.useCreateOrderMutation();
   const { data: specializationsInServer, isLoading } =
     casesApi.useGetSpecializationsQuery();
   const select_cost_type = [

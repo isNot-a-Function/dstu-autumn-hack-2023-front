@@ -36,7 +36,8 @@ export const baseQuery: BaseQueryFn<
   if (
     result.error &&
     (result.error.status.toString().startsWith("2") ||
-      result.error.status.toString().startsWith("4"))
+      result.error.status.toString().startsWith("4")) &&
+    result.error.status != 401
   ) {
     toast.error(message);
   }

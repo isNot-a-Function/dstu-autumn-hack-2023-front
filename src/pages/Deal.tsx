@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/scss/pages/_deal.scss";
 import ScaleOnline from "../components/Footer/ScaleOnline";
 import { ReactComponent as Download } from "../assets/img/download.svg";
@@ -7,8 +7,16 @@ import { ReactComponent as Speech } from "../assets/img/speech.svg";
 import { ReactComponent as Time } from "../assets/img/time.svg";
 import { ReactComponent as Money } from "../assets/img/money.svg";
 import { ReactComponent as Avatar } from "../assets/img/default-avatar.svg";
+import { casesApi } from "../store";
+import Loader from "../components/Loader";
+import { getHours } from "../utils/getHours";
+import CreateResponseModal from "../components/Main/CreateResponseModal";
 
 const Deal = () => {
+  const orderId = window.location.pathname.replace("/order/", "");
+  const { data: order, isLoading } = casesApi.useGetOrderQuery(orderId);
+  const [isShowResponseModal, setIsShowResponseModal] = useState(false);
+
   const tags = [
     "Vue",
     "React",
@@ -23,89 +31,113 @@ const Deal = () => {
     "NodeJS",
     "PHP",
   ];
+  const user =
+    localStorage.getItem("user") != null
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("user"))
+      : undefined;
+  if (isLoading || order === undefined) return <Loader />;
   return (
     <div className="box-deal-page container">
+      {isShowResponseModal && (
+        <CreateResponseModal
+          orderId={orderId}
+          isActive={isShowResponseModal}
+          setIsActive={setIsShowResponseModal}
+        />
+      )}
       <div className="body-deal-page">
         <div className="content-deal-page ">
-          <h1 className="header-deal-page">
-            Убрать баг в форме с картой на реакте вызываемой web app телеграмм
-            sfбрать баг в форме с картой на реакте вызываемой web app телеграмм
-          </h1>
+          <h1 className="header-deal-page">{order?.order.title}</h1>
           <div className="box-list-tags">
-            {tags.map((tag) => (
+            {order?.order.tags.map((tag) => (
               <p className="box-tags" key={tag}>
                 {tag}
               </p>
             ))}
           </div>
-          <div className="description-deal-page">
-            <p>Описание:</p>
+          {order?.order.description && (
+            <div className="description-deal-page">
+              <p>Описание:</p>
+              <p>{order?.order.description}</p>
+            </div>
+          )}
+          {order?.order.files.lenght > 0 && (
+            <div className="box-files">
+              <p>Прикриплённые файлы:</p>
+              {order?.order.files.map((item: any) => (
+                <a href="/test1.png" download>
+                  <div className="link-download">
+                    <Download />
+                    <p>{item}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+          <div className="box-price-deal">
             <p>
-              Минут через десять Тарвин начал догадываться, что все эти усталые,
-              измученные люди представляли интересы полдюжины различных фирм
-              Калькутты и Бомбея. Как и каждую весну, они без всякой надежды на
-              успех осаждали королевский дворец, пытаясь получить хоть что-то по
-              счетам с должника, которым был сам король. Его Величество
-              заказывал все подряд, без разбору, и в огромных количествах —
-              расплачиваться же за покупки очень не любил.
+              Cтоимость:{" "}
+              {order?.order.cost === null
+                ? "договорная"
+                : order?.order.costType === "inOrder"
+                ? order.order.cost + "р за проект"
+                : order?.order.cost + "р / в час"}
             </p>
           </div>
-          <div className="box-files">
-            <p>Прикриплённые файлы:</p>
-            <a href="/test1.png" download>
-              <div className="link-download">
-                <Download />
-                <p>Cкачать файл</p>
-              </div>
-            </a>
-            <a href="/test1.png" download>
-              <div className="link-download">
-                <Download />
-                <p>Cкачать файл</p>
-              </div>
-            </a>
-            <a href="/test1.png" download>
-              <div className="link-download">
-                <Download />
-                <p>Cкачать файл</p>
-              </div>
-            </a>
-          </div>
-          <div className="box-price-deal">
-            <p>Cтоимость: 5000р/час</p>
-          </div>
         </div>
-        <button className="lightBtn btn">Оставить отклик</button>
+
+        {order.user.id !== user?.id && (
+          <button
+            className="lightBtn btn"
+            onClick={() => setIsShowResponseModal(true)}
+          >
+            Оставить отклик
+          </button>
+        )}
       </div>
 
       <div className="box-dop-info">
         <div className="info-of-customer">
           <p> ЗАКАЗЧИК</p>
           <div className="box-avatar-in-deal">
-            <Avatar />
-            <p>MIRONUXA</p>
+            {!order.user.logo ? (
+              <Avatar />
+            ) : (
+              <img src={order.user.logo} className="avatar-customer" />
+            )}
+            <p>
+              {order.user.family
+                ? order.user.family + " " + order.user.name
+                : order.user.id}
+            </p>
           </div>
-          <div className="box-rating">
-            <ScaleOnline rating={4.3} maxPlayers={5} />
-          </div>
+          {order?.order.customer.rating == null && (
+            <div className="box-rating">
+              <ScaleOnline
+                rating={order?.order.customer.rating}
+                maxPlayers={5}
+              />
+            </div>
+          )}
         </div>
         <div className="info-of-customer">
           <p>СПЕЦИАЛИЗАЦИЯ</p>
-          <p>Мобильное приложение</p>
+          <p>{order?.order.specialization.title}</p>
         </div>
         <div className="box-dop-info-mini">
           <div className="box-list-item-dop-info">
             <div className="item-dop-info">
               <Eye />
-              <p>800 просмотров</p>
+              <p>{order?.order.views} просмотров</p>
             </div>
             <div className="item-dop-info">
               <Speech />
-              <p>120 откликов</p>
+              <p>{order?.order.responsesCount} откликов</p>
             </div>
             <div className="item-dop-info">
               <Time />
-              <p>5 ч назад</p>
+              <p>{getHours(order.order.createdAt)} ч назад</p>
             </div>
           </div>
         </div>
