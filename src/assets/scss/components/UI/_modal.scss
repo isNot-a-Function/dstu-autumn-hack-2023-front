@@ -1,5 +1,5 @@
-@import '../../mixins';
-@import '../../variables';
+@import "../../mixins";
+@import "../../variables";
 
 @keyframes inAnimation {
   0% {
@@ -36,7 +36,7 @@
   cursor: default;
   right: 0;
   bottom: 0;
-  display: 'flex';
+  display: "flex";
   position: fixed;
   top: 0;
   left: 0;
@@ -71,7 +71,7 @@
   border-radius: 12px;
 
   overflow: auto;
-  background-color: $tableDark;
+  background-color: #f2f3ee;
   overflow-x: hidden;
   // transform: scale(0.5);
   // transition: 0.4s;
@@ -112,7 +112,8 @@
   left: 0;
   height: 200px;
   width: 100%;
-  background: linear-gradient(180deg, #140f21 0%, #221939 100%);
+  background-color: #f2f3ee;
+  color: #384661;
 }
 
 .modalHeader,
@@ -128,7 +129,7 @@
 
   &Title {
     width: fit-content;
-    color: #fff;
+    color: #384661;
     font-size: 32px;
     font-weight: 700;
 

@@ -1,6 +1,129 @@
 h1.header-deal-page {
   color: #384661;
+  padding: 12px;
 }
 .box-deal-page {
   padding-top: 20px;
+  display: grid;
+  grid-template-columns: 0.8fr 0.2fr;
+  gap: 20px;
+  a {
+    color: #734319;
+  }
+}
+.info-of-customer {
+  width: 100%;
+  height: min-content;
+  // min-height: 100px;
+  border: 2px solid #734319;
+  border-radius: 8px;
+  padding: 12px;
+  p {
+    color: #734319;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.box-avatar-in-deal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p {
+    text-align: center;
+  }
+}
+.box-rating {
+  width: 100%;
+}
+.content-deal-page {
+  width: 100%;
+  height: auto;
+  border: 2px solid #384661;
+  border-radius: 8px;
+}
+.description-deal-page {
+  padding: 12px;
+  a,
+  p {
+    color: #734319;
+    padding-bottom: 12px;
+  }
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.link-download {
+  padding-top: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.box-files {
+  padding: 12px;
+  p {
+    color: #734319;
+  }
+  a {
+    p {
+      padding-left: 8px;
+    }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.box-dop-info {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.item-dop-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  p {
+    padding-left: 8px;
+  }
+}
+.box-dop-info-mini {
+  border: 2px solid #734319;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  border-radius: 8px;
+  p {
+    color: #734319;
+  }
+}
+.box-list-item-dop-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+.box-price-deal {
+  width: 100%;
+  p {
+    color: #384661;
+    padding: 12px;
+  }
+}
+.body-deal-page {
+  width: 100%;
+  height: auto;
+  .lightBtn {
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 12px;
+  }
 }

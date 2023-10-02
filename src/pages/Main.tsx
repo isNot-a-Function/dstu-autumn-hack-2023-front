@@ -5,6 +5,7 @@ import { ReactComponent as Trash } from "../assets/img/trashSort.svg";
 import Case from "../components/Main/Case";
 import { casesApi } from "../store";
 import Pagination from "../components/Pagination/Pagination";
+import CreateCaseModal from "../components/Main/CreateCaseModal";
 
 const Main = () => {
   const [activeSection, setActiveSection] = useState<string[]>([]);
@@ -12,6 +13,7 @@ const Main = () => {
   const [sortValue, setSortValue] = useState<string | null>(null);
   const [directionSort, setDirectionSort] = useState("asc"); //asc - по возрастанию, desc - по убыванию
   const [page, setPage] = useState(1);
+  const [isShowModal, setIsShowModal] = useState(false);
   const { data: orders } = casesApi.useGetOrdersQuery(page);
   useEffect(() => {
     console.log("orders", orders);
@@ -50,6 +52,9 @@ const Main = () => {
 
   return (
     <div className="box-main-page container">
+      {isShowModal && (
+        <CreateCaseModal isActive={isShowModal} setIsActive={setIsShowModal} />
+      )}
       <div>
         <SearchInput
           placeholder="Найти заказ"
@@ -98,8 +103,10 @@ const Main = () => {
           perPage={15}
         />
       </div>
-      <div style={{ paddingRight: 12 }}>
-        <button className="lightBtn btn">Создать заказ</button>
+      <div style={{ paddingRight: 12, top: 80 }}>
+        <button className="lightBtn btn" onClick={() => setIsShowModal(true)}>
+          Создать заказ
+        </button>
         <Menu
           setActiveSection={setActiveSection}
           activeSection={activeSection}

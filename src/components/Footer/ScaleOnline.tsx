@@ -1,24 +1,23 @@
-import Copy from '../Copy';
+import Copy from "../Copy";
+import "../../assets/scss/components/_scale-online.scss";
 
 export interface ScaleOnlineProps {
-  IP: string;
-  currentOnline: number;
   maxPlayers: number;
-  name: string;
-  port: string;
-  serverID?: number;
+  rating: number;
 }
 
-const ScaleOnline = ({ name, maxPlayers, currentOnline, IP, port }: ScaleOnlineProps) => {
+const ScaleOnline = ({ rating, maxPlayers }: ScaleOnlineProps) => {
   return (
     <div className="boxScaleWithTitle">
       <div className="headerScale">
-        <p className="titleScale"> {name}</p>
-        <Copy className="iconCopy" value={IP + ':' + port} />
+        {/* <p className="titleScale"> Рейтинг</p> */}
       </div>
       <div className="boxScale">
-        <div className="activeScale" style={{ width: `${(currentOnline / maxPlayers) * 100}%` }}>
-          <p className="labelScale">{String(currentOnline) + '/' + String(maxPlayers)}</p>
+        <div
+          className="activeScale"
+          style={{ width: `${(rating / maxPlayers) * 100}%` }}
+        >
+          <p className="labelScale">{"Рейтинг:    " + String(rating)}</p>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ const baseQueryDefault = fetchBaseQuery({
     const token = localStorage.getItem("accessToken");
     const lang = localStorage.getItem("lang")?.toLowerCase();
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set("authorization", `${token}`);
     }
     headers.set("accept", "application/json");
     headers.set("Sec-Fetch-Site", "cross-site");
@@ -54,10 +54,10 @@ export const baseQuery: BaseQueryFn<
           api,
           extraOptions
         );
-        if ((refreshResult.data as any)?.accessToken) {
+        if ((refreshResult.data as any)?.token) {
           localStorage.setItem(
             "accessToken",
-            (refreshResult.data as any)?.accessToken
+            (refreshResult.data as any)?.token
           );
           // retry the initial query
           result = await baseQueryDefault(args, api, extraOptions);

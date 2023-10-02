@@ -1,4 +1,4 @@
-@import '../../variables';
+@import "../../variables";
 .customSelect {
   border-radius: 12px;
   background-color: $purple;
@@ -8,17 +8,18 @@
   font-weight: 600;
   border: none;
   padding: 12px;
-  background: url('../../../img/customSelect/arrow-down.png') no-repeat right $purple;
+  background: url("../../../img/customSelect/arrow-down.png") no-repeat right
+    white;
 
   option {
-    color: #8774b8;
+    color: white;
     font-family: Bahnschrift;
     font-size: 14px;
     font-weight: 600;
     // padding: 12px;
 
     &:hover {
-      background-color: #281d42;
+      background-color: #f2f3ee;
     }
   }
 }

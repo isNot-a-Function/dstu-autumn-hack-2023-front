@@ -1,6 +1,6 @@
-import '../../assets/scss/components/UI/_custom-select.scss';
-import Select, { components } from 'react-select';
-import dropDown from '../../assets/img/customSelect/arrow-down.png';
+import "../../assets/scss/components/UI/_custom-select.scss";
+import Select, { components } from "react-select";
+import dropDown from "../../assets/img/customSelect/arrow-down.png";
 
 interface optionsItem {
   label: string;
@@ -23,7 +23,10 @@ interface CustomSelectProps {
 const DropdownIndicator = (props: any) => {
   return (
     <components.DropdownIndicator {...props}>
-      <img src={dropDown} className={`${props.selectProps.menuIsOpen ? 'arrowDown' : 'arrowUp'}`} />
+      <img
+        src={dropDown}
+        className={`${props.selectProps.menuIsOpen ? "arrowDown" : "arrowUp"}`}
+      />
     </components.DropdownIndicator>
   );
 };
@@ -49,52 +52,54 @@ const CustomSelect = ({
   heightSelect,
   value = options[0],
   isHaveIcon = false,
-  width = '100%',
+  width = "100%",
   paddingIndicator = 8,
   paddingContainer = 8,
-  backgroundColor = '#3a2964',
-  menuPlacement = 'bottom',
+  backgroundColor = "white",
+  menuPlacement = "bottom",
 }: CustomSelectProps) => {
   const customStyles = {
     container: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
       width: width,
-      maxWidth: '200px',
-      cursor: 'pointer',
+      // maxWidth: "200px",
+      cursor: "pointer",
+      border: "1px solid #87501d",
+      borderRadius: "12px",
     }),
     option: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
       top: 0,
-      color: state.isFocused ? 'ffffff' : '#8774B8',
-      backgroundColor: state.isFocused ? '#281D42' : '#3A2964',
-      fontSize: '14px',
-      cursor: 'pointer',
+      color: state.isFocused ? "#87501d" : "#87501d",
+      backgroundColor: state.isFocused ? "#f2f3ee" : "white",
+      fontSize: "14px",
+      cursor: "pointer",
     }),
     valueContainer: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
-      padding: paddingContainer,
+      // padding: paddingContainer,
     }),
     indicators: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
       padding: 0,
-      cursor: 'pointer',
+      cursor: "pointer",
     }),
     control: (defaultStyles: any) => ({
       ...defaultStyles,
-      backgroundColor: backgroundColor,
+      backgroundColor: "#ffffff",
       height: heightSelect ? heightSelect : 40,
-      display: 'flex',
-      alignItems: 'center',
-      fontSize: '14px',
-      border: 'none',
-      boxShadow: 'none',
-      borderRadius: '12px',
-      cursor: 'pointer',
+      display: "flex",
+      alignItems: "center",
+      fontSize: "14px",
+      border: "none",
+      boxShadow: "none",
+      borderRadius: "12px",
+      cursor: "pointer",
     }),
     menu: (defaultStyles: any) => ({
       ...defaultStyles,
-      backgroundColor: '#3A2964',
-      boxSizing: 'min-content',
+      backgroundColor: "white",
+      boxSizing: "min-content",
     }),
 
     dropdownIndicator: (provided: any) => ({
@@ -103,11 +108,14 @@ const CustomSelect = ({
     }),
     ropdownIndicator: (provided: any, state: any) => ({
       ...provided,
-      transition: 'all .2s ease',
-      transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
-      background: `url('../../../img/customSelect/arrow-down.png') no-repeat right #8774B8 `,
+      transition: "all .2s ease",
+      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+      background: `url('../../../img/customSelect/arrow-down.png') no-repeat right #87501d `,
     }),
-    singleValue: (defaultStyles: any) => ({ ...defaultStyles, color: '#fff' }),
+    singleValue: (defaultStyles: any) => ({
+      ...defaultStyles,
+      color: "#87501d",
+    }),
   };
 
   return (
@@ -119,7 +127,7 @@ const CustomSelect = ({
         options={options}
         menuPlacement={menuPlacement}
         isSearchable={false}
-        formatOptionLabel={item => formatOptionLabel(item, isHaveIcon)}
+        formatOptionLabel={(item) => formatOptionLabel(item, isHaveIcon)}
         // menuShouldBlockScroll={true}
         maxMenuHeight={150}
         styles={customStyles}

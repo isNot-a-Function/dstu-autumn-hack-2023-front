@@ -26,13 +26,13 @@ const Footer = () => {
   if (isLoading) return <></>;
   return (
     <>
-      {info && modalShow && (
+      {/* {info && modalShow && (
         <MonitoringModal
           isActive={modalShow}
           setIsActive={setModalShow}
           data={info?.result}
         />
-      )}
+      )} */}
       <div className="container containerFooter">
         {/* <div className={`${dimensions.width < 700 ? 'boxStaticticMobile' : ''}`}>
           <div>

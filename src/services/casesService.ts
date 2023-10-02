@@ -18,5 +18,12 @@ export const casesApi = createApi({
         method: "GET",
       }),
     }),
+    createOrder: build.query<any, any>({
+      query: (body) => ({
+        url: `/order/create`,
+        method: "POST",
+        body: body,
+      }),
+    }),
   }),
 });

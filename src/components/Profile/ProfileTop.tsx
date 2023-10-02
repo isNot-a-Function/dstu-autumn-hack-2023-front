@@ -55,11 +55,6 @@ const ProfileTop = ({ activeNav, setActiveNav }: ProfileTopProps) => {
               </div>
               <div className="user">
                 <span className="user-name">{user?.name}</span>
-                <Link
-                  to={`https://steamcommunity.com/profiles/${user?.steamId}`}
-                >
-                  <Steam className="steam-logo" />
-                </Link>
               </div>
             </div>
             {token && dimensions.width >= 1280 && (

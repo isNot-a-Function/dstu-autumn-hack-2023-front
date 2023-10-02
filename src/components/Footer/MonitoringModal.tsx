@@ -1,9 +1,9 @@
-import React from 'react';
-import Modal from '../UI/Modal';
-import ScaleOnline from './ScaleOnline';
-import { ScaleOnlineProps } from './ScaleOnline';
-import { useLang } from '../../hooks/useLang';
-import { topUpMonitoringServers } from '../../consts/modal';
+import React from "react";
+import Modal from "../UI/Modal";
+import ScaleOnline from "./ScaleOnline";
+import { ScaleOnlineProps } from "./ScaleOnline";
+import { useLang } from "../../hooks/useLang";
+import { topUpMonitoringServers } from "../../consts/modal";
 
 interface MonitoringModalProps {
   isActive: boolean;
@@ -11,7 +11,11 @@ interface MonitoringModalProps {
   data: ScaleOnlineProps[];
 }
 
-const MonitoringModal = ({ isActive, setIsActive, data }: MonitoringModalProps) => {
+const MonitoringModal = ({
+  isActive,
+  setIsActive,
+  data,
+}: MonitoringModalProps) => {
   return (
     <Modal
       isActive={isActive}
@@ -20,18 +24,16 @@ const MonitoringModal = ({ isActive, setIsActive, data }: MonitoringModalProps) 
       className="monitoringModal"
     >
       <>
-        <div className="monitoringModalContainer">
+        {/* <div className="monitoringModalContainer">
           {data.map((server, index) => (
             <ScaleOnline
               key={index}
-              name={server.name}
               maxPlayers={server.maxPlayers}
               currentOnline={server.currentOnline}
-              IP={server.IP}
-              port={server.port}
+              rating={5}
             />
           ))}
-        </div>
+        </div> */}
       </>
     </Modal>
   );
