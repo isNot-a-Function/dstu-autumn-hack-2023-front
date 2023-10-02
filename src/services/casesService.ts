@@ -5,6 +5,7 @@ import {
   getOrdersData,
   getOrderData,
   createResponseProps,
+  archiveOrder,
 } from "../types/casesTypes";
 
 export const casesApi = createApi({
@@ -35,6 +36,22 @@ export const casesApi = createApi({
     сreateResponse: build.mutation<getOrderData, createResponseProps>({
       query: (body) => ({
         url: `/executor/response`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["orders", "order"],
+    }),
+    archiveOrder: build.mutation<any, archiveOrder>({
+      query: (body) => ({
+        url: `/order/archive`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["orders", "order"],
+    }),
+    activeOrder: build.mutation<any, archiveOrder>({
+      query: (body) => ({
+        url: `/order/active`,
         method: "POST",
         body: body,
       }),

@@ -26,7 +26,7 @@ const CreateResponseModal = ({
     <Modal
       isActive={isActive}
       setIsActive={setIsActive}
-      headerTitle={"Cоздание заказа"}
+      headerTitle={"Cоздание отклика"}
       className="monitoringModal"
     >
       <>

@@ -10,6 +10,11 @@ h1.header-deal-page {
   a {
     color: #734319;
   }
+  .lightBtn {
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 12px;
+  }
 }
 .info-of-customer {
   width: 100%;
@@ -84,6 +89,9 @@ h1.header-deal-page {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  .lightBtn {
+    margin-top: 0px;
+  }
 }
 .item-dop-info {
   display: flex;
@@ -126,9 +134,4 @@ h1.header-deal-page {
 .body-deal-page {
   width: 100%;
   height: auto;
-  .lightBtn {
-    padding: 12px;
-    font-size: 16px;
-    margin-top: 12px;
-  }
 }

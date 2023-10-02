@@ -16,6 +16,8 @@ const Deal = () => {
   const orderId = window.location.pathname.replace("/order/", "");
   const { data: order, isLoading } = casesApi.useGetOrderQuery(orderId);
   const [isShowResponseModal, setIsShowResponseModal] = useState(false);
+  const [archiveOrder] = casesApi.useArchiveOrderMutation();
+  const [activeOrder] = casesApi.useActiveOrderMutation();
 
   const tags = [
     "Vue",
@@ -37,6 +39,10 @@ const Deal = () => {
         JSON.parse(localStorage.getItem("user"))
       : undefined;
   if (isLoading || order === undefined) return <Loader />;
+
+  const checkMyCase = () => {
+    return order.user.id === user?.id;
+  };
   return (
     <div className="box-deal-page container">
       {isShowResponseModal && (
@@ -87,7 +93,7 @@ const Deal = () => {
           </div>
         </div>
 
-        {order.user.id !== user?.id && (
+        {!checkMyCase() && (
           <button
             className="lightBtn btn"
             onClick={() => setIsShowResponseModal(true)}
@@ -98,29 +104,50 @@ const Deal = () => {
       </div>
 
       <div className="box-dop-info">
-        <div className="info-of-customer">
-          <p> ЗАКАЗЧИК</p>
-          <div className="box-avatar-in-deal">
-            {!order.user.logo ? (
-              <Avatar />
-            ) : (
-              <img src={order.user.logo} className="avatar-customer" />
-            )}
-            <p>
-              {order.user.family
-                ? order.user.family + " " + order.user.name
-                : order.user.id}
-            </p>
-          </div>
-          {order?.order.customer.rating == null && (
-            <div className="box-rating">
-              <ScaleOnline
-                rating={order?.order.customer.rating}
-                maxPlayers={5}
-              />
+        {checkMyCase() ? (
+          <>
+            <button
+              className="lightBtn btn"
+              onClick={() => setIsShowResponseModal(true)}
+            >
+              ИЗМЕНИТЬ ЗАКАЗ
+            </button>
+            <button
+              className="lightBtn btn"
+              onClick={() =>
+                archiveOrder({
+                  orderId: orderId,
+                })
+              }
+            >
+              ЗААРХИВИРОВАТЬ ЗАКАЗ
+            </button>
+          </>
+        ) : (
+          <div className="info-of-customer">
+            <p> ЗАКАЗЧИК</p>
+            <div className="box-avatar-in-deal">
+              {!order.user.logo ? (
+                <Avatar />
+              ) : (
+                <img src={order.user.logo} className="avatar-customer" />
+              )}
+              <p>
+                {order.user.family
+                  ? order.user.family + " " + order.user.name
+                  : order.user.id}
+              </p>
             </div>
-          )}
-        </div>
+            {order?.order.customer.rating == null && (
+              <div className="box-rating">
+                <ScaleOnline
+                  rating={order?.order.customer.rating}
+                  maxPlayers={5}
+                />
+              </div>
+            )}
+          </div>
+        )}
         <div className="info-of-customer">
           <p>СПЕЦИАЛИЗАЦИЯ</p>
           <p>{order?.order.specialization.title}</p>

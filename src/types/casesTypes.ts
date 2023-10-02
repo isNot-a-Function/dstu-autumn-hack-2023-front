@@ -77,3 +77,6 @@ export interface createResponseProps {
   orderId: string;
   comment: string;
 }
+export interface archiveOrder {
+  orderId: string;
+}
