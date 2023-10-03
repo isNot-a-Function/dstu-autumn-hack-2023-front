@@ -11,6 +11,7 @@ import { casesApi } from "../store";
 import Loader from "../components/Loader";
 import { getHours } from "../utils/getHours";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
+import User from "../components/Main/User";
 
 const Deal = () => {
   const orderId = window.location.pathname.replace("/order/", "");
@@ -93,7 +94,21 @@ const Deal = () => {
           </div>
         </div>
 
-        {!checkMyCase() && (
+        {checkMyCase() ? (
+          <div className="box-responses">
+            <p> Отклики:</p>
+            {order.responses.map((it) => (
+              <User
+                title={"Вася Пупкин"}
+                cost={5000}
+                costType={"inHour"}
+                text={"Заебись сайт сделаю"}
+                rating={4.7}
+                isResponse={true}
+              />
+            ))}
+          </div>
+        ) : (
           <button
             className="lightBtn btn"
             onClick={() => setIsShowResponseModal(true)}
@@ -101,6 +116,8 @@ const Deal = () => {
             Оставить отклик
           </button>
         )}
+
+        <div className="item-response"></div>
       </div>
 
       <div className="box-dop-info">

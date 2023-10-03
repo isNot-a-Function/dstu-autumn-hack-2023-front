@@ -9,9 +9,6 @@ export interface ScaleOnlineProps {
 const ScaleOnline = ({ rating, maxPlayers }: ScaleOnlineProps) => {
   return (
     <div className="boxScaleWithTitle">
-      <div className="headerScale">
-        {/* <p className="titleScale"> Рейтинг</p> */}
-      </div>
       <div className="boxScale">
         <div
           className="activeScale"

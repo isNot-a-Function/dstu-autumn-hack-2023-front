@@ -19,6 +19,26 @@
   span {
   }
 }
+.header-box-user {
+  background-color: #384661;
+  height: 50px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 12px;
+  padding-right: 12px;
+  .boxScale {
+    border: 2px solid #f2f3ee;
+  }
+  .activeScale {
+    background-color: #f2f3ee;
+    p {
+      color: #384661;
+    }
+  }
+}
 .item-base-value-case {
   display: flex;
   flex-direction: column;
@@ -68,6 +88,7 @@
   display: flex;
   align-items: center;
   justify-content: start;
+  padding-left: 12px;
 }
 .box-price {
   width: 100%;
@@ -105,4 +126,16 @@
     font-size: 12px;
     white-space: nowrap;
   }
+}
+button.btnInUser {
+  background-color: transparent;
+  border: 2px solid #734a27;
+  color: #734a27;
+  padding: 12px;
+}
+.box-btn-in-user {
+  display: flex;
+  justify-content: end;
+  padding-right: 12px;
+  padding-bottom: 12px;
 }

@@ -71,6 +71,7 @@ export interface getOrderData {
       rating: 4.7;
     };
   };
+  responses: responseItem[];
 }
 
 export interface createResponseProps {
@@ -79,4 +80,12 @@ export interface createResponseProps {
 }
 export interface archiveOrder {
   orderId: string;
+}
+
+export interface responseItem {
+  id: string;
+  createdAt: string;
+  orderId: string;
+  executorId: string;
+  comment: string;
 }
