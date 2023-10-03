@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUser } from "../../utils/getUser";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import ProfileTopItem from "./ProfileTopItem";
+import avatar from "../../assets/img/default-avatar.svg";
 import ConfirmationModal from "../Modals/ConfirmationModal";
 import { useLang } from "../../hooks/useLang";
 import {
@@ -47,38 +48,11 @@ const ProfileTop = ({ activeNav, setActiveNav }: ProfileTopProps) => {
     <>
       <main className="profile-top">
         <div className="container profile-top-container">
-          <div className="profile-top_inner">
-            <div className="left-side">
-              <div className="logo">
-                <img src={user?.avatar} alt="" className="avatarInProfile" />
-              </div>
-              <div className="user">
-                <span className="user-name">{user?.name}</span>
-              </div>
-            </div>
-            {token && dimensions.width >= 1280 && (
-              <div className="right-side">
-                <button
-                  className="btn blackBtn exitBtn"
-                  onClick={logOutHandler}
-                >
-                  <Exit />
-                  {/* <span>{useLang(exitBtn)}</span> */}
-                </button>
-              </div>
-            )}
-          </div>
-          <div className="profile-nav">
-            {/* {profileTopItem.map((el, index) => (
-              <ProfileTopItem
-                key={index}
-                title={el}
-                activeNav={activeNav}
-                setActiveNav={setActiveNav}
-                index={index}
-              />
-            ))} */}
-          </div>
+          <img
+            src={user?.avatar ? user.avatar : avatar}
+            alt=""
+            className="avatarInProfile"
+          />
         </div>
       </main>
     </>

@@ -14,8 +14,12 @@ interface MonitoringModalProps {
 
 const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
   const [createCase, {}] = casesApi.useCreateOrderMutation();
+  const [checkFile, { data: link, isSuccess }] =
+    casesApi.useCheckFileMutation();
+  const [linkFiles, setLinkFiles] = useState<any>([]);
   const { data: specializationsInServer, isLoading } =
     casesApi.useGetSpecializationsQuery();
+
   const select_cost_type = [
     {
       value: "inHour",
@@ -50,8 +54,21 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
 
   const handleFileChange = (e: any) => {
     //@ts-ignore
-    setFileList([...fileList, ...e.target.files]);
+    console.log("...e.target.files", e.target.files);
+    const body = new FormData();
+    body.append("files", e.target.files);
+
+    checkFile(body);
   };
+
+  useEffect(() => {
+    if (isSuccess && link?.data?.files !== undefined) {
+      //@ts-ignore
+      setFileList([...fileList, ...e.target.files]);
+      console.log("...link?.data.files", link?.data.files);
+      setLinkFiles([...linkFiles, ...link?.data.files]);
+    }
+  }, [link]);
 
   //   useEffect(() => {
   //     console.log("values.tags", values.tags.split(","));
@@ -88,11 +105,12 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-              console.log("fileLiat", fileList);
+              // body.append("files", fileList);
+              console.log("linkFiles", linkFiles);
               createCase({
                 title: values.name,
                 description: description,
-                files: fileList,
+                files: linkFiles,
                 tags: values.tags.split(",").map((it) => it.trim()),
                 costType: costType.value,
                 cost: values.cost,
@@ -138,7 +156,7 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
                 </div>
 
                 <div>
-                  <p>ФАЙЛЫ</p>
+                  <p>ФАЙЛЫ (до 4 шт)</p>
                   <input
                     type="file"
                     name="files"

@@ -1,17 +1,25 @@
 @import "../mixins";
 @import "../variables";
 .profile-top {
-  background: linear-gradient(180deg, #140f21 0%, #201f4e 74.48%);
-  height: 315px;
+  background: transparent;
+  border: 2px solid #b79b83;
+  border-radius: 12px;
+  margin-top: 20px;
+  height: 200px;
   width: 100%;
 
   &-container {
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
     justify-content: space-between;
   }
 
   &_inner {
+    height: 100%;
+    width: 100%;
     @include displayFlexAIC;
     justify-content: space-between;
     @media (max-width: $largeScreens) {
@@ -97,10 +105,10 @@
   border-radius: 50%;
   width: 135px;
   height: 135px;
-  @media (max-width: $largeScreens) {
-    width: 40px;
-    height: 40px;
-  }
+  // @media (max-width: $largeScreens) {
+  //   width: 40px;
+  //   height: 40px;
+  // }
 }
 .steam-logo {
   width: 32px;
