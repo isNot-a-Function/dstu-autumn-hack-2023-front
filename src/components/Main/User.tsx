@@ -38,10 +38,7 @@ const User = ({
 
       <div className="body-box-case">
         <div className="box-specializations">
-          <p className="case-specialization">
-            Мобильные приложения fdslkfmkdlsmf dsfmakdlsmfklsd fdsmfkldsmfkla
-            fdsmfklds
-          </p>
+          <p className="case-specialization">{text}</p>
         </div>
 
         {isShowPrice && (
