@@ -52,13 +52,19 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
     select_specializations()[0]
   );
 
-  const handleFileChange = (e: any) => {
+  const handleFileChange = async (e: any) => {
     //@ts-ignore
     console.log("...e.target.files", e.target.files);
-    const body = new FormData();
-    body.append("files", e.target.files);
+    // const body = new FormData();
+    // body.append("files", e.target.files);
+    const formData = new FormData();
+    formData.append("files", e.target.files);
 
-    checkFile(body);
+    const res = await fetch("https://nikko-develop.space/api/file/upload", {
+      method: "POST",
+      body: formData,
+    }).then((res) => res.json());
+    // checkFile(body);
   };
 
   useEffect(() => {
