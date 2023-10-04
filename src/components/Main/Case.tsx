@@ -70,7 +70,7 @@ const Case = ({
         <div className="box-price">
           <Money />
           <p>
-            {cost === null
+            {costType == "contract"
               ? "договорная"
               : costType === "inOrder"
               ? cost + "р за проект"

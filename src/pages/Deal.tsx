@@ -69,11 +69,11 @@ const Deal = () => {
               <p>{order?.order.description}</p>
             </div>
           )}
-          {order?.order.files.lenght > 0 && (
+          {order?.order?.files?.length > 0 && (
             <div className="box-files">
               <p>Прикриплённые файлы:</p>
               {order?.order.files.map((item: any) => (
-                <a href="/test1.png" download>
+                <a href={item} download>
                   <div className="link-download">
                     <Download />
                     <p>{item}</p>
@@ -131,15 +131,24 @@ const Deal = () => {
             >
               ИЗМЕНИТЬ ЗАКАЗ
             </button>
+
             <button
               className="lightBtn btn"
-              onClick={() =>
-                archiveOrder({
-                  orderId: orderId,
-                })
-              }
+              onClick={() => {
+                if (order.order.status === "active") {
+                  archiveOrder({
+                    orderId: orderId,
+                  });
+                } else {
+                  activeOrder({
+                    orderId: orderId,
+                  });
+                }
+              }}
             >
-              ЗААРХИВИРОВАТЬ ЗАКАЗ
+              {order.order.status === "active"
+                ? "ЗААРХИВИРОВАТЬ ЗАКАЗ"
+                : "АКТИВИРОВАТЬ ЗАКАЗ"}
             </button>
           </>
         ) : (

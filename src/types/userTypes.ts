@@ -206,7 +206,7 @@ export interface getPriceCurrencyParams {
 export interface getPriceCurrencyData {
   amount?: number;
   finalPrice?: number;
-  type: 'currency' | 'money';
+  type: "currency" | "money";
 }
 
 export interface IGetCode {
@@ -224,4 +224,34 @@ export interface Contact {
 export interface activateServiceParams {
   id: number;
   serverId: number;
+}
+
+export interface user {
+  id: string;
+  email: string;
+  passwordHash: string;
+  role: string;
+  name: string | null;
+  family: string | null;
+  dateOfBirth: string | null;
+  city: string | null;
+  logo: string | null;
+  balance: number | null;
+  contact: string | null;
+  custoremInfo: {
+    id: string;
+    userId: string;
+    rating: number | null;
+  };
+  executorInfo: {
+    id: string;
+    userId: string;
+    rating: number | null;
+    description: null;
+    classification: null;
+    tags: string[];
+    expirience: string;
+    costType: string;
+    cost: null | number;
+  };
 }

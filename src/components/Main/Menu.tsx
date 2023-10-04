@@ -108,7 +108,7 @@ const Menu = ({
 
       {sectionList?.map((section: any, index: number) => {
         return (
-          <div>
+          <div key={index}>
             <p
               key={index}
               className={`${

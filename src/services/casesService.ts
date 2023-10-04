@@ -65,12 +65,13 @@ export const casesApi = createApi({
       }),
       invalidatesTags: ["orders"],
     }),
-    checkFile: build.mutation<{ data: { files: string[] } }, any>({
+    checkFile: build.mutation<{ files: string[] }, any>({
       query: (body) => ({
         url: `/file/upload`,
         method: "POST",
         body: body,
       }),
+
       invalidatesTags: () => ["orders", "order"],
     }),
   }),

@@ -1,18 +1,20 @@
-import { useState } from 'react';
-import '../../assets/scss/components/profile/_inventoryTableItem.scss';
-import { getInventoryDataItem } from '../../types/userTypes';
-import SelectServerModal from '../Modals/SelectServerModal';
-import ConfirmationModal from '../Modals/ConfirmationModal';
-import { useLang } from '../../hooks/useLang';
+import { useState } from "react";
+import "../../assets/scss/components/profile/_inventoryTableItem.scss";
+import { getInventoryDataItem } from "../../types/userTypes";
+import ConfirmationModal from "../Modals/ConfirmationModal";
+import { useLang } from "../../hooks/useLang";
 import {
   confirmationModalCancelPurchaseTitle,
   profileTableActivate,
   profileTableCancel,
   profileTableSoonToBeActivated,
-} from '../../consts/profile';
+} from "../../consts/profile";
 
 export interface InventoryTableItemProps {
-  data: { dataInventory: getInventoryDataItem; refund: (value: string | number) => void };
+  data: {
+    dataInventory: getInventoryDataItem;
+    refund: (value: string | number) => void;
+  };
 }
 
 const InventoryTableItem = ({ data }: InventoryTableItemProps) => {
@@ -31,28 +33,39 @@ const InventoryTableItem = ({ data }: InventoryTableItemProps) => {
       <tr key={dataInventory.id}>
         <td className="tablePurple"># {dataInventory.id}</td>
         <td scope="row" className="tableProductName">
-          {dataInventory.product.image != null && <img src={dataInventory.product.image} alt="" className="tableImg" />}
+          {dataInventory.product.image != null && (
+            <img
+              src={dataInventory.product.image}
+              alt=""
+              className="tableImg"
+            />
+          )}
           <span>{dataInventory.name}</span>
         </td>
         <td>{dataInventory.amount}</td>
         <td className="tablePurple">
           {dataInventory.serverType.name +
-            (dataInventory.serverName !== null ? ' (' + dataInventory.serverName + ')' : '')}
+            (dataInventory.serverName !== null
+              ? " (" + dataInventory.serverName + ")"
+              : "")}
         </td>
         {/* <td>{getDate(dataInventory.createdAt)}</td> */}
         {dataInventory?.isCanBeRefund && (
           <td>
-            {dataInventory.product.type === 'SERVICE' && (
-              <button className="btn blackBtn cancelBtn inventoryBtn" onClick={refundHandler}>
+            {dataInventory.product.type === "SERVICE" && (
+              <button
+                className="btn blackBtn cancelBtn inventoryBtn"
+                onClick={refundHandler}
+              >
                 {useLang(profileTableCancel)}
               </button>
             )}
           </td>
         )}
-        {dataInventory.product.type === 'SERVICE' ? (
+        {dataInventory.product.type === "SERVICE" ? (
           dataInventory.serverId && dataInventory.isCanBeRefund ? (
             <td>
-              {dataInventory.product.type === 'SERVICE' && (
+              {dataInventory.product.type === "SERVICE" && (
                 <button className="btn blackBtn activateBtn inventoryBtn">
                   {useLang(profileTableSoonToBeActivated)}
                 </button>
@@ -60,16 +73,23 @@ const InventoryTableItem = ({ data }: InventoryTableItemProps) => {
             </td>
           ) : (
             <td>
-              {dataInventory.product.type === 'SERVICE' && dataInventory.serverId === null && (
-                <button onClick={activateHandler} className="btn lightBtn activateBtn inventoryBtn">
-                  {useLang(profileTableActivate)}
-                </button>
-              )}
+              {dataInventory.product.type === "SERVICE" &&
+                dataInventory.serverId === null && (
+                  <button
+                    onClick={activateHandler}
+                    className="btn lightBtn activateBtn inventoryBtn"
+                  >
+                    {useLang(profileTableActivate)}
+                  </button>
+                )}
             </td>
           )
         ) : (
           <td>
-            <button className="btn blackBtn wideBtn cancelBtn inventoryBtn" onClick={refundHandler}>
+            <button
+              className="btn blackBtn wideBtn cancelBtn inventoryBtn"
+              onClick={refundHandler}
+            >
               {useLang(profileTableCancel)}
             </button>
           </td>
@@ -86,7 +106,7 @@ const InventoryTableItem = ({ data }: InventoryTableItemProps) => {
         </tr>
       )}
 
-      {isShowServersModal && (
+      {/* {isShowServersModal && (
         <tr>
           <SelectServerModal
             id={dataInventory.id}
@@ -95,7 +115,7 @@ const InventoryTableItem = ({ data }: InventoryTableItemProps) => {
             setIsActive={setIsShowServersModal}
           />
         </tr>
-      )}
+      )} */}
     </>
   );
 };

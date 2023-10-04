@@ -9,13 +9,7 @@ import { useWindowSize } from "../../hooks/useWindowSize";
 import ProfileTopItem from "./ProfileTopItem";
 import avatar from "../../assets/img/default-avatar.svg";
 import ConfirmationModal from "../Modals/ConfirmationModal";
-import { useLang } from "../../hooks/useLang";
-import {
-  confirmationModalGetOutTitle,
-  exitBtn,
-  profilePageSelectDetailing,
-  profilePageSelectInventory,
-} from "../../consts/profile";
+import ScaleOnline from "../Footer/ScaleOnline";
 
 // const profileTopItem = [
 //   useLang(profilePageSelectInventory),
@@ -33,7 +27,7 @@ const ProfileTop = ({ activeNav, setActiveNav }: ProfileTopProps) => {
   const navigate = useNavigate();
   const dimensions = useWindowSize();
   const token = useGetToken();
-  const user = getUser();
+  // const user = getUser();
 
   const logOutHandler = () => setIsActiveConfirm(true);
 
@@ -44,17 +38,39 @@ const ProfileTop = ({ activeNav, setActiveNav }: ProfileTopProps) => {
     window.location.reload();
   };
 
+  const user = {
+    id: "dfkldsklkfl;3-02493-",
+    family: "Самодурова",
+    name: "Валерия",
+    avatar: null,
+    rating: 4.8,
+  };
+
   return (
     <>
-      <main className="profile-top">
-        <div className="container profile-top-container">
-          <img
-            src={user?.avatar ? user.avatar : avatar}
-            alt=""
-            className="avatarInProfile"
-          />
+      <div className="info-of-customer">
+        <div className=" profile-top-container">
+          <div className="box-avatar-in-deal">
+            {user?.avatar != null ? (
+              <img src={user?.avatar} className="avatar-customer" />
+            ) : (
+              <img src={avatar} className="avatar-customer" />
+            )}
+            <p>{user.family ? user.family + " " + user.name : user.id}</p>
+            <div style={{ marginTop: 12, width: "100%", height: "100%" }}>
+              <ScaleOnline rating={user.rating} maxPlayers={5} />
+            </div>
+          </div>
+          <div className="box-rating-in-profile">
+            <div className="switch-roles-box">
+              <div className=" item-switch-role item-switch-role-active">
+                Заказчик
+              </div>
+              <div className="item-switch-role">Исполнитель</div>
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };

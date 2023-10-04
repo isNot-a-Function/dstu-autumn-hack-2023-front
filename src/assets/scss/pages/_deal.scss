@@ -4,6 +4,8 @@ h1.header-deal-page {
 }
 .box-deal-page {
   padding-top: 20px;
+  align-items: center;
+  justify-content: center;
   display: grid;
   grid-template-columns: 0.8fr 0.2fr;
   gap: 20px;
@@ -39,9 +41,11 @@ h1.header-deal-page {
   justify-content: center;
   p {
     text-align: center;
+    color: #734319;
   }
 }
 .box-rating {
+  margin-top: 8px;
   width: 100%;
 }
 .content-deal-page {

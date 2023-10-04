@@ -47,38 +47,28 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
 
   const [description, setDescription] = useState("");
   const [fileList, setFileList] = useState<any>([]);
+  const [cost, setCost] = useState<string | null>("");
   const [costType, setCostType] = useState(select_cost_type[0]);
   const [specializations, setSpecializations] = useState(
     select_specializations()[0]
   );
 
   const handleFileChange = async (e: any) => {
-    //@ts-ignore
-    console.log("...e.target.files", e.target.files);
-    // const body = new FormData();
-    // body.append("files", e.target.files);
     const formData = new FormData();
-    formData.append("files", e.target.files);
-
-    const res = await fetch("https://nikko-develop.space/api/file/upload", {
-      method: "POST",
-      body: formData,
-    }).then((res) => res.json());
-    // checkFile(body);
+    formData.append("files", e.target.files[0]);
+    checkFile(formData).then((data: any) => {
+      if (data?.data.files !== undefined) {
+        setFileList([...fileList, ...e.target.files]);
+        setLinkFiles([...linkFiles, ...data?.data.files]);
+      }
+    });
   };
 
   useEffect(() => {
-    if (isSuccess && link?.data?.files !== undefined) {
-      //@ts-ignore
-      setFileList([...fileList, ...e.target.files]);
-      console.log("...link?.data.files", link?.data.files);
-      setLinkFiles([...linkFiles, ...link?.data.files]);
+    if (costType.value === "contract") {
+      setCost(null);
     }
-  }, [link]);
-
-  //   useEffect(() => {
-  //     console.log("values.tags", values.tags.split(","));
-  //   }, [values.tags]);
+  }, [costType]);
 
   if (isLoading) return <Loader />;
 
@@ -92,13 +82,13 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
       <>
         <div className="monitoringModalContainer">
           <Formik
-            initialValues={{ name: "", tags: "", cost: "" }}
+            initialValues={{ name: "", tags: "" }}
             validate={(values) => {
               const errors = {};
               if (!values.name) {
                 //@ts-ignore
                 errors.name = "Заполните имя";
-              } else if (costType.value !== "contract" && !values.cost) {
+              } else if (costType.value !== "contract" && !cost) {
                 //@ts-ignore
                 errors.name =
                   "При таком формате работы необходимо указать стоимость заказа";
@@ -119,9 +109,10 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
                 files: linkFiles,
                 tags: values.tags.split(",").map((it) => it.trim()),
                 costType: costType.value,
-                cost: values.cost,
+                cost: Number(cost),
                 specialization: specializations.value,
               });
+              setIsActive(false);
             }}
           >
             {({
@@ -218,9 +209,10 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
                       type="string"
                       name="cost"
                       className="input"
-                      onChange={handleChange}
+                      onChange={(v: any) => setCost(v.target.value)}
                       style={{ width: "50%" }}
-                      value={values.cost}
+                      disabled={costType.value === "contract"}
+                      value={cost === null ? "" : cost}
                     />
                     <CustomSelect
                       value={costType}

@@ -17,31 +17,6 @@ const Login = () => {
   const [isLogIn, setIsLogIng] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
-  const [token, setToken] = useState<undefined | string>(undefined);
-  const query = new URLSearchParams(location.search);
-
-  //   useEffect(() => {
-  //     const accessToken = localStorage.getItem("accessToken");
-  //     if (accessToken === null) {
-  //       const openidparams = query.get("openid.identity");
-
-  //       if (openidparams) {
-  //         const openId = openidparams.replace(
-  //           "https://steamcommunity.com/openid/id/",
-  //           ""
-  //         );
-  //         if (openId !== undefined) {
-  //           logIn({ id: openId, body: query.toString() }).catch(() =>
-  //             navigate("/")
-  //           );
-  //         }
-  //       } else {
-  //         navigate("/");
-  //       }
-  //     } else {
-  //       setToken(accessToken);
-  //     }
-  //   }, []);
 
   useEffect(() => {
     if (errorLogIn) {
@@ -50,7 +25,7 @@ const Login = () => {
       if (dataLogIn !== undefined || dataSignUp != undefined) {
         const token: string | undefined = dataLogIn?.token || dataSignUp?.token;
         console.log("token", token);
-        const user: UserData | undefined = dataLogIn?.user;
+        const user: UserData | undefined = dataLogIn?.user || dataSignUp?.user;
         if (token !== undefined) {
           localStorage.setItem("accessToken", token);
           localStorage.setItem("user", JSON.stringify(user));
@@ -119,6 +94,7 @@ const Login = () => {
                 name="email"
                 className="input"
                 onChange={handleChange}
+                placeholder="Email"
                 // onBlur={handleBlur}
                 value={values.email}
               />
@@ -127,6 +103,7 @@ const Login = () => {
                 type="password"
                 name="password"
                 className="input"
+                placeholder="Пароль"
                 onChange={handleChange}
                 // onBlur={handleBlur}
                 value={values.password}
