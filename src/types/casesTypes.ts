@@ -41,6 +41,7 @@ export interface getOrderData {
     views: number;
     costType: string;
     cost: number;
+    responses?: responseItem[];
     responsesCount: number;
     specializationId: string;
     customer: {
@@ -83,6 +84,8 @@ export interface getOrderData {
       rating: 4.7;
     };
   };
+  response: boolean;
+  status: boolean;
   responses: responseItem[];
 }
 

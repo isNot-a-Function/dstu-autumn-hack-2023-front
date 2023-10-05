@@ -8,6 +8,7 @@ import ScrollToTop from "./utils/scrollToTop";
 import { useEffect } from "react";
 import Login from "./pages/Login";
 import Deal from "./pages/Deal";
+import HistoryBalance from "./pages/HistoryBalance";
 
 function App() {
   let vh = window.innerHeight * 0.01;
@@ -30,6 +31,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="login" element={<Login />} />
           <Route path="order/:id" element={<Deal />} />
+          <Route path="balance" element={<HistoryBalance />} />
         </Route>
         <Route path="*" element={<Navigate to={"/"} replace />} />
       </Routes>

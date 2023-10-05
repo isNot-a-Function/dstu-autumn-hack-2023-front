@@ -12,6 +12,7 @@ import Modal from "../../UI/Modal";
 
 interface TopUpModalProps {
   setIsActive: (param: boolean) => void;
+  isTopUp?: boolean;
 }
 
 const item = [
@@ -68,9 +69,10 @@ const data = [
 
 const selectItems = ["Все", "Деньги", "Скины", "Крипта"];
 
-const TopUpModal = ({ setIsActive }: TopUpModalProps) => {
+const TopUpModal = ({ setIsActive, isTopUp = true }: TopUpModalProps) => {
   // const [refillFunc] = userApi.useRefillMutation();
   const [addBalance] = userApi.useAddBalanceMutation();
+  const [decreaseBalance] = userApi.useDecreaseBalanceMutation();
   const [activeSelect, setActiveSelect] = useState(0);
   const [amountInput, setAmountInput] = useState("");
 
@@ -88,13 +90,18 @@ const TopUpModal = ({ setIsActive }: TopUpModalProps) => {
 
   const handlerButton = async () => {
     if (amountInput && +amountInput > 0) {
-      await addBalance({ sum: +amountInput });
+      if (isTopUp) {
+        await addBalance({ sum: +amountInput });
+      } else {
+        await decreaseBalance({ sum: +amountInput });
+      }
       setIsActive(false);
     }
   };
+
   return (
     <Modal
-      headerTitle={"Пополнение средств"}
+      headerTitle={isTopUp ? "Пополнение средств" : "Вывод средств"}
       setIsActive={setIsActive}
       isSelect
       modalHeaderBottom={20}
@@ -139,7 +146,7 @@ const TopUpModal = ({ setIsActive }: TopUpModalProps) => {
           </div>
 
           <button onClick={handlerButton} className="btn lightBtn wideBtn">
-            Пополнить
+            {isTopUp ? "Пополнить" : "Вывести"}
           </button>
         </div>
       </>

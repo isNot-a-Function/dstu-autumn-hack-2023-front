@@ -19,11 +19,18 @@ export const casesApi = createApi({
         method: "GET",
       }),
     }),
-    getOrders: build.query<{ orders: getOrdersData[]; count: number }, number>({
-      query: (id) => ({
-        url: `/order/?page=${id}`,
-        method: "GET",
-      }),
+    getOrders: build.query<
+      { orders: getOrdersData[]; count: number },
+      { page: number; seacrh: string | null; filter: string | null }
+    >({
+      query: ({ page, seacrh, filter }) => {
+        return {
+          url: `/order/?page=${page}${seacrh ? "&search=" + seacrh : ""}${
+            filter ? "&filter=" + filter : ""
+          }`,
+          method: "GET",
+        };
+      },
       providesTags: () => ["orders"],
     }),
     getOrder: build.query<getOrderData, string>({
@@ -115,6 +122,19 @@ export const casesApi = createApi({
     >({
       query: (body) => ({
         url: `/customer/unpick`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["orders", "order"],
+    }),
+    declineOrder: build.mutation<
+      any,
+      {
+        orderId: string;
+      }
+    >({
+      query: (body) => ({
+        url: `/executor/decline`,
         method: "POST",
         body: body,
       }),

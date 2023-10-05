@@ -16,48 +16,38 @@ import { useNavigate } from "react-router-dom";
 import Case from "../components/Main/Case";
 import Pagination from "../components/Pagination/Pagination";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
+import TopUpModal from "../components/Modals/TopUp/TopUpModal";
 
-const sortListEx = [
+const sortList = [
   {
     id: 1,
-    label: "ОТКЛИКИ",
-    value: "responses",
+    label: "ПОПОЛНЕНИЯ",
+    value: "1",
   },
   {
     id: 2,
-    label: "В ПРОЦЕССЕ",
-    value: "processed",
-  },
-  {
-    id: 3,
-    label: "ВЫПОЛНЕННЫЕ",
-    value: "done",
+    label: "СНЯТИЯ",
+    value: "2",
   },
 ];
-const sortListCustomer = [
-  {
-    id: 1,
-    label: "АКТИВНЫЕ",
-    value: "active",
-  },
-  {
-    id: 2,
-    label: "В ПРОЦЕССЕ",
-    value: "processed",
-  },
-  {
-    id: 3,
-    label: "ВЫПОЛНЕННЫЕ",
-    value: "done",
-  },
-  {
-    id: 4,
-    label: "АРХИВИРОВАННЫЕ",
-    value: "archived",
-  },
-];
-const Profile = () => {
+const HistoryBalance = () => {
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const { data: user } = userApi.useGetUserQuery();
+  const [changePhoto] = userApi.useChangePhotoMutation();
+  const [checkFile] = casesApi.useCheckFileMutation();
+  const { data: history, isLoading } = userApi.useGetHistoryBalanceQuery({
+    page: page,
+  });
+  const [sortValue, setSortValue] = useState(sortList[0].value);
+
+  console.log("history", history);
+
+  const [changeRole] = userApi.useChangeRoleMutation();
+
+  const [isShowDecreaseBalanceModal, setIsShowDecreaseBalanceModal] =
+    useState(false);
+
   const userLocal =
     localStorage.getItem("user") !== null
       ? //@ts-ignore
@@ -70,21 +60,6 @@ const Profile = () => {
       navigate("/");
     }
   }, []);
-
-  const { data: user } = userApi.useGetUserQuery();
-  const [changePhoto] = userApi.useChangePhotoMutation();
-  const [checkFile] = casesApi.useCheckFileMutation();
-  const [sortValue, setSortValue] = useState<string>(
-    (user?.user.role === "customer" ? sortListCustomer : sortListEx)[0].value
-  );
-  const [changeRole] = userApi.useChangeRoleMutation();
-  const [page, setPage] = useState(1);
-  const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
-
-  const { data: orders } = casesApi.useGetMyOrdersQuery({
-    filter: sortValue,
-    page: page,
-  });
 
   const handlerChangePhoto = async (e: any) => {
     const formData = new FormData();
@@ -109,22 +84,19 @@ const Profile = () => {
       : user?.user.executorInfo.rating;
   };
 
+  if (isLoading) return <Loader />;
   return (
     <div className="container box-deal-page ">
-      {isShowConfirmationModal && (
-        <ConfirmationModal
-          setIsActive={setIsShowConfirmationModal}
-          modalTitle="Вы действительно хотите выйти?"
-          func={logOut}
+      {isShowDecreaseBalanceModal && (
+        <TopUpModal
+          setIsActive={setIsShowDecreaseBalanceModal}
+          isTopUp={false}
         />
       )}
       <div className="body-deal-page">
         <div className="content-deal-page " style={{ border: "none" }}>
           <div className="box-list-sort">
-            {(user?.user.role === "customer"
-              ? sortListCustomer
-              : sortListEx
-            ).map((sort: any, index: number) => {
+            {sortList.map((sort: any, index: number) => {
               return (
                 <button
                   className={`${
@@ -134,11 +106,6 @@ const Profile = () => {
                   key={index}
                 >
                   <p>{sort.label}</p>
-                  {/* {sortValue === sort.value && (
-                    <p className="arrow-symbol">
-                      {directionSort === "asc" ? "↑" : "↓"}
-                    </p>
-                  )} */}
                 </button>
               );
             })}
@@ -146,24 +113,30 @@ const Profile = () => {
         </div>
         <div>
           <div className="box-list-cases">
-            {orders?.orders.map((order: any) => (
-              <Case
-                id={order.id}
-                title={order.title}
-                createdAt={order.createdAt}
-                views={order.views}
-                cost={order.cost}
-                costType={order.costType}
-                responsesCount={order.responsesCount}
-                tags={order.tags}
-              />
+            {(sortValue === "1"
+              ? history.topUpBalance
+              : history.decreaseBalance
+            ).map((it: any) => (
+              <div className="box-history-balance">
+                <div className="title-item-history-balance">
+                  {it.reason} : {it.sum + "₽"}
+                </div>
+                <div className="box-time-history-balance">
+                  {new Date(it.createdAt).toLocaleString()}
+                </div>
+              </div>
             ))}
           </div>
-          {orders?.orders?.length !== 0 ? (
+          {(sortValue === "1" && history?.topUpBalance.length !== 0) ||
+          (sortValue === "2" && history?.decreaseBalance.length !== 0) ? (
             <Pagination
               currentPage={page}
               setCurrentPage={setPage}
-              pagesAmount={orders?.count || 1}
+              pagesAmount={
+                sortValue === "1"
+                  ? history?.topUpBalanceCount
+                  : history?.decreaseBalanceCount
+              }
               perPage={15}
             />
           ) : (
@@ -174,7 +147,7 @@ const Profile = () => {
 
       <div className="box-dop-info">
         <div className="info-of-customer">
-          <p> ЛИЧНЫЙ КАБИНЕТ</p>
+          <p> ИСТОРИЯ БАЛАНСА</p>
           <div className="box-avatar-in-deal">
             <div
               style={{
@@ -210,63 +183,19 @@ const Profile = () => {
                 : user?.user.id}
             </p>
           </div>
-
-          <div className="box-rating">
-            {getRating() !== 0 ? (
-              <ScaleOnline
-                //@ts-ignore
-                rating={
-                  user?.user.role === "customer"
-                    ? user?.user.custoremInfo.rating
-                    : user?.user.executorInfo.rating
-                }
-                maxPlayers={5}
-              />
-            ) : (
-              <p>У вас пока нет оценок</p>
-            )}
-          </div>
         </div>
 
         <button
           className="lightBtn btn"
           onClick={() => {
-            changeRole().then((data: any) => {
-              const token = data?.data.token;
-              if (token != undefined) {
-                localStorage.setItem("accessToken", token);
-              }
-            });
+            setIsShowDecreaseBalanceModal(true);
           }}
         >
-          ПЕРЕЙТИ В ЛИЧНЫЙ КАБИНЕТ{" "}
-          {user?.user.role === "customer" ? "ИСПОЛНИТЕЛЯ" : "ЗАКАЗЧИКА"}
-        </button>
-        {user?.user.role !== "customer" && (
-          <div className="info-of-customer">
-            <p>СПЕЦИАЛИЗАЦИЯ</p>
-            <p>МОБИЛЬНОЕ ПРИЛОЖЕНИЕ</p>
-          </div>
-        )}
-        <button
-          className="bezBtn btn"
-          onClick={() => {
-            navigate("/balance");
-          }}
-        >
-          ИСТОРИЯ БАЛАНСА
-        </button>
-        <button
-          className="lightBtn btn"
-          onClick={() => {
-            setIsShowConfirmationModal(true);
-          }}
-        >
-          ВЫЙТИ
+          ВЫВЕСТИ ДЕНЬГИ
         </button>
       </div>
     </div>
   );
 };
 
-export default Profile;
+export default HistoryBalance;

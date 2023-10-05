@@ -8,9 +8,9 @@ export const userApi = createApi({
   tagTypes: ["user"],
   baseQuery,
   endpoints: (build) => ({
-    getUser: build.query<{ user: user }, string>({
-      query: (id) => ({
-        url: `/user/${id}`,
+    getUser: build.query<{ user: user }, void>({
+      query: () => ({
+        url: `/user/`,
         method: "GET",
       }),
       providesTags: () => ["user"],
@@ -42,6 +42,26 @@ export const userApi = createApi({
         body: body,
       }),
       invalidatesTags: () => ["user"],
+    }),
+    decreaseBalance: build.mutation<
+      any,
+      {
+        sum: number;
+      }
+    >({
+      query: (body) => ({
+        url: `/balance/decrease`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["user"],
+    }),
+    getHistoryBalance: build.query<any, { page: number }>({
+      query: ({ page }) => ({
+        url: `/user/balance?page=${page}`,
+        method: "GET",
+      }),
+      providesTags: () => ["user"],
     }),
   }),
 });

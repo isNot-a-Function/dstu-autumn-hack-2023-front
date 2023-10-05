@@ -13,29 +13,22 @@ import { getHours } from "../utils/getHours";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
 import User from "../components/Main/User";
 import CreateCaseModal from "../components/Main/CreateCaseModal";
+import ConfirmationModal from "../components/Modals/ConfirmationModal";
 
 const Deal = () => {
   const orderId = window.location.pathname.replace("/order/", "");
   const { data: order, isLoading } = casesApi.useGetOrderQuery(orderId);
   const [isShowResponseModal, setIsShowResponseModal] = useState(false);
   const [isShowUpdateModal, setIsShowUpdateModal] = useState(false);
+  const [isShowDeclineOrder, setIsShowDeclineOrder] = useState(false);
   const [archiveOrder] = casesApi.useArchiveOrderMutation();
   const [activeOrder] = casesApi.useActiveOrderMutation();
+  const [declineOrder] = casesApi.useDeclineOrderMutation();
 
-  const tags = [
-    "Vue",
-    "React",
-    "NodeJS",
-    "PHP",
-    "Vue",
-    "React",
-    "NodeJS",
-    "PHP",
-    "Vue",
-    "React",
-    "NodeJS",
-    "PHP",
-  ];
+  const declineOrderHandler = () => {
+    declineOrder({ orderId: orderId });
+  };
+
   const user =
     localStorage.getItem("user") != null
       ? //@ts-ignore
@@ -66,6 +59,13 @@ const Deal = () => {
           setIsActive={setIsShowUpdateModal}
           info={order.order}
           orderId={orderId}
+        />
+      )}
+      {isShowDeclineOrder && (
+        <ConfirmationModal
+          modalTitle="Вы действительно хотите отозвать отклик?"
+          setIsActive={setIsShowDeclineOrder}
+          func={declineOrderHandler}
         />
       )}
       <div className="body-deal-page">
@@ -109,36 +109,64 @@ const Deal = () => {
           </div>
         </div>
 
-        {checkMyCase() ? (
-          order.responses.length > 0 &&
-          (checkHaveExecutor() ? (
-            <div className="box-responses">
-              {" "}
-              <p> Исполнитель:</p>
-              <User
-                orderId={orderId}
-                responseId={
-                  order.responses.filter(
-                    (it) => it.executorId === order?.order?.executorId
-                  )[0].id
-                }
-                title={"Вася Пупкин"}
-                cost={5000}
-                costType={"inHour"}
-                text={
-                  order.responses.filter(
-                    (it) => it.executorId === order?.order?.executorId
-                  )[0].comment
-                }
-                rating={order.order.executor.rating}
-                isResponse={true}
-                pick={false}
-              />
-            </div>
-          ) : (
-            <div className="box-responses">
-              <p> Отклики:</p>
-              {order.responses.map((it) => (
+        {checkMyCase()
+          ? order.responses.length > 0 &&
+            (checkHaveExecutor() ? (
+              <div className="box-responses">
+                {" "}
+                <p> Исполнитель:</p>
+                <User
+                  orderId={orderId}
+                  responseId={
+                    order.responses.filter(
+                      (it) => it.executorId === order?.order?.executorId
+                    )[0].id
+                  }
+                  title={"Вася Пупкин"}
+                  cost={5000}
+                  costType={"inHour"}
+                  text={
+                    order.responses.filter(
+                      (it) => it.executorId === order?.order?.executorId
+                    )[0].comment
+                  }
+                  rating={order.order.executor.rating}
+                  isResponse={true}
+                  pick={false}
+                />
+              </div>
+            ) : (
+              <div className="box-responses">
+                <p> Отклики:</p>
+                {order.responses.map((it) => (
+                  <User
+                    orderId={orderId}
+                    responseId={it.id}
+                    title={"Вася Пупкин"}
+                    cost={5000}
+                    costType={"inHour"}
+                    text={it.comment}
+                    rating={4.7}
+                    isResponse={true}
+                    pick={true}
+                  />
+                ))}
+              </div>
+            ))
+          : !order.response && (
+              <button
+                className="lightBtn btn"
+                onClick={() => setIsShowResponseModal(true)}
+              >
+                Оставить отклик
+              </button>
+            )}
+
+        {order.response && (
+          <div className="box-responses">
+            <p> Вы уже оставили отклик:</p>
+            {order?.order?.responses &&
+              order?.order?.responses?.map((it) => (
                 <User
                   orderId={orderId}
                   responseId={it.id}
@@ -147,21 +175,18 @@ const Deal = () => {
                   costType={"inHour"}
                   text={it.comment}
                   rating={4.7}
-                  isResponse={true}
+                  // isResponse={true}
                   pick={true}
                 />
               ))}
-            </div>
-          ))
-        ) : (
-          <button
-            className="lightBtn btn"
-            onClick={() => setIsShowResponseModal(true)}
-          >
-            Оставить отклик
-          </button>
+            <button
+              className="lightBtn btn"
+              onClick={() => setIsShowResponseModal(true)}
+            >
+              Отозвать отклик
+            </button>
+          </div>
         )}
-
         <div className="item-response"></div>
       </div>
 

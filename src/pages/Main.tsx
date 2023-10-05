@@ -14,7 +14,12 @@ const Main = () => {
   const [directionSort, setDirectionSort] = useState("asc"); //asc - по возрастанию, desc - по убыванию
   const [page, setPage] = useState(1);
   const [isShowModal, setIsShowModal] = useState(false);
-  const { data: orders } = casesApi.useGetOrdersQuery(page);
+  const [value, setValue] = useState("");
+  const { data: orders } = casesApi.useGetOrdersQuery({
+    page: page,
+    filter: activeSection.length !== 0 ? JSON.stringify(activeSection) : null,
+    seacrh: value === "" ? null : value,
+  });
   useEffect(() => {
     console.log("orders", orders);
   }, [orders]);
@@ -40,7 +45,6 @@ const Main = () => {
       value: "4",
     },
   ];
-  const [value, setValue] = useState("");
 
   const handlerClickSort = (value: string) => {
     if (sortValue === value) {
@@ -61,7 +65,7 @@ const Main = () => {
           value={value}
           setValue={setValue}
         />
-        <div className="box-list-sort">
+        {/* <div className="box-list-sort">
           {sortList.map((sort: any, index: number) => {
             return (
               <button
@@ -81,7 +85,7 @@ const Main = () => {
             );
           })}
           {sortValue !== null && <Trash onClick={() => setSortValue(null)} />}
-        </div>
+        </div> */}
         <div className="box-list-cases">
           {orders?.orders.map((order: any) => (
             <Case
