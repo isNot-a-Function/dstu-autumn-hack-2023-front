@@ -14,6 +14,7 @@ import CreateResponseModal from "../components/Main/CreateResponseModal";
 import User from "../components/Main/User";
 import CreateCaseModal from "../components/Main/CreateCaseModal";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
+import DoneModal from "../components/Modals/DoneModal";
 
 const Deal = () => {
   const orderId = window.location.pathname.replace("/order/", "");
@@ -21,6 +22,7 @@ const Deal = () => {
   const [isShowResponseModal, setIsShowResponseModal] = useState(false);
   const [isShowUpdateModal, setIsShowUpdateModal] = useState(false);
   const [isShowDeclineOrder, setIsShowDeclineOrder] = useState(false);
+  const [isShowDone, setIsShowDone] = useState(false);
   const [archiveOrder] = casesApi.useArchiveOrderMutation();
   const [activeOrder] = casesApi.useActiveOrderMutation();
   const [declineOrder] = casesApi.useDeclineOrderMutation();
@@ -43,6 +45,7 @@ const Deal = () => {
     return order?.order?.executorId === null ? false : true;
   };
 
+  if (isLoading) return <Loader />;
   return (
     <div className="container box-deal-page ">
       {isShowResponseModal && (
@@ -66,6 +69,14 @@ const Deal = () => {
           modalTitle="Вы действительно хотите отозвать отклик?"
           setIsActive={setIsShowDeclineOrder}
           func={declineOrderHandler}
+        />
+      )}
+      {isShowDone && (
+        <DoneModal
+          setIsActive={setIsShowDone}
+          isActive={isShowDone}
+          isExecutor={!checkMyCase()}
+          orderId={orderId}
         />
       )}
       <div className="body-deal-page">
@@ -110,7 +121,7 @@ const Deal = () => {
         </div>
 
         {checkMyCase()
-          ? order.responses.length > 0 &&
+          ? order?.responses?.length > 0 &&
             (checkHaveExecutor() ? (
               <div className="box-responses">
                 {" "}
@@ -122,16 +133,30 @@ const Deal = () => {
                       (it) => it.executorId === order?.order?.executorId
                     )[0].id
                   }
-                  title={"Вася Пупкин"}
-                  cost={5000}
-                  costType={"inHour"}
+                  title={
+                    order.order.executor?.name
+                      ? order.order.executor?.name +
+                        " " +
+                        order.order.executor?.family
+                      : order.order.executor?.id
+                  }
+                  cost={
+                    order.responses.filter(
+                      (it) => it.executorId === order?.order?.executorId
+                    )[0]?.cost || 0
+                  }
+                  costType={
+                    order.responses.filter(
+                      (it) => it.executorId === order?.order?.executorId
+                    )[0]?.costType || ""
+                  }
                   text={
                     order.responses.filter(
                       (it) => it.executorId === order?.order?.executorId
                     )[0].comment
                   }
                   rating={order.order.executor.rating}
-                  isResponse={true}
+                  isResponse={order.order.status === "inCheck" ? false : true}
                   pick={false}
                 />
               </div>
@@ -142,11 +167,11 @@ const Deal = () => {
                   <User
                     orderId={orderId}
                     responseId={it.id}
-                    title={"Вася Пупкин"}
-                    cost={5000}
-                    costType={"inHour"}
+                    title={it?.name ? it?.name + " " + it?.family : it?.id}
+                    cost={it?.cost || 0}
+                    costType={it.costType || ""}
                     text={it.comment}
-                    rating={4.7}
+                    rating={it.rating || 0}
                     isResponse={true}
                     pick={true}
                   />
@@ -162,6 +187,12 @@ const Deal = () => {
               </button>
             )}
 
+        {checkMyCase() && order.order.status === "inCheck" && (
+          <button className="lightBtn btn" onClick={() => setIsShowDone(true)}>
+            ПОДТВЕРДИТЬ ВЫПОЛНЕНИЕ
+          </button>
+        )}
+
         {order.response && (
           <div className="box-responses">
             <p> Вы уже оставили отклик:</p>
@@ -170,21 +201,32 @@ const Deal = () => {
                 <User
                   orderId={orderId}
                   responseId={it.id}
-                  title={"Вася Пупкин"}
+                  title={it?.name ? it?.name + " " + it?.family : it?.id}
                   cost={5000}
                   costType={"inHour"}
                   text={it.comment}
-                  rating={4.7}
+                  rating={it?.rating || 0}
                   // isResponse={true}
                   pick={true}
                 />
               ))}
-            <button
-              className="lightBtn btn"
-              onClick={() => setIsShowResponseModal(true)}
-            >
-              Отозвать отклик
-            </button>
+            {!order.status ? (
+              <button
+                className="lightBtn btn"
+                onClick={() => setIsShowDeclineOrder(true)}
+              >
+                ОТОЗВАТЬ ОТКЛИК
+              </button>
+            ) : order.order.status !== "inCheck" ? (
+              <button
+                className="lightBtn btn"
+                onClick={() => setIsShowDone(true)}
+              >
+                ПОДТВЕРДИТЬ ВЫПОЛНЕНИЕ
+              </button>
+            ) : (
+              <p>Вы подтвердили, что выполнили заказ</p>
+            )}
           </div>
         )}
         <div className="item-response"></div>
@@ -200,24 +242,27 @@ const Deal = () => {
               ИЗМЕНИТЬ ЗАКАЗ
             </button>
 
-            <button
-              className="lightBtn btn"
-              onClick={() => {
-                if (order.order.status === "active") {
-                  archiveOrder({
-                    orderId: orderId,
-                  });
-                } else {
-                  activeOrder({
-                    orderId: orderId,
-                  });
-                }
-              }}
-            >
-              {order.order.status === "active"
-                ? "ЗААРХИВИРОВАТЬ ЗАКАЗ"
-                : "АКТИВИРОВАТЬ ЗАКАЗ"}
-            </button>
+            {(order.order.status === "active" ||
+              order.order.status === "archive") && (
+              <button
+                className="lightBtn btn"
+                onClick={() => {
+                  if (order.order.status === "active") {
+                    archiveOrder({
+                      orderId: orderId,
+                    });
+                  } else {
+                    activeOrder({
+                      orderId: orderId,
+                    });
+                  }
+                }}
+              >
+                {order.order.status === "active"
+                  ? "ЗААРХИВИРОВАТЬ ЗАКАЗ"
+                  : "АКТИВИРОВАТЬ ЗАКАЗ"}
+              </button>
+            )}
           </>
         ) : (
           <div className="info-of-customer">

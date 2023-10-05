@@ -60,6 +60,8 @@ export interface getOrderData {
       rating: number;
       tags: string[];
       userId: string;
+      name?: string;
+      family?: string;
     };
     specialization: {
       id: string;
@@ -103,4 +105,9 @@ export interface responseItem {
   orderId: string;
   executorId: string;
   comment: string;
+  cost?: number;
+  costType?: string;
+  name?: string;
+  family?: string;
+  rating?: number;
 }

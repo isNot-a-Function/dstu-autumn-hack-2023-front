@@ -13,7 +13,9 @@ const ScaleOnline = ({ rating, maxPlayers }: ScaleOnlineProps) => {
           className="activeScale"
           style={{ width: `${(rating / maxPlayers) * 100}%` }}
         >
-          <p className="labelScale">{"Рейтинг:    " + String(rating)}</p>
+          {rating !== 0 && (
+            <p className="labelScale">{"Рейтинг:    " + String(rating)}</p>
+          )}
         </div>
       </div>
     </div>

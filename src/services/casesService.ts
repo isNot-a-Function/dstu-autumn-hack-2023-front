@@ -140,5 +140,35 @@ export const casesApi = createApi({
       }),
       invalidatesTags: () => ["orders", "order"],
     }),
+    doneExecutor: build.mutation<
+      any,
+      {
+        orderId: string;
+        comment: string;
+        rating: number;
+      }
+    >({
+      query: (body) => ({
+        url: `/executor/done`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["orders", "order"],
+    }),
+    customerApprove: build.mutation<
+      any,
+      {
+        orderId: string;
+        comment: string;
+        rating: number;
+      }
+    >({
+      query: (body) => ({
+        url: `/customer/approve`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["orders", "order"],
+    }),
   }),
 });

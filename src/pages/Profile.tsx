@@ -46,6 +46,11 @@ const sortListCustomer = [
     value: "processed",
   },
   {
+    id: 5,
+    label: "НА ПРОВЕРКЕ",
+    value: "checked",
+  },
+  {
     id: 3,
     label: "ВЫПОЛНЕННЫЕ",
     value: "done",
@@ -148,6 +153,7 @@ const Profile = () => {
           <div className="box-list-cases">
             {orders?.orders.map((order: any) => (
               <Case
+                key={order.id}
                 id={order.id}
                 title={order.title}
                 createdAt={order.createdAt}
