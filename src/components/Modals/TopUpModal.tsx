@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "../../../assets/scss/components/modals/_top-up-modal.scss";
-import ruble from "../../../assets/img/Ruble.svg";
-import { useBodyScrollModal } from "../../../hooks/useBodyScrollModal";
-import Input from "../../UI/Input";
-import TopUpItem from "./TopUpItem";
-import svg from "../../../assets/img/SBP.svg";
-import ProgressBar from "../ProgressBar";
-import BottomSide from "./BottomSide";
-import { userApi } from "../../../store";
-import Modal from "../../UI/Modal";
+import "../../assets/scss/components/modals/_top-up-modal.scss";
+import ruble from "../../assets/img/Ruble.svg";
+import { useBodyScrollModal } from "../../hooks/useBodyScrollModal";
+import Input from "../UI/Input";
+import svg from "../../assets/img/SBP.svg";
+import { userApi } from "../../store";
+import Modal from "../UI/Modal";
 
 interface TopUpModalProps {
   setIsActive: (param: boolean) => void;

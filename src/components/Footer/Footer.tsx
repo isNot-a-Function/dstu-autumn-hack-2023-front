@@ -3,27 +3,17 @@ import { useNavigate } from "react-router-dom";
 import ScaleOnline from "./ScaleOnline";
 import { ReactComponent as OnlineIcon } from "../../assets/img/footer/onlineIcon.svg";
 import { useWindowSize } from "../../hooks/useWindowSize";
-import { rustApi } from "../../store";
 import { Link } from "react-router-dom";
-import { getSettingsData } from "../../types/customPageTypes";
+
 import Loader from "../Loader";
-import MonitoringModal from "./MonitoringModal";
 import LangSelect from "../LangSelect";
-import { useLang } from "../../hooks/useLang";
-import {
-  footerConditionsOfUse,
-  footerInformafionPosted,
-  footerPrivacyPolicy,
-  footerTermsOfUse,
-} from "../../consts/footer";
+
 import { notificationModalOpenServers } from "../../consts/modal";
 
 const Footer = () => {
   const navigate = useNavigate();
-  const { data: info, isLoading } = rustApi.useGetServersQuery();
   const [modalShow, setModalShow] = useState(false);
   const dimensions = useWindowSize();
-  if (isLoading) return <></>;
   return (
     <>
       {/* {info && modalShow && (

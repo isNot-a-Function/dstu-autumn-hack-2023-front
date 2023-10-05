@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Case from "../components/Main/Case";
 import Pagination from "../components/Pagination/Pagination";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
-import TopUpModal from "../components/Modals/TopUp/TopUpModal";
+import TopUpModal from "../components/Modals/TopUpModal";
 
 const sortList = [
   {

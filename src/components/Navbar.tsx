@@ -4,16 +4,10 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../assets/img/logotype-white.svg";
 import { ReactComponent as Plus } from "../assets/img/Plus.svg";
 import { ReactComponent as BurgerMenu } from "../assets/img/navbarIcons/burger_menu.svg";
-import MobileSidebar from "./MobileSidebar";
 import { useGetToken } from "../hooks/useGetToken";
-import { getUser } from "../utils/getUser";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { userApi } from "../store";
-import { getSettingsData } from "../types/customPageTypes";
-import TopUpModal from "./Modals/TopUp/TopUpModal";
-
-import { handleSteamLogin } from "../utils/handleSteamLogin";
-
+import TopUpModal from "./Modals/TopUpModal";
 const Navbar = () => {
   const token = useGetToken();
   // const user = getUser();

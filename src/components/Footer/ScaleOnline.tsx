@@ -1,4 +1,3 @@
-import Copy from "../Copy";
 import "../../assets/scss/components/_scale-online.scss";
 
 export interface ScaleOnlineProps {
