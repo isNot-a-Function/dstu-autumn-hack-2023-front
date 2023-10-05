@@ -94,7 +94,6 @@ const DoneModal = ({
                     orderId: String(orderId),
                     comment: description,
                     rating: Number(rating.value),
-                  })
                   });
               setIsActive(false);
             }}
