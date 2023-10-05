@@ -26,7 +26,20 @@ export const userApi = createApi({
     changeRole: build.mutation<any, void>({
       query: () => ({
         url: `/user/change`,
-        method: "GET",
+        method: "POST",
+      }),
+      invalidatesTags: () => ["user"],
+    }),
+    addBalance: build.mutation<
+      any,
+      {
+        sum: number;
+      }
+    >({
+      query: (body) => ({
+        url: `/balance/topup`,
+        method: "POST",
+        body: body,
       }),
       invalidatesTags: () => ["user"],
     }),

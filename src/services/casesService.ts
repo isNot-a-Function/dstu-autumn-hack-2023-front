@@ -65,6 +65,14 @@ export const casesApi = createApi({
       }),
       invalidatesTags: ["orders"],
     }),
+    updateOrder: build.mutation<any, any>({
+      query: (body) => ({
+        url: `/order/update`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: ["orders", "order"],
+    }),
     checkFile: build.mutation<{ files: string[] }, any>({
       query: (body) => ({
         url: `/file/upload`,
@@ -72,6 +80,44 @@ export const casesApi = createApi({
         body: body,
       }),
 
+      invalidatesTags: () => ["orders", "order"],
+    }),
+    getMyOrders: build.query<
+      { count: number; orders: getOrdersData[] },
+      { filter: string; page: number }
+    >({
+      query: ({ filter, page }) => ({
+        url: `/order/my?filter=${filter}&page=${page}`,
+        method: "GET",
+      }),
+      providesTags: () => ["orders"],
+    }),
+    pickExecutor: build.mutation<
+      any,
+      {
+        orderId: string;
+        responseId: string;
+      }
+    >({
+      query: (body) => ({
+        url: `customer/pick`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["orders", "order"],
+    }),
+    unpickExecutor: build.mutation<
+      any,
+      {
+        orderId: string;
+        responseId: string;
+      }
+    >({
+      query: (body) => ({
+        url: `/customer/unpick`,
+        method: "POST",
+        body: body,
+      }),
       invalidatesTags: () => ["orders", "order"],
     }),
   }),

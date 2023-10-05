@@ -10,6 +10,7 @@ import { getUser } from "../utils/getUser";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { userApi } from "../store";
 import { getSettingsData } from "../types/customPageTypes";
+import TopUpModal from "./Modals/TopUp/TopUpModal";
 
 import { handleSteamLogin } from "../utils/handleSteamLogin";
 
@@ -18,12 +19,22 @@ const Navbar = () => {
   // const user = getUser();
   // const [getBalance, { data: userBalace }] = userApi.useLazyGetBalanceQuery();
   const [activeNavbarItem, setActiveNavbarItem] = useState(0);
+  const userLocal =
+    localStorage.getItem("user") !== null
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("user"))
+      : undefined;
+
+  const [getUser, { data: user }] = userApi.useLazyGetUserQuery();
 
   const dimensions = useWindowSize();
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      // getBalance();
+    if (
+      localStorage.getItem("accessToken") !== undefined &&
+      localStorage.getItem("accessToken") !== null
+    ) {
+      getUser(userLocal?.id);
     }
   }, []);
 
@@ -107,12 +118,12 @@ const Navbar = () => {
               </div>
             )} */}
 
-            {/* {isActiveModal && <TopUpModal setIsActive={setIsActiveModal} />} */}
+            {isActiveModal && <TopUpModal setIsActive={setIsActiveModal} />}
 
             {token !== null ? (
               <div className="profile">
                 <div className="balanse" onClick={() => setIsActiveModal(true)}>
-                  {/* <span>{userBalace?.balance} ₽</span> */}
+                  <span>{user?.user.balance} ₽</span>
                   <Plus />
                 </div>
                 <Link

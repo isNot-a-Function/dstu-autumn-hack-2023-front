@@ -100,7 +100,8 @@
     cursor: pointer;
     display: flex;
     padding: 12px;
-    background-color: $contsct;
+    background-color: transparent;
+    border: 1px solid #f2f3ee;
     border-radius: 12px;
     @include displayFlexAIC;
     min-width: 115px;
@@ -119,7 +120,7 @@
     }
 
     &:hover {
-      background: linear-gradient(90deg, #4046eb 0%, #4046eb 100%);
+      background: #556481;
       background-position-x: 200px;
     }
   }

@@ -96,16 +96,20 @@ const Main = () => {
             />
           ))}
         </div>
-        <Pagination
-          currentPage={page}
-          setCurrentPage={setPage}
-          pagesAmount={orders?.count || 1}
-          perPage={15}
-        />
+        {orders?.orders?.length !== 0 ? (
+          <Pagination
+            currentPage={page}
+            setCurrentPage={setPage}
+            pagesAmount={orders?.count || 1}
+            perPage={15}
+          />
+        ) : (
+          <h1>Список пуст</h1>
+        )}
       </div>
       <div style={{ paddingRight: 12, top: 80 }}>
         <button className="lightBtn btn" onClick={() => setIsShowModal(true)}>
-          Создать заказ
+          СОЗДАТЬ ЗАКАЗ
         </button>
         <Menu
           setActiveSection={setActiveSection}

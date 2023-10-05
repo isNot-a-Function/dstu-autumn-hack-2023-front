@@ -10,13 +10,26 @@ import { casesApi } from "../../store";
 interface MonitoringModalProps {
   isActive: boolean;
   setIsActive: (param: boolean) => void;
+  isUpdate?: boolean;
+  info?: any;
+  children?: React.ReactNode;
+  orderId?: string;
 }
 
-const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
+const CreateCaseModal = ({
+  isActive,
+  setIsActive,
+  isUpdate = false,
+  info = null,
+  orderId,
+}: MonitoringModalProps) => {
   const [createCase, {}] = casesApi.useCreateOrderMutation();
+  const [updateCase, {}] = casesApi.useUpdateOrderMutation();
   const [checkFile, { data: link, isSuccess }] =
     casesApi.useCheckFileMutation();
-  const [linkFiles, setLinkFiles] = useState<any>([]);
+  const [linkFiles, setLinkFiles] = useState<any>(
+    info === null ? [] : info.files
+  );
   const { data: specializationsInServer, isLoading } =
     casesApi.useGetSpecializationsQuery();
 
@@ -45,12 +58,26 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
       : [];
   };
 
-  const [description, setDescription] = useState("");
-  const [fileList, setFileList] = useState<any>([]);
-  const [cost, setCost] = useState<string | null>("");
-  const [costType, setCostType] = useState(select_cost_type[0]);
+  const [description, setDescription] = useState(
+    info === null ? "" : info.description
+  );
+  const [fileList, setFileList] = useState<any>(
+    info === null ? [] : info.files
+  );
+  const [cost, setCost] = useState<string | null>(
+    info === null ? "" : info.cost
+  );
+  const [costType, setCostType] = useState(
+    info === null
+      ? select_cost_type[0]
+      : select_cost_type.filter((item) => item.value === info.costType)[0]
+  );
   const [specializations, setSpecializations] = useState(
-    select_specializations()[0]
+    info === null
+      ? select_specializations()[0]
+      : select_specializations().filter(
+          (item) => item.value === info.specialization.title
+        )[0]
   );
 
   const handleFileChange = async (e: any) => {
@@ -76,13 +103,16 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
     <Modal
       isActive={isActive}
       setIsActive={setIsActive}
-      headerTitle={"Cоздание заказа"}
+      headerTitle={!isUpdate ? "Cоздание заказа" : "Изменение заказа"}
       className="monitoringModal"
     >
       <>
         <div className="monitoringModalContainer">
           <Formik
-            initialValues={{ name: "", tags: "" }}
+            initialValues={{
+              name: info === null ? "" : info.title,
+              tags: info === null ? "" : info.tags.join(","),
+            }}
             validate={(values) => {
               const errors = {};
               if (!values.name) {
@@ -98,20 +128,30 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
                 errors.name =
                   "Для создания тегов используйте русские и латинские буквы, а также запятую";
               }
+              console.log("errors", errors);
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-              // body.append("files", fileList);
-              console.log("linkFiles", linkFiles);
-              createCase({
-                title: values.name,
-                description: description,
-                files: linkFiles,
-                tags: values.tags.split(",").map((it) => it.trim()),
-                costType: costType.value,
-                cost: Number(cost),
-                specialization: specializations.value,
-              });
+              !isUpdate
+                ? createCase({
+                    title: values.name,
+                    description: description,
+                    files: linkFiles,
+                    tags: values.tags.split(",").map((it: any) => it.trim()),
+                    costType: costType.value,
+                    cost: Number(cost),
+                    specialization: specializations.value,
+                  })
+                : updateCase({
+                    title: values.name,
+                    description: description,
+                    files: linkFiles,
+                    tags: values.tags.split(",").map((it: any) => it.trim()),
+                    costType: costType.value,
+                    cost: Number(cost),
+                    specialization: specializations.value,
+                    orderId: orderId,
+                  });
               setIsActive(false);
             }}
           >
@@ -129,114 +169,134 @@ const CreateCaseModal = ({ isActive, setIsActive }: MonitoringModalProps) => {
                 onSubmit={handleSubmit}
                 className="box-form-create-case-modal"
               >
-                <div>
-                  <p>НАЗВАНИЕ</p>
-                  <input
-                    type="string"
-                    name="name"
-                    className="input"
-                    onChange={handleChange}
-                    value={values.name}
-                  />
-                </div>
-
-                <div>
-                  <p>ОПИСАНИЕ</p>
-                  <textarea
-                    name={"description"}
-                    id="description"
-                    rows={4}
-                    className="textarea-description"
-                    onChange={(e) => setDescription(e.target.value)}
-                    value={description}
-                  ></textarea>
-                </div>
-
-                <div>
-                  <p>ФАЙЛЫ (до 4 шт)</p>
-                  <input
-                    type="file"
-                    name="files"
-                    className="input"
-                    onChange={handleFileChange}
-                  />
-                  <ul style={{ paddingTop: 12 }}>
-                    {fileList.map((file: any, i: any) => (
-                      <li key={i}>{file.name}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <p>CПЕЦИАЛИЗАЦИЯ</p>
-
-                  <CustomSelect
-                    value={specializations}
-                    options={select_specializations()}
-                    onChange={setSpecializations}
-                    isHaveIcon={false}
-                    width={"100%"}
-                    heightSelect={45}
-                    paddingIndicator={0}
-                    paddingContainer={12}
-                    backgroundColor={"#171226"}
-                    menuPlacement={"bottom"}
-                  />
-                </div>
-
-                <div>
-                  <p>ТЭГИ(введите через запятую)</p>
-                  <input
-                    type="string"
-                    name="tags"
-                    className="input"
-                    onChange={handleChange}
-                    value={values.tags}
-                  />
-                </div>
-
-                <div>
-                  <p>СТОИМОСТЬ</p>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 10,
-                    }}
-                  >
+                <>
+                  <div>
+                    <p>НАЗВАНИЕ</p>
                     <input
                       type="string"
-                      name="cost"
+                      name="name"
                       className="input"
-                      onChange={(v: any) => setCost(v.target.value)}
-                      style={{ width: "50%" }}
-                      disabled={costType.value === "contract"}
-                      value={cost === null ? "" : cost}
+                      onChange={handleChange}
+                      value={values.name}
                     />
+                  </div>
+
+                  <div>
+                    <p>ОПИСАНИЕ</p>
+                    <textarea
+                      name={"description"}
+                      id="description"
+                      rows={4}
+                      className="textarea-description"
+                      onChange={(e) => setDescription(e.target.value)}
+                      value={description}
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <p>ФАЙЛЫ (до 4 шт)</p>
+                    <input
+                      type="file"
+                      name="files"
+                      className="input"
+                      onChange={handleFileChange}
+                    />
+                    <ul style={{ paddingTop: 12 }}>
+                      {fileList.map((file: any, i: any) => (
+                        <li key={i}>
+                          {file.name === undefined ? file : file.name}{" "}
+                          <p
+                            onClick={() => {
+                              setFileList(
+                                fileList.filter(
+                                  (it: any, index: number) => index !== i
+                                )
+                              );
+                              setLinkFiles(
+                                linkFiles.filter(
+                                  (it: any, index: number) => index !== i
+                                )
+                              );
+                            }}
+                          >
+                            Удалить
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <p>CПЕЦИАЛИЗАЦИЯ</p>
+
                     <CustomSelect
-                      value={costType}
-                      options={select_cost_type}
-                      onChange={setCostType}
+                      value={specializations}
+                      options={select_specializations()}
+                      onChange={setSpecializations}
                       isHaveIcon={false}
-                      width={"50%"}
+                      width={"100%"}
                       heightSelect={45}
                       paddingIndicator={0}
                       paddingContainer={12}
                       backgroundColor={"#171226"}
-                      menuPlacement={"top"}
+                      menuPlacement={"bottom"}
                     />
                   </div>
-                </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="lightBtn btn"
-                >
-                  {"CОЗДАТЬ ЗАКАЗ"}
-                </button>
-                {errors.name && touched.name && errors.name}
+                  <div>
+                    <p>ТЭГИ(введите через запятую)</p>
+                    <input
+                      type="string"
+                      name="tags"
+                      className="input"
+                      onChange={handleChange}
+                      value={values.tags}
+                    />
+                  </div>
+
+                  <div>
+                    <p>СТОИМОСТЬ</p>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 10,
+                      }}
+                    >
+                      <input
+                        type="string"
+                        name="cost"
+                        className="input"
+                        onChange={(v: any) => setCost(v.target.value)}
+                        style={{ width: "50%" }}
+                        disabled={costType.value === "contract"}
+                        value={cost === null ? "" : cost}
+                      />
+                      <CustomSelect
+                        value={costType}
+                        options={select_cost_type}
+                        onChange={setCostType}
+                        isHaveIcon={false}
+                        width={"50%"}
+                        heightSelect={45}
+                        paddingIndicator={0}
+                        paddingContainer={12}
+                        backgroundColor={"#171226"}
+                        menuPlacement={"top"}
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    // disabled={isSubmitting}
+                    className="lightBtn btn"
+                  >
+                    {isUpdate ? "ИЗМЕНИТЬ ЗАКАЗ" : "CОЗДАТЬ ЗАКАЗ"}
+                  </button>
+                  {errors.name && touched.name && errors.name}
+                </>
               </form>
             )}
           </Formik>

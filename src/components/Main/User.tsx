@@ -6,6 +6,7 @@ import { ReactComponent as Money } from "../../assets/img/money.svg";
 import { useNavigate } from "react-router-dom";
 import { getHours } from "../../utils/getHours";
 import ScaleOnline from "../Footer/ScaleOnline";
+import { casesApi } from "../../store";
 
 interface CaseProps {
   id?: string;
@@ -17,6 +18,9 @@ interface CaseProps {
   text?: string;
   isShowPrice?: boolean;
   isResponse?: boolean;
+  orderId: string;
+  responseId: string;
+  pick?: boolean;
 }
 const User = ({
   title,
@@ -26,9 +30,13 @@ const User = ({
   rating,
   isShowPrice = false,
   isResponse = false,
+  orderId,
+  responseId,
+  pick = false,
 }: CaseProps) => {
   const navigate = useNavigate();
-
+  const [pickExecutor] = casesApi.usePickExecutorMutation();
+  const [unpickExecutor] = casesApi.useUnpickExecutorMutation();
   return (
     <div className="box-case">
       <div className="header-box-user">
@@ -56,7 +64,15 @@ const User = ({
       </div>
       {isResponse && (
         <div className="box-btn-in-user">
-          <button className="btn btnInUser">СДЕЛАТЬ ИСПОЛНИТЕЛЕМ</button>
+          <button
+            className="btn btnInUser"
+            onClick={() => {
+              const func = pick ? pickExecutor : unpickExecutor;
+              func({ orderId: orderId, responseId: responseId });
+            }}
+          >
+            {pick ? "СДЕЛАТЬ ИСПОЛНИТЕЛЕМ" : "УБРАТЬ ИСПОЛНИТЕЛЯ"}
+          </button>
         </div>
       )}
     </div>

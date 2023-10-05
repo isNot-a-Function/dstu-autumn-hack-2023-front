@@ -12,11 +12,13 @@ import Loader from "../components/Loader";
 import { getHours } from "../utils/getHours";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
 import User from "../components/Main/User";
+import CreateCaseModal from "../components/Main/CreateCaseModal";
 
 const Deal = () => {
   const orderId = window.location.pathname.replace("/order/", "");
   const { data: order, isLoading } = casesApi.useGetOrderQuery(orderId);
   const [isShowResponseModal, setIsShowResponseModal] = useState(false);
+  const [isShowUpdateModal, setIsShowUpdateModal] = useState(false);
   const [archiveOrder] = casesApi.useArchiveOrderMutation();
   const [activeOrder] = casesApi.useActiveOrderMutation();
 
@@ -44,13 +46,26 @@ const Deal = () => {
   const checkMyCase = () => {
     return order.user.id === user?.id;
   };
+  const checkHaveExecutor = () => {
+    return order?.order?.executorId === null ? false : true;
+  };
+
   return (
-    <div className="box-deal-page container">
+    <div className="container box-deal-page ">
       {isShowResponseModal && (
         <CreateResponseModal
           orderId={orderId}
           isActive={isShowResponseModal}
           setIsActive={setIsShowResponseModal}
+        />
+      )}
+      {isShowUpdateModal && (
+        <CreateCaseModal
+          isUpdate={true}
+          isActive={isShowUpdateModal}
+          setIsActive={setIsShowUpdateModal}
+          info={order.order}
+          orderId={orderId}
         />
       )}
       <div className="body-deal-page">
@@ -95,21 +110,49 @@ const Deal = () => {
         </div>
 
         {checkMyCase() ? (
-          order.responses.length > 0 && (
+          order.responses.length > 0 &&
+          (checkHaveExecutor() ? (
+            <div className="box-responses">
+              {" "}
+              <p> Исполнитель:</p>
+              <User
+                orderId={orderId}
+                responseId={
+                  order.responses.filter(
+                    (it) => it.executorId === order?.order?.executorId
+                  )[0].id
+                }
+                title={"Вася Пупкин"}
+                cost={5000}
+                costType={"inHour"}
+                text={
+                  order.responses.filter(
+                    (it) => it.executorId === order?.order?.executorId
+                  )[0].comment
+                }
+                rating={order.order.executor.rating}
+                isResponse={true}
+                pick={false}
+              />
+            </div>
+          ) : (
             <div className="box-responses">
               <p> Отклики:</p>
               {order.responses.map((it) => (
                 <User
+                  orderId={orderId}
+                  responseId={it.id}
                   title={"Вася Пупкин"}
                   cost={5000}
                   costType={"inHour"}
                   text={it.comment}
                   rating={4.7}
                   isResponse={true}
+                  pick={true}
                 />
               ))}
             </div>
-          )
+          ))
         ) : (
           <button
             className="lightBtn btn"
@@ -127,7 +170,7 @@ const Deal = () => {
           <>
             <button
               className="lightBtn btn"
-              onClick={() => setIsShowResponseModal(true)}
+              onClick={() => setIsShowUpdateModal(true)}
             >
               ИЗМЕНИТЬ ЗАКАЗ
             </button>

@@ -48,6 +48,18 @@ export interface getOrderData {
       userId: string;
       rating: number;
     };
+    executorId: null | string;
+    executor: {
+      classification: null | string;
+      cost: null | number;
+      costType: string;
+      description: null | string;
+      expirience: string;
+      id: string;
+      rating: number;
+      tags: string[];
+      userId: string;
+    };
     specialization: {
       id: string;
       title: string;

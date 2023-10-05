@@ -1,7 +1,5 @@
-import '../../assets/scss/components/modals/_confirmation.scss';
-import Modal from '../UI/Modal';
-import { useLang } from '../../hooks/useLang';
-import { confirmationModalNo, confirmationModalYes } from '../../consts/profile';
+import "../../assets/scss/components/modals/_confirmation.scss";
+import Modal from "../UI/Modal";
 
 interface ConfirmationModalProps {
   func: () => void;
@@ -9,7 +7,11 @@ interface ConfirmationModalProps {
   setIsActive: (param: boolean) => void;
 }
 
-const ConfirmationModal = ({ modalTitle, func, setIsActive }: ConfirmationModalProps) => {
+const ConfirmationModal = ({
+  modalTitle,
+  func,
+  setIsActive,
+}: ConfirmationModalProps) => {
   const confirmHandler = () => {
     func();
     setIsActive(false);
@@ -19,13 +21,23 @@ const ConfirmationModal = ({ modalTitle, func, setIsActive }: ConfirmationModalP
   };
 
   return (
-    <Modal headerTitle={modalTitle} setIsActive={setIsActive} className="confirmation">
+    <Modal
+      headerTitle={modalTitle}
+      setIsActive={setIsActive}
+      className="confirmation"
+    >
       <div className="content">
-        <button onClick={unconfirmHandler} className="btn lightBtn confirmationBtn mb">
-          {useLang(confirmationModalNo)}
+        <button
+          onClick={unconfirmHandler}
+          className="btn lightBtn confirmationBtn mb"
+        >
+          НЕТ
         </button>
-        <button onClick={confirmHandler} className="btn blackBtn confirmationBtn">
-          {useLang(confirmationModalYes)}
+        <button
+          onClick={confirmHandler}
+          className="btn blackBtn confirmationBtn"
+        >
+          ДА
         </button>
       </div>
     </Modal>
