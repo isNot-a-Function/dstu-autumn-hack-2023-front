@@ -1,0 +1,63 @@
+.box-login-page {
+  height: 100vh;
+  //   display: grid;
+  //   grid-template-columns: 0.4fr 0.6fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #384661;
+  h1 {
+    color: #384661;
+    margin-bottom: 40px;
+  }
+  justify-content: center;
+  .lightBtn {
+    width: 100%;
+    padding: 13px 12px;
+  }
+}
+.box-form-login {
+  color: #384661;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.box-formik-login {
+  width: 400px;
+}
+.box-sign-up {
+  width: 100%;
+  font-size: 14px;
+  display: flex;
+  align-items: start;
+  p {
+    color: #87501d;
+  }
+  cursor: pointer;
+}
+.box-symbols {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 40px;
+}
+.waviy {
+  position: relative;
+}
+.waviy span {
+  position: relative;
+  display: inline-block;
+  font-size: 150px;
+  color: #855022;
+  text-transform: uppercase;
+  animation: flip 2s infinite;
+  animation-delay: calc(0.2s * var(--i));
+}
+@keyframes flip {
+  0%,
+  80% {
+    transform: rotateY(360deg);
+  }
+}
