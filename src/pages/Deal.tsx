@@ -77,7 +77,7 @@ const Deal = () => {
           isActive={isShowDone}
           isExecutor={!checkMyCase()}
           orderId={orderId}
-          isHaveCost={order.order.costType !== "contract"}
+          isHaveCost={order?.order?.costType === "contract"}
         />
       )}
       <div className="body-deal-page">
@@ -135,10 +135,10 @@ const Deal = () => {
                     )[0]?.id
                   }
                   title={
-                    order.order.executor?.name
-                      ? order.order.executor?.name +
+                    order.order.executor?.user?.name
+                      ? order.order.executor?.user?.name +
                         " " +
-                        order.order.executor?.family
+                        order.order.executor?.user?.family
                       : order.order.executor?.id
                   }
                   cost={
@@ -164,21 +164,22 @@ const Deal = () => {
             ) : (
               <div className="box-responses">
                 <p> Отклики:</p>
+
                 {order.responses.map((it) => (
                   <User
                     orderId={orderId}
-                    responseId={it.id}
+                    responseId={it?.id}
                     title={
-                      it?.executor.user.name
-                        ? it?.executor.user.name +
+                      it?.executor?.user?.name
+                        ? it?.executor?.user?.name +
                           " " +
-                          it?.executor.user.family
+                          it?.executor?.user?.family
                         : it?.executorId
                     }
                     cost={it?.cost || 0}
-                    costType={it.costType || ""}
-                    text={it.comment}
-                    rating={it.rating || 0}
+                    costType={it?.costType || ""}
+                    text={it?.comment}
+                    rating={it?.executor?.rating || 0}
                     isResponse={true}
                     pick={true}
                   />
@@ -209,8 +210,10 @@ const Deal = () => {
                   orderId={orderId}
                   responseId={it.id}
                   title={
-                    it?.executor.user.name
-                      ? it?.executor.user.name + " " + it?.executor.user.family
+                    it?.executor?.user?.name
+                      ? it?.executor?.user?.name +
+                        " " +
+                        it?.executor?.user?.family
                       : it?.executorId
                   }
                   cost={5000}
@@ -279,21 +282,21 @@ const Deal = () => {
           <div className="info-of-customer">
             <p> ЗАКАЗЧИК</p>
             <div className="box-avatar-in-deal">
-              {!order.user.logo ? (
+              {!order?.user?.logo ? (
                 <Avatar />
               ) : (
                 <img src={order.user.logo} className="avatar-customer" />
               )}
               <p>
-                {order.order.customer?.family
-                  ? order.user.family + " " + order.user.name
-                  : order.user.id}
+                {order?.order?.customer?.family
+                  ? order?.user?.family + " " + order?.user?.name
+                  : order?.user?.id}
               </p>
             </div>
             {order?.order.customer.rating == null && (
               <div className="box-rating">
                 <ScaleOnline
-                  rating={order?.order.customer.rating}
+                  rating={order?.order?.customer?.rating}
                   maxPlayers={5}
                 />
               </div>

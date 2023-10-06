@@ -62,8 +62,11 @@ export interface getOrderData {
       rating: number;
       tags: string[];
       userId: string;
-      name?: string;
-      family?: string;
+
+      user: {
+        name?: string;
+        family?: string;
+      };
     };
     specialization: {
       id: string;
