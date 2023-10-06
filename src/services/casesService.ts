@@ -161,6 +161,7 @@ export const casesApi = createApi({
         orderId: string;
         comment: string;
         rating: number;
+        cost: number | null;
       }
     >({
       query: (body) => ({

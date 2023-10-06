@@ -14,6 +14,7 @@ interface MonitoringModalProps {
   info?: any;
   children?: React.ReactNode;
   orderId?: string;
+  isHaveCost?: boolean;
 }
 
 const DoneModal = ({
@@ -22,6 +23,7 @@ const DoneModal = ({
   isExecutor = true,
   info = null,
   orderId,
+  isHaveCost = true,
 }: MonitoringModalProps) => {
   const [done] = casesApi.useDoneExecutorMutation();
   const [approve] = casesApi.useCustomerApproveMutation();
@@ -68,7 +70,7 @@ const DoneModal = ({
       <>
         <div className="monitoringModalContainer">
           <Formik
-            initialValues={{}}
+            initialValues={{ cost: 0 }}
             // validate={(values) => {
             //   const errors = {};
             //   if (!values.name) {
@@ -94,6 +96,7 @@ const DoneModal = ({
                     orderId: String(orderId),
                     comment: description,
                     rating: Number(rating.value),
+                    cost: isHaveCost ? null : Number(values.cost),
                   });
               setIsActive(false);
             }}
@@ -141,6 +144,19 @@ const DoneModal = ({
                       menuPlacement={"bottom"}
                     />
                   </div>
+
+                  {!isHaveCost && !isExecutor && (
+                    <div>
+                      <p>СТОИМОСТЬ ЗАКАЗА</p>
+                      <input
+                        type="string"
+                        name="cost"
+                        className="input"
+                        onChange={handleChange}
+                        value={values.cost}
+                      />
+                    </div>
+                  )}
 
                   <button
                     type="submit"

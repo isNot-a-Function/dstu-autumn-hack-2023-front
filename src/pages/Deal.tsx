@@ -77,6 +77,7 @@ const Deal = () => {
           isActive={isShowDone}
           isExecutor={!checkMyCase()}
           orderId={orderId}
+          isHaveCost={order.order.costType !== "contract"}
         />
       )}
       <div className="body-deal-page">
@@ -131,7 +132,7 @@ const Deal = () => {
                   responseId={
                     order.responses.filter(
                       (it) => it.executorId === order?.order?.executorId
-                    )[0].id
+                    )[0]?.id
                   }
                   title={
                     order.order.executor?.name
@@ -153,7 +154,7 @@ const Deal = () => {
                   text={
                     order.responses.filter(
                       (it) => it.executorId === order?.order?.executorId
-                    )[0].comment
+                    )[0]?.comment
                   }
                   rating={order.order.executor.rating}
                   isResponse={order.order.status === "inCheck" ? false : true}

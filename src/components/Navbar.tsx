@@ -41,11 +41,11 @@ const Navbar = () => {
       name: "ЗАКАЗЫ",
       url: "/store",
     },
-    {
-      id: 2,
-      name: "УСЛУГИ",
-      url: "/balance",
-    },
+    // {
+    //   id: 2,
+    //   name: "УСЛУГИ",
+    //   url: "/balance",
+    // },
   ];
 
   return (
