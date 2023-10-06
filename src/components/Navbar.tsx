@@ -7,6 +7,7 @@ import { ReactComponent as BurgerMenu } from "../assets/img/navbarIcons/burger_m
 import { useGetToken } from "../hooks/useGetToken";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { userApi } from "../store";
+import avatar from "../assets/img/default-avatar.svg";
 import TopUpModal from "./Modals/TopUpModal";
 const Navbar = () => {
   const token = useGetToken();
@@ -61,21 +62,6 @@ const Navbar = () => {
             >
               <p>DELO</p>
             </Link>
-            {dimensions.width <= 1000 && (
-              <>
-                <BurgerMenu
-                  onClick={() => setIsActiveBurger(true)}
-                  className="burgerMenuIcon"
-                />
-                {/* { (
-                  <MobileSidebar
-                    isActiveBurger={isActiveBurger}
-                    setIsActiveBurger={setIsActiveBurger}
-                    // data={navbar}
-                  />
-                )} */}
-              </>
-            )}
 
             <nav className="navbar">
               {sections.map((item, index) => (
@@ -125,7 +111,12 @@ const Navbar = () => {
                   className="profile__icon"
                   onClick={() => setActiveNavbarItem(0)}
                 >
-                  <img alt="" className="avatar-in-navbar" />
+                  <img
+                    alt=""
+                    src={user?.user.logo !== null ? user?.user.logo : avatar}
+                    className="avatar-in-navbar"
+                  />
+
                   {/* <div className="lvlIconBlock">
                     <div className="lvlIcon">
                       <LvlIcon />

@@ -168,7 +168,13 @@ const Deal = () => {
                   <User
                     orderId={orderId}
                     responseId={it.id}
-                    title={it?.name ? it?.name + " " + it?.family : it?.id}
+                    title={
+                      it?.executor.user.name
+                        ? it?.executor.user.name +
+                          " " +
+                          it?.executor.user.family
+                        : it?.executorId
+                    }
                     cost={it?.cost || 0}
                     costType={it.costType || ""}
                     text={it.comment}
@@ -202,7 +208,11 @@ const Deal = () => {
                 <User
                   orderId={orderId}
                   responseId={it.id}
-                  title={it?.name ? it?.name + " " + it?.family : it?.id}
+                  title={
+                    it?.executor.user.name
+                      ? it?.executor.user.name + " " + it?.executor.user.family
+                      : it?.executorId
+                  }
                   cost={5000}
                   costType={"inHour"}
                   text={it.comment}
@@ -275,7 +285,7 @@ const Deal = () => {
                 <img src={order.user.logo} className="avatar-customer" />
               )}
               <p>
-                {order.user.family
+                {order.order.customer?.family
                   ? order.user.family + " " + order.user.name
                   : order.user.id}
               </p>
