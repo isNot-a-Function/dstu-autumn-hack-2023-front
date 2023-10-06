@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Case from "../components/Main/Case";
 import Pagination from "../components/Pagination/Pagination";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
+import UpdateProfileModal from "../components/Main/UpdateProfile";
 
 const sortListEx = [
   {
@@ -85,6 +86,7 @@ const Profile = () => {
   const [changeRole] = userApi.useChangeRoleMutation();
   const [page, setPage] = useState(1);
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
+  const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
 
   const { data: orders } = casesApi.useGetMyOrdersQuery({
     filter: sortValue,
@@ -123,6 +125,14 @@ const Profile = () => {
           func={logOut}
         />
       )}
+
+      {isShowUpdateUserModal && (
+        <UpdateProfileModal
+          isActive={isShowConfirmationModal}
+          setIsActive={setIsShowUpdateUserModal}
+        />
+      )}
+
       <div className="body-deal-page">
         <div className="content-deal-page " style={{ border: "none" }}>
           <div className="box-list-sort">
@@ -237,6 +247,15 @@ const Profile = () => {
         <button
           className="lightBtn btn"
           onClick={() => {
+            setIsShowUpdateUserModal(true);
+          }}
+        >
+          ИЗМЕНИТЬ ПРОФИЛЬ
+        </button>
+
+        <button
+          className="lightBtn btn"
+          onClick={() => {
             changeRole().then((data: any) => {
               const token = data?.data.token;
               if (token != undefined) {
@@ -248,12 +267,12 @@ const Profile = () => {
           ПЕРЕЙТИ В ЛИЧНЫЙ КАБИНЕТ{" "}
           {user?.user.role === "customer" ? "ИСПОЛНИТЕЛЯ" : "ЗАКАЗЧИКА"}
         </button>
-        {user?.user.role !== "customer" && (
+        {/* {user?.user.role !== "customer" && (
           <div className="info-of-customer">
             <p>СПЕЦИАЛИЗАЦИЯ</p>
             <p>МОБИЛЬНОЕ ПРИЛОЖЕНИЕ</p>
           </div>
-        )}
+        )} */}
         <button
           className="bezBtn btn"
           onClick={() => {

@@ -63,5 +63,13 @@ export const userApi = createApi({
       }),
       providesTags: () => ["user"],
     }),
+    updateUser: build.mutation<any, { name: string; family: string }>({
+      query: (body) => ({
+        url: `/user/update`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["user"],
+    }),
   }),
 });

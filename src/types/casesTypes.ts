@@ -48,6 +48,8 @@ export interface getOrderData {
       id: string;
       userId: string;
       rating: number;
+      family: string | null;
+      name: string | null;
     };
     executorId: null | string;
     executor: {
@@ -110,4 +112,20 @@ export interface responseItem {
   name?: string;
   family?: string;
   rating?: number;
+  executor: {
+    id: string;
+    userId: string;
+    rating: number;
+    ratingCount: number;
+    description: null | String;
+    classification: null | string;
+    tags: string[];
+    expirience: string;
+    costType: string;
+    cost: string;
+    user: {
+      family: string | null;
+      name: string | null;
+    };
+  };
 }
