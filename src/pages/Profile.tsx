@@ -13,7 +13,7 @@ import CreateResponseModal from "../components/Main/CreateResponseModal";
 import User from "../components/Main/User";
 import { userApi, casesApi } from "../store";
 import { useNavigate } from "react-router-dom";
-import Case from "../components/Main/Case";
+import Case from "../components/Main/TrainCard";
 import Pagination from "../components/Pagination/Pagination";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import UpdateProfileModal from "../components/Main/UpdateProfile";
@@ -161,7 +161,7 @@ const Profile = () => {
         </div>
         <div>
           <div className="box-list-cases">
-            {orders?.orders.map((order: any) => (
+            {/* {orders?.orders.map((order: any) => (
               <Case
                 key={order.id}
                 id={order.id}
@@ -173,7 +173,7 @@ const Profile = () => {
                 responsesCount={order.responsesCount}
                 tags={order.tags}
               />
-            ))}
+            ))} */}
           </div>
           {orders?.orders?.length !== 0 ? (
             <Pagination
