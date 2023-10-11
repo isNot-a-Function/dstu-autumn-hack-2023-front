@@ -52,7 +52,13 @@ const Login = () => {
       <div className="box-formik-login">
         <h1>{isLogIn ? "ВОЙТИ" : "ЗАРЕГИСТРИРОВАТЬСЯ"}</h1>
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{
+            email: "",
+            password: "",
+            phone: "",
+            family: "",
+            name: "",
+          }}
           validate={(values) => {
             const errors = {};
             if (!values.email || !values.password) {
@@ -79,6 +85,9 @@ const Login = () => {
               : signUp({
                   email: values.email,
                   password: values.password,
+                  firstname: values.name,
+                  lastname: values.family,
+                  phone: values.phone,
                 });
           }}
         >
@@ -124,37 +133,37 @@ const Login = () => {
                   <div className="item-form-login">
                     <p>Номер телефона</p>
                     <input
-                      type="password"
-                      name="password"
+                      type="phone"
+                      name="phone"
                       className="input"
                       placeholder="+79181175755"
                       onChange={handleChange}
                       // onBlur={handleBlur}
-                      value={values.password}
+                      value={values.phone}
                     />
                   </div>
                   <div className="item-form-login">
                     <p>Фамилия</p>
                     <input
-                      type="password"
-                      name="password"
+                      type="family"
+                      name="family"
                       className="input"
                       placeholder="Иванов"
                       onChange={handleChange}
                       // onBlur={handleBlur}
-                      value={values.password}
+                      value={values.family}
                     />
                   </div>
                   <div className="item-form-login">
                     <p>Имя</p>
                     <input
-                      type="password"
-                      name="password"
+                      type="name"
+                      name="name"
                       className="input"
                       placeholder="Иван"
                       onChange={handleChange}
                       // onBlur={handleBlur}
-                      value={values.password}
+                      value={values.name}
                     />
                   </div>
                 </>

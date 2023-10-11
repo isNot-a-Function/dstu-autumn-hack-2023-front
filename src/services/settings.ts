@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const mutex = new Mutex();
 const baseQueryDefault = fetchBaseQuery({
   baseUrl: "https://nikko-develop.space/api/",
-  credentials: "include",
+  // credentials: "include",
   prepareHeaders: async (headers) => {
     const token = localStorage.getItem("accessToken");
     const lang = localStorage.getItem("lang")?.toLowerCase();

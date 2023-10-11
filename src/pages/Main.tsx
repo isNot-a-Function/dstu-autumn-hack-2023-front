@@ -56,36 +56,7 @@ const Main = () => {
 
   return (
     <div className="box-main-page container">
-      {isShowModal && (
-        <CreateCaseModal isActive={isShowModal} setIsActive={setIsShowModal} />
-      )}
       <div>
-        <SearchInput
-          placeholder="Найти заказ"
-          value={value}
-          setValue={setValue}
-        />
-        {/* <div className="box-list-sort">
-          {sortList.map((sort: any, index: number) => {
-            return (
-              <button
-                className={`${
-                  sortValue === sort.value ? "box-active-item-sort" : ""
-                } box-item-sort`}
-                onClick={() => handlerClickSort(sort.value)}
-                key={index}
-              >
-                <p>{sort.label}</p>
-                {sortValue === sort.value && (
-                  <p className="arrow-symbol">
-                    {directionSort === "asc" ? "↑" : "↓"}
-                  </p>
-                )}
-              </button>
-            );
-          })}
-          {sortValue !== null && <Trash onClick={() => setSortValue(null)} />}
-        </div> */}
         <div className="box-list-cases">
           {orders?.orders.map((order: any) => (
             <Case
@@ -100,16 +71,6 @@ const Main = () => {
             />
           ))}
         </div>
-        {orders?.orders?.length !== 0 ? (
-          <Pagination
-            currentPage={page}
-            setCurrentPage={setPage}
-            pagesAmount={orders?.count || 1}
-            perPage={15}
-          />
-        ) : (
-          <h1>Список пуст</h1>
-        )}
       </div>
       <div style={{ paddingRight: 12, top: 80 }}>
         <button className="lightBtn btn" onClick={() => setIsShowModal(true)}>

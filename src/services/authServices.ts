@@ -15,7 +15,7 @@ export const authApi = createApi({
       query: (body: ISignUpUser) => ({
         url: `/auth/signup`,
         method: "POST",
-        credentials: "include",
+        // credentials: "include",
         body: body,
       }),
     }),
@@ -23,7 +23,7 @@ export const authApi = createApi({
       query: (body: ISignUpUser) => ({
         url: `/auth/signin`,
         method: "POST",
-        credentials: "include",
+        // credentials: "include",
         body: body,
       }),
     }),
