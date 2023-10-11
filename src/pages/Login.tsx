@@ -8,6 +8,8 @@ import { Formik } from "formik";
 import "../assets/scss/pages/_login.scss";
 import { sign } from "crypto";
 import "../assets/scss/components/UI/_input.scss";
+import Train from "../components/Train";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 const Login = () => {
   const [signUp, { data: dataSignUp, error: errorSignUp }] =
@@ -17,6 +19,7 @@ const Login = () => {
   const [isLogIn, setIsLogIng] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+  const dimensions = useWindowSize();
 
   useEffect(() => {
     if (errorLogIn) {
@@ -39,12 +42,13 @@ const Login = () => {
 
   return (
     <div className="box-login-page">
-      <div className="box-symbols waviy">
+      {/* <div className="box-symbols waviy">
         <span style={{ "--i": 1 } as React.CSSProperties}>D</span>
         <span style={{ "--i": 2 } as React.CSSProperties}>E</span>
         <span style={{ "--i": 3 } as React.CSSProperties}>L</span>
         <span style={{ "--i": 4 } as React.CSSProperties}>O</span>
-      </div>
+      </div> */}
+      {dimensions.width > 800 && isLogIn && <Train />}
       <div className="box-formik-login">
         <h1>{isLogIn ? "ВОЙТИ" : "ЗАРЕГИСТРИРОВАТЬСЯ"}</h1>
         <Formik
@@ -89,25 +93,73 @@ const Login = () => {
             /* and other goodies */
           }) => (
             <form onSubmit={handleSubmit} className="box-form-login">
-              <input
-                type="string"
-                name="email"
-                className="input"
-                onChange={handleChange}
-                placeholder="Email"
-                // onBlur={handleBlur}
-                value={values.email}
-              />
+              <div className="item-form-login">
+                <p>Email</p>
+                <input
+                  type="string"
+                  name="email"
+                  className="input"
+                  onChange={handleChange}
+                  placeholder="puti@mail.ru"
+                  // onBlur={handleBlur}
+                  value={values.email}
+                />
+              </div>
 
-              <input
-                type="password"
-                name="password"
-                className="input"
-                placeholder="Пароль"
-                onChange={handleChange}
-                // onBlur={handleBlur}
-                value={values.password}
-              />
+              <div className="item-form-login">
+                <p>Пароль</p>
+                <input
+                  type="password"
+                  name="password"
+                  className="input"
+                  placeholder="123456"
+                  onChange={handleChange}
+                  // onBlur={handleBlur}
+                  value={values.password}
+                />
+              </div>
+
+              {!isLogIn && (
+                <>
+                  <div className="item-form-login">
+                    <p>Номер телефона</p>
+                    <input
+                      type="password"
+                      name="password"
+                      className="input"
+                      placeholder="+79181175755"
+                      onChange={handleChange}
+                      // onBlur={handleBlur}
+                      value={values.password}
+                    />
+                  </div>
+                  <div className="item-form-login">
+                    <p>Фамилия</p>
+                    <input
+                      type="password"
+                      name="password"
+                      className="input"
+                      placeholder="Иванов"
+                      onChange={handleChange}
+                      // onBlur={handleBlur}
+                      value={values.password}
+                    />
+                  </div>
+                  <div className="item-form-login">
+                    <p>Имя</p>
+                    <input
+                      type="password"
+                      name="password"
+                      className="input"
+                      placeholder="Иван"
+                      onChange={handleChange}
+                      // onBlur={handleBlur}
+                      value={values.password}
+                    />
+                  </div>
+                </>
+              )}
+
               <div
                 className="box-sign-up"
                 onClick={() => setIsLogIng(!isLogIn)}
