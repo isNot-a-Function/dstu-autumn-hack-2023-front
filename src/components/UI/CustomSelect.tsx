@@ -53,7 +53,7 @@ const CustomSelect = ({
   value = options[0],
   isHaveIcon = false,
   width = "100%",
-  paddingIndicator = 8,
+  paddingIndicator = 20,
   paddingContainer = 8,
   backgroundColor = "white",
   menuPlacement = "bottom",
@@ -64,7 +64,7 @@ const CustomSelect = ({
       width: width,
       maxWidth: "200px",
       cursor: "pointer",
-      border: "1px solid #011111",
+      border: "2px solid #ff0000",
       borderRadius: "8px",
     }),
     option: (defaultStyles: any, state: any) => ({
@@ -81,8 +81,12 @@ const CustomSelect = ({
     }),
     indicators: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
-      padding: 0,
+      padding: 12,
       cursor: "pointer",
+    }),
+    indicatorsContainer: (defaultStyles: any, state: any) => ({
+      ...defaultStyles,
+      paddingRight: 12,
     }),
     control: (defaultStyles: any) => ({
       ...defaultStyles,
