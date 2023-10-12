@@ -47,8 +47,8 @@ const Main = () => {
   const [value, setValue] = useState("");
 
   const { data: flights } = flightApi.useGetFlightsQuery({
-    place1: selectCity1.value,
-    place2: selectCity2.value,
+    place1: selectCity2.value,
+    place2: selectCity1.value,
     date: dateValue.toLocaleDateString(),
   });
 
@@ -136,8 +136,8 @@ const Main = () => {
         </div>
 
         <div className="box-list-cases">
-          {[1, 2, 3].map((item) => (
-            <TrainCard />
+          {flights?.flights.map((item) => (
+            <TrainCard data={item} key={item.train.name} />
           ))}
         </div>
       </div>

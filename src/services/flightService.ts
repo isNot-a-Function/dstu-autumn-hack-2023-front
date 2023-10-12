@@ -7,6 +7,7 @@ import {
   createResponseProps,
   archiveOrder,
 } from "../types/casesTypes";
+import { flightsData } from "../types/flightTypes";
 
 export const flightApi = createApi({
   reducerPath: "casesApi",
@@ -14,7 +15,7 @@ export const flightApi = createApi({
   tagTypes: ["orders", "order"],
   endpoints: (build) => ({
     getFlights: build.query<
-      any,
+      flightsData,
       { place1: string; place2: string; date: string }
     >({
       query: ({ place1, place2, date }) => ({

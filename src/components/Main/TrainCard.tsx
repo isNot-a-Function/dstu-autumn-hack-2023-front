@@ -5,17 +5,38 @@ import { ReactComponent as Time } from "../../assets/img/time.svg";
 import { ReactComponent as Money } from "../../assets/img/money.svg";
 import { useNavigate } from "react-router-dom";
 import { getHours } from "../../utils/getHours";
+import { flightsDataItem } from "../../types/flightTypes";
 
-interface CaseProps {}
-const TrainCard = ({}: CaseProps) => {
+interface CaseProps {
+  data: flightsDataItem;
+}
+const TrainCard = ({ data }: CaseProps) => {
   const navigate = useNavigate();
 
-  const tags = ["Плацкарт | 20 ", "Купе | 120", "СВ | 20", "Люкс | 1"];
+  const getTags = () => {
+    let tags = [];
+    if (data.freePlacesCount.reserved !== 0) {
+      tags.push(`Плацкарт | ${data.freePlacesCount.reserved} `);
+    }
+    if (data.freePlacesCount.coupe !== 0) {
+      tags.push(`Купе | ${data.freePlacesCount.coupe}`);
+    }
+    if (data.freePlacesCount.sv !== 0) {
+      tags.push(`СВ | ${data.freePlacesCount.sv}`);
+    }
+    if (data.freePlacesCount.lux !== 0) {
+      tags.push(`Люкс | ${data.freePlacesCount.lux}`);
+    }
+    if (data.freePlacesCount.sitting !== 0) {
+      tags.push(`Сидячие | ${data.freePlacesCount.sitting}`);
+    }
+    return tags;
+  };
 
   return (
     <div className="box-case" onClick={() => navigate(`/store`)}>
       <div className="header-box-case">
-        <span>047M ПОЕЗД ТАВРИЯ</span>
+        <span>{data.train.name}</span>
         <div className="box-price">
           <Money />
           <p>от 500 р</p>
@@ -24,9 +45,9 @@ const TrainCard = ({}: CaseProps) => {
       <div className="body-train-card">
         <div className="box-places">
           <div className="place-item">
-            <h1>10:41</h1>
-            <p>17.10.2023</p>
-            <p>Ростов-на-Дону</p>
+            <h1>07:00</h1>
+            <p>{data.departureDate}</p>
+            <p>{data.departurePoint}</p>
           </div>
           <div className="place-item">
             <h1>-</h1>
@@ -34,14 +55,22 @@ const TrainCard = ({}: CaseProps) => {
           <div className="place-item">
             <h1>10:41</h1>
             <p>17.10.2023</p>
-            <p>Ростов-на-Дону</p>
+            <p>{data.arrivalPoint}</p>
           </div>
+        </div>
+        <div className="box-free-place">
+          <p>В пути:</p>
+          <p>
+            {Math.floor(data.travelTime / 60)} ч{" "}
+            {data.travelTime - Math.floor(data.travelTime / 60) !== 0 &&
+              data.travelTime - Math.floor(data.travelTime / 60) * 60 + "м"}
+          </p>
         </div>
 
         <div className="box-free-place">
           <p>Cвободные места</p>
           <div className="box-list-tags">
-            {tags.map((tag) => (
+            {getTags().map((tag) => (
               <p className="box-tags" key={tag}>
                 {tag}
               </p>
