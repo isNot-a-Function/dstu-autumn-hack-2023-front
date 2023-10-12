@@ -1,4 +1,4 @@
 export * from "./store";
 export * from "../services/authServices";
 export * from "../services/userServices";
-export * from "../services/casesService";
+export * from "../services/flightService";

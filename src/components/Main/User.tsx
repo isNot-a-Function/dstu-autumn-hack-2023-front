@@ -6,7 +6,7 @@ import { ReactComponent as Money } from "../../assets/img/money.svg";
 import { useNavigate } from "react-router-dom";
 import { getHours } from "../../utils/getHours";
 import ScaleOnline from "../Footer/ScaleOnline";
-import { casesApi } from "../../store";
+import { flightApi } from "../../store";
 
 interface CaseProps {
   id?: string;
@@ -35,8 +35,8 @@ const User = ({
   pick = false,
 }: CaseProps) => {
   const navigate = useNavigate();
-  const [pickExecutor] = casesApi.usePickExecutorMutation();
-  const [unpickExecutor] = casesApi.useUnpickExecutorMutation();
+  const [pickExecutor] = flightApi.usePickExecutorMutation();
+  const [unpickExecutor] = flightApi.useUnpickExecutorMutation();
   return (
     <div className="box-case">
       <div className="header-box-user">

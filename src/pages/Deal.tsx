@@ -7,7 +7,7 @@ import { ReactComponent as Speech } from "../assets/img/speech.svg";
 import { ReactComponent as Time } from "../assets/img/time.svg";
 import { ReactComponent as Money } from "../assets/img/money.svg";
 import { ReactComponent as Avatar } from "../assets/img/default-avatar.svg";
-import { casesApi } from "../store";
+import { flightApi } from "../store";
 import Loader from "../components/Loader";
 import { getHours } from "../utils/getHours";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
@@ -18,14 +18,14 @@ import DoneModal from "../components/Modals/DoneModal";
 
 const Deal = () => {
   const orderId = window.location.pathname.replace("/order/", "");
-  const { data: order, isLoading } = casesApi.useGetOrderQuery(orderId);
+  const { data: order, isLoading } = flightApi.useGetOrderQuery(orderId);
   const [isShowResponseModal, setIsShowResponseModal] = useState(false);
   const [isShowUpdateModal, setIsShowUpdateModal] = useState(false);
   const [isShowDeclineOrder, setIsShowDeclineOrder] = useState(false);
   const [isShowDone, setIsShowDone] = useState(false);
-  const [archiveOrder] = casesApi.useArchiveOrderMutation();
-  const [activeOrder] = casesApi.useActiveOrderMutation();
-  const [declineOrder] = casesApi.useDeclineOrderMutation();
+  const [archiveOrder] = flightApi.useArchiveOrderMutation();
+  const [activeOrder] = flightApi.useActiveOrderMutation();
+  const [declineOrder] = flightApi.useDeclineOrderMutation();
 
   const declineOrderHandler = () => {
     declineOrder({ orderId: orderId });

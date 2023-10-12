@@ -5,7 +5,7 @@ import { Formik, Field, useFormik, FormikProvider } from "formik";
 
 import CustomSelect from "../UI/CustomSelect";
 import Loader from "../Loader";
-import { casesApi } from "../../store";
+import { flightApi } from "../../store";
 
 interface MonitoringModalProps {
   isActive: boolean;
@@ -23,15 +23,15 @@ const CreateCaseModal = ({
   info = null,
   orderId,
 }: MonitoringModalProps) => {
-  const [createCase, {}] = casesApi.useCreateOrderMutation();
-  const [updateCase, {}] = casesApi.useUpdateOrderMutation();
+  const [createCase, {}] = flightApi.useCreateOrderMutation();
+  const [updateCase, {}] = flightApi.useUpdateOrderMutation();
   const [checkFile, { data: link, isSuccess }] =
-    casesApi.useCheckFileMutation();
+    flightApi.useCheckFileMutation();
   const [linkFiles, setLinkFiles] = useState<any>(
     info === null ? [] : info.files
   );
   const { data: specializationsInServer, isLoading } =
-    casesApi.useGetSpecializationsQuery();
+    flightApi.useGetSpecializationsQuery();
 
   const select_cost_type = [
     {

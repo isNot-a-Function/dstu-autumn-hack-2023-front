@@ -11,7 +11,7 @@ import Loader from "../components/Loader";
 import { getHours } from "../utils/getHours";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
 import User from "../components/Main/User";
-import { userApi, casesApi } from "../store";
+import { userApi } from "../store";
 import { useNavigate } from "react-router-dom";
 import Case from "../components/Main/TrainCard";
 import Pagination from "../components/Pagination/Pagination";
@@ -79,7 +79,7 @@ const Profile = () => {
 
   const { data: user } = userApi.useGetUserQuery();
   const [changePhoto] = userApi.useChangePhotoMutation();
-  const [checkFile] = casesApi.useCheckFileMutation();
+  // const [checkFile] = casesApi.useCheckFileMutation();
   const [sortValue, setSortValue] = useState<string>(
     (user?.user.role === "customer" ? sortListCustomer : sortListEx)[0].value
   );
@@ -88,19 +88,19 @@ const Profile = () => {
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
 
-  const { data: orders } = casesApi.useGetMyOrdersQuery({
-    filter: sortValue,
-    page: page,
-  });
+  // const { data: orders } = casesApi.useGetMyOrdersQuery({
+  //   filter: sortValue,
+  //   page: page,
+  // });
 
   const handlerChangePhoto = async (e: any) => {
     const formData = new FormData();
     formData.append("files", e.target.files[0]);
-    checkFile(formData).then((data: any) => {
-      if (data?.data.files !== undefined) {
-        changePhoto({ logo: data?.data.files[0] });
-      }
-    });
+    // checkFile(formData).then((data: any) => {
+    //   if (data?.data.files !== undefined) {
+    //     changePhoto({ logo: data?.data.files[0] });
+    //   }
+    // });
   };
   useEffect(() => {
     console.log("user", user);
@@ -175,7 +175,7 @@ const Profile = () => {
               />
             ))} */}
           </div>
-          {orders?.orders?.length !== 0 ? (
+          {/* {orders?.orders?.length !== 0 ? (
             <Pagination
               currentPage={page}
               setCurrentPage={setPage}
@@ -184,7 +184,7 @@ const Profile = () => {
             />
           ) : (
             <h1>Список пуст</h1>
-          )}
+          )} */}
         </div>
       </div>
 

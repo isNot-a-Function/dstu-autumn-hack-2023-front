@@ -8,11 +8,23 @@ import {
   archiveOrder,
 } from "../types/casesTypes";
 
-export const casesApi = createApi({
+export const flightApi = createApi({
   reducerPath: "casesApi",
   baseQuery,
   tagTypes: ["orders", "order"],
   endpoints: (build) => ({
+    getFlights: build.query<
+      any,
+      { place1: string; place2: string; date: string }
+    >({
+      query: ({ place1, place2, date }) => ({
+        url: `flight/?arrivalPoint=${place1}&departurePoint=${place2}&date=${date}`,
+        method: "GET",
+      }),
+    }),
+
+    /////
+
     getSpecializations: build.query<getSpecializationsData, void>({
       query: () => ({
         url: `/specialization/`,

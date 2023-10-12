@@ -5,7 +5,7 @@ import { Formik, Field, useFormik, FormikProvider } from "formik";
 
 import CustomSelect from "../UI/CustomSelect";
 import Loader from "../Loader";
-import { casesApi, userApi } from "../../store";
+import { flightApi, userApi } from "../../store";
 
 interface MonitoringModalProps {
   isActive: boolean;

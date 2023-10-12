@@ -3,7 +3,7 @@ import SearchInput from "../components/UI/SearchInput";
 import Menu from "../components/Main/Menu";
 import { ReactComponent as Trash } from "../assets/img/trashSort.svg";
 import TrainCard from "../components/Main/TrainCard";
-import { casesApi } from "../store";
+import { flightApi } from "../store";
 import Pagination from "../components/Pagination/Pagination";
 import CreateCaseModal from "../components/Main/CreateCaseModal";
 import ReactDatePicker from "react-datepicker";
@@ -43,16 +43,19 @@ const Main = () => {
   const [selectCity1, setSelectCity1] = useState(cityes[0]);
   const [selectCity2, setSelectCity2] = useState(cityes[3]);
 
-  const [dateValue, setDateValue] = useState<any>(new Date());
+  const [dateValue, setDateValue] = useState<Date>(new Date());
   const [value, setValue] = useState("");
-  const { data: orders } = casesApi.useGetOrdersQuery({
-    page: page,
-    filter: activeSection.length !== 0 ? JSON.stringify(activeSection) : null,
-    seacrh: value === "" ? null : value,
+
+  const { data: flights } = flightApi.useGetFlightsQuery({
+    place1: selectCity1.value,
+    place2: selectCity2.value,
+    date: dateValue.toLocaleDateString(),
   });
+
   useEffect(() => {
-    console.log("orders", orders);
-  }, [orders]);
+    console.log("flights", flights);
+  }, [flights]);
+
   const sortList = [
     {
       id: 1,
@@ -95,6 +98,7 @@ const Main = () => {
               minDate={new Date()}
               wrapperClassName="datePicker"
               selected={dateValue}
+              //@ts-ignore
               onChange={(date) => setDateValue(date)}
               dateFormat="dd.MM.yyyy"
             />
