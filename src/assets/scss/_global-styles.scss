@@ -399,3 +399,8 @@ input[type="number"]:focus {
     margin-left: 16px;
   }
 }
+.react-datepicker__time-list-item {
+  width: 70px;
+  margin-left: -40px;
+  padding-left: 18px !important;
+}

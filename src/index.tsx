@@ -8,6 +8,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./utils/scrollToTop";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

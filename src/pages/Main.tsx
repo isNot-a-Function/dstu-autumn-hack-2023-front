@@ -6,6 +6,31 @@ import TrainCard from "../components/Main/TrainCard";
 import { casesApi } from "../store";
 import Pagination from "../components/Pagination/Pagination";
 import CreateCaseModal from "../components/Main/CreateCaseModal";
+import ReactDatePicker from "react-datepicker";
+import CustomSelect from "../components/UI/CustomSelect";
+
+const cityes = [
+  {
+    value: "Москва",
+    label: "Москва",
+  },
+  {
+    value: "Нижний Новгород",
+    label: "Нижний Новгород",
+  },
+  {
+    value: "СПБ",
+    label: "СПБ",
+  },
+  {
+    value: "Казань",
+    label: "Казань",
+  },
+  {
+    value: "Мурманск",
+    label: "Мурманск",
+  },
+];
 
 const Main = () => {
   const [activeSection, setActiveSection] = useState<string[]>([]);
@@ -14,6 +39,11 @@ const Main = () => {
   const [directionSort, setDirectionSort] = useState("asc"); //asc - по возрастанию, desc - по убыванию
   const [page, setPage] = useState(1);
   const [isShowModal, setIsShowModal] = useState(false);
+
+  const [selectCity1, setSelectCity1] = useState(cityes[0]);
+  const [selectCity2, setSelectCity2] = useState(cityes[3]);
+
+  const [dateValue, setDateValue] = useState<any>(new Date());
   const [value, setValue] = useState("");
   const { data: orders } = casesApi.useGetOrdersQuery({
     page: page,
@@ -57,6 +87,50 @@ const Main = () => {
   return (
     <div className="box-main-page container">
       <div>
+        <div className="box-filters">
+          <div className="item-filters">
+            <p>Дата начала поездки</p>
+            <ReactDatePicker
+              id="startDate"
+              minDate={new Date()}
+              wrapperClassName="datePicker"
+              selected={dateValue}
+              onChange={(date) => setDateValue(date)}
+              dateFormat="dd.MM.yyyy"
+            />
+          </div>
+          <div className="item-filters">
+            <p>Город отправления</p>
+            <CustomSelect
+              value={selectCity1}
+              options={cityes}
+              onChange={setSelectCity1}
+              isHaveIcon={false}
+              width={"200px"}
+              heightSelect={45}
+              paddingIndicator={0}
+              paddingContainer={12}
+              backgroundColor={"#171226"}
+              menuPlacement={"bottom"}
+            />
+          </div>
+          <div className="item-filters">
+            <p>Город прибытия</p>
+            <CustomSelect
+              value={selectCity2}
+              options={cityes}
+              onChange={setSelectCity2}
+              isHaveIcon={false}
+              width={"200px"}
+              heightSelect={45}
+              paddingIndicator={0}
+              paddingContainer={12}
+              backgroundColor={"#171226"}
+              menuPlacement={"bottom"}
+            />
+          </div>
+        </div>
+
         <div className="box-list-cases">
           {[1, 2, 3].map((item) => (
             <TrainCard />

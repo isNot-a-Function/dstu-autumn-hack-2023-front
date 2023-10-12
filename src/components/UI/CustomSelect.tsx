@@ -62,15 +62,15 @@ const CustomSelect = ({
     container: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
       width: width,
-      // maxWidth: "200px",
+      maxWidth: "200px",
       cursor: "pointer",
-      border: "1px solid #87501d",
+      border: "1px solid #011111",
       borderRadius: "12px",
     }),
     option: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
       top: 0,
-      color: state.isFocused ? "#87501d" : "#87501d",
+      color: state.isFocused ? "#011111" : "#011111",
       backgroundColor: state.isFocused ? "#f2f3ee" : "white",
       fontSize: "14px",
       cursor: "pointer",
@@ -114,7 +114,7 @@ const CustomSelect = ({
     }),
     singleValue: (defaultStyles: any) => ({
       ...defaultStyles,
-      color: "#87501d",
+      color: "#011111",
     }),
   };
 
