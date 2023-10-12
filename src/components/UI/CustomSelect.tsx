@@ -65,7 +65,7 @@ const CustomSelect = ({
       maxWidth: "200px",
       cursor: "pointer",
       border: "1px solid #011111",
-      borderRadius: "12px",
+      borderRadius: "8px",
     }),
     option: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
