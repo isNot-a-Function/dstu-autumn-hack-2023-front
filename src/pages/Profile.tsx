@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../assets/scss/pages/_deal.scss";
+import "../assets/scss/pages/_flight.scss";
 import ScaleOnline from "../components/Footer/ScaleOnline";
 import { ReactComponent as Download } from "../assets/img/download.svg";
 import { ReactComponent as Eye } from "../assets/img/eye.svg";

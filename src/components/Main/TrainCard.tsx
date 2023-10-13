@@ -34,7 +34,7 @@ const TrainCard = ({ data }: CaseProps) => {
   };
 
   return (
-    <div className="box-case" onClick={() => navigate(`/store`)}>
+    <div className="box-case" onClick={() => navigate(`/flight/${data.id}`)}>
       <div className="header-box-case">
         <span>{data.train.name}</span>
         <div className="box-price">
@@ -53,8 +53,8 @@ const TrainCard = ({ data }: CaseProps) => {
             <h1>-</h1>
           </div>
           <div className="place-item">
-            <h1>10:41</h1>
-            <p>17.10.2023</p>
+            <h1>{data.arrivalTime}</h1>
+            <p>{data.arrivalDate}</p>
             <p>{data.arrivalPoint}</p>
           </div>
         </div>

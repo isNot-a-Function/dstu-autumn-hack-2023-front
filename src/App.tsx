@@ -7,7 +7,7 @@ import MainLayout from "./layout/MainLayout";
 import ScrollToTop from "./utils/scrollToTop";
 import { useEffect } from "react";
 import Login from "./pages/Login";
-import Deal from "./pages/Deal";
+import Flight from "./pages/Flight";
 import HistoryBalance from "./pages/HistoryBalance";
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
           <Route path="store" element={<Main />} />
           <Route path="profile" element={<Profile />} />
           <Route path="login" element={<Login />} />
-          <Route path="order/:id" element={<Deal />} />
+          <Route path="flight/:id" element={<Flight />} />
           <Route path="balance" element={<HistoryBalance />} />
         </Route>
         <Route path="*" element={<Navigate to={"/"} replace />} />

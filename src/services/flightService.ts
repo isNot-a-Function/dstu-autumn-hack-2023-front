@@ -23,6 +23,12 @@ export const flightApi = createApi({
         method: "GET",
       }),
     }),
+    getFlight: build.query<flightsData, number | string>({
+      query: (id) => ({
+        url: `flight/${id}`,
+        method: "GET",
+      }),
+    }),
 
     /////
 

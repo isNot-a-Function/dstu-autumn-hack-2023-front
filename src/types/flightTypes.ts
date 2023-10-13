@@ -4,6 +4,8 @@ export interface flightsData {
 
 export interface flightsDataItem {
   arrivalPoint: string;
+  arrivalTime: string;
+  arrivalDate: string;
   departureDate: string;
   departurePoint: string;
   distance: number;
@@ -19,6 +21,7 @@ export interface flightsDataItem {
   };
   train: { name: string };
   travelTime: number;
+  id: number;
 }
 
 export interface flightPlace {
