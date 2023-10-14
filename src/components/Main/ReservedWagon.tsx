@@ -54,8 +54,10 @@ const ReservedWagon = ({ data }: ReservedWagonProps) => {
                       className={`box-place-top ${
                         data.places[index + 1]?.ticketId !== null
                           ? "place-busy"
-                          : data.places[index + 1]?.recomendationScore === 1
-                          ? ""
+                          : data.places[index + 1]?.recomendationScore < 0.4
+                          ? "place-bad"
+                          : data.places[index + 1]?.recomendationScore > 0.7
+                          ? "place-good"
                           : ""
                       }`}
                       disabled={data.places[index + 1]?.ticketId !== null}
@@ -67,7 +69,13 @@ const ReservedWagon = ({ data }: ReservedWagonProps) => {
                     </button>
                     <button
                       className={`box-place-bottom ${
-                        it.ticketId !== null ? "place-busy" : ""
+                        it.ticketId !== null
+                          ? "place-busy"
+                          : it.recomendationScore < 0.4
+                          ? "place-bad"
+                          : it.recomendationScore > 0.7
+                          ? "place-good"
+                          : ""
                       }`}
                       disabled={it.ticketId !== null}
                     >
@@ -80,6 +88,12 @@ const ReservedWagon = ({ data }: ReservedWagonProps) => {
                       data.places[data.places.length - 1 - index / 2]
                         .ticketId !== null
                         ? "place-busy"
+                        : data.places[data.places.length - 1 - index / 2]
+                            .recomendationScore < 0.4
+                        ? "place-bad"
+                        : data.places[data.places.length - 1 - index / 2]
+                            .recomendationScore > 0.7
+                        ? "place-good"
                         : ""
                     }`}
                     disabled={

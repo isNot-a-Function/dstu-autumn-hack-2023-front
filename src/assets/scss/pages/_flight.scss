@@ -251,6 +251,13 @@ h1.header-deal-page {
   padding-bottom: 8px;
   align-items: center;
   justify-content: center;
+  @media (max-width: 1280px) {
+    justify-content: start;
+  }
+  // margin: auto;
+
+  // align-items: center; */
+  //   // /* justify-content: center;
 }
 
 .wagon-gap-razdel {
@@ -364,5 +371,10 @@ h1.header-deal-page {
   opacity: 0.4;
 }
 .place-bad {
-  background-color: #734319;
+  background-color: #ff00009b;
+  opacity: 0.8;
+}
+.place-good {
+  background-color: #425a6a7b;
+  opacity: 0.8;
 }
