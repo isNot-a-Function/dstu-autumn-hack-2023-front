@@ -137,7 +137,7 @@ const Main = () => {
 
         <div className="box-list-cases">
           {flights?.flights.map((item) => (
-            <TrainCard data={item} key={item.train.name} />
+            <TrainCard data={item} key={item?.id} />
           ))}
         </div>
       </div>

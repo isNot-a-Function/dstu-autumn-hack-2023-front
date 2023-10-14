@@ -33,10 +33,12 @@ const TrainCard = ({ data }: CaseProps) => {
     return tags;
   };
 
+  console.log("data", data);
+
   return (
     <div className="box-case" onClick={() => navigate(`/flight/${data.id}`)}>
       <div className="header-box-case">
-        <span>{data.train.name}</span>
+        <span>{data?.train?.name || data?.trainName}</span>
         <div className="box-price">
           <Money />
           <p>от 500 р</p>
@@ -44,15 +46,15 @@ const TrainCard = ({ data }: CaseProps) => {
       </div>
       <div className="body-train-card">
         <div className="box-places">
-          <div className="place-item">
+          <div className="place-item-card">
             <h1>07:00</h1>
             <p>{data.departureDate}</p>
             <p>{data.departurePoint}</p>
           </div>
-          <div className="place-item">
+          <div className="place-item-card">
             <h1>-</h1>
           </div>
-          <div className="place-item">
+          <div className="place-item-card">
             <h1>{data.arrivalTime}</h1>
             <p>{data.arrivalDate}</p>
             <p>{data.arrivalPoint}</p>

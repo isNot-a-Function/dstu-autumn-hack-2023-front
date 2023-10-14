@@ -9,7 +9,22 @@ export interface flightsDataItem {
   departureDate: string;
   departurePoint: string;
   distance: number;
-  flightPlaces: flightPlace[];
+  carrriages: {
+    carriageNumber: number;
+    id: number;
+    places: {
+      cost: number;
+      free: boolean;
+      id: number;
+      placeNumber: number;
+      position: string;
+      side: boolean;
+      ticket: any;
+      ticketId: number;
+      recomendationScore: number;
+    }[];
+    type: string;
+  }[];
   freePlacesCount: {
     coupe: number;
     lux: number;
@@ -20,15 +35,20 @@ export interface flightsDataItem {
     sv: number;
   };
   train: { name: string };
+  trainName: string;
   travelTime: number;
   id: number;
 }
 
 export interface flightPlace {
+  cost: number;
+  free: boolean;
   id: number;
-  place: Place;
+  placeNumber: number;
+  position: string;
+  side: boolean;
   ticket: any;
-  ticketId: any;
+  ticketId: number;
 }
 
 export interface Place {
@@ -36,6 +56,8 @@ export interface Place {
   place: {
     carriage: {
       type: string;
+      carriageNumber: number;
+      id: number;
     };
   };
   free: boolean;

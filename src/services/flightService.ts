@@ -7,7 +7,7 @@ import {
   createResponseProps,
   archiveOrder,
 } from "../types/casesTypes";
-import { flightsData } from "../types/flightTypes";
+import { flightsData, flightsDataItem } from "../types/flightTypes";
 
 export const flightApi = createApi({
   reducerPath: "casesApi",
@@ -23,7 +23,7 @@ export const flightApi = createApi({
         method: "GET",
       }),
     }),
-    getFlight: build.query<flightsData, number | string>({
+    getFlight: build.query<{ flights: flightsDataItem }, number | string>({
       query: (id) => ({
         url: `flight/${id}`,
         method: "GET",
