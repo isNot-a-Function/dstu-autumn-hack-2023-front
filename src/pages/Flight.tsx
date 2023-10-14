@@ -4,7 +4,10 @@ import ScaleOnline from "../components/Footer/ScaleOnline";
 
 import { flightApi } from "../store";
 import Loader from "../components/Loader";
+import CoupeWagon from "../components/Main/CoupeWagon";
 import ReservedWagon from "../components/Main/ReservedWagon";
+import SvWagon from "../components/Main/SvWagon";
+import LuxWagon from "../components/Main/LuxWagon";
 import TrainCard from "../components/Main/TrainCard";
 
 const Flight = () => {
@@ -13,6 +16,8 @@ const Flight = () => {
   const [selectWagon, setSelectWagon] = useState<number>(
     flight?.flights?.carrriages[0].carriageNumber || 0
   );
+  const [selectPlace, setSelectPlace] = useState(0);
+
   const [isShowResponseModal, setIsShowResponseModal] = useState(false);
   const [isShowUpdateModal, setIsShowUpdateModal] = useState(false);
   const [isShowDeclineOrder, setIsShowDeclineOrder] = useState(false);
@@ -120,9 +125,32 @@ const Flight = () => {
                 >
                   ❮{" "}
                 </button>
-                <h2>
-                  Вагон: {flight?.flights.carrriages[index].carriageNumber}
-                </h2>
+                <div
+                  style={{
+                    width: 200,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <h2>
+                    Вагон: {flight?.flights.carrriages[index].carriageNumber}
+                  </h2>
+                  <p>
+                    Тип:{" "}
+                    {flight?.flights.carrriages[index].type === "reserved"
+                      ? "Плацкартный"
+                      : flight?.flights.carrriages[index].type === "coupe"
+                      ? "Купейный"
+                      : flight?.flights.carrriages[index].type === "sv"
+                      ? "CВ"
+                      : flight?.flights.carrriages[index].type === "lux"
+                      ? "Люкс"
+                      : ""}
+                  </p>
+                </div>
+
                 <button
                   onClick={() => {
                     const el =
@@ -142,6 +170,11 @@ const Flight = () => {
               </div>
 
               {item.type === "reserved" && <ReservedWagon data={item} />}
+              {item.type === "coupe" && <CoupeWagon data={item} />}
+              {item.type === "sv" && <SvWagon data={item} />}
+              {item.type === "lux" && <LuxWagon data={item} />}
+
+              {selectPlace != 0 && <div>Место : </div>}
             </div>
           );
         }

@@ -405,3 +405,28 @@ h1.header-deal-page {
     justify-content: start;
   }
 }
+
+.box-place-sv {
+  width: 40px;
+  height: 90px;
+  border: 1px solid #111111;
+  // background-color: red;
+  border-radius: 5px;
+  text-align: center;
+  text-justify: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  // bottom: 50px;
+  // right: 0;
+  h1 {
+    font-size: 16px;
+  }
+  p {
+    font-size: 12px;
+  }
+}
