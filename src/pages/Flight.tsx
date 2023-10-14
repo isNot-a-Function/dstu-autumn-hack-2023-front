@@ -36,6 +36,68 @@ const Flight = () => {
         <TrainCard data={flight?.flights} />
       </div>
 
+      <div className="help-info-flight">
+        <div className="box-help-item">
+          <button
+            className={`box-place place-busy`}
+            style={{ borderRadius: 5, width: 20, height: 20 }}
+            disabled={true}
+          >
+            {/* <h1>{10}</h1>
+            <p>{"H"}</p> */}
+          </button>
+          <h2> - место уже куплено</h2>
+        </div>
+
+        <div className="box-help-item">
+          <button
+            className={`box-place place-bad`}
+            style={{ borderRadius: 5, width: 20, height: 20 }}
+            disabled={true}
+          >
+            {/* <h1>{5}</h1>
+            <p>{"B"}</p> */}
+          </button>
+          <h2> - место не соответствует вашим предпочтениям</h2>
+        </div>
+
+        <div className="box-help-item">
+          <button
+            className={`box-place place-good`}
+            style={{ borderRadius: 5, width: 20, height: 20 }}
+            disabled={true}
+          >
+            {/* <h1>{10}</h1>
+            <p>{"H"}</p> */}
+          </button>
+          <h2> - место соответствует вашим предпочтениям</h2>
+        </div>
+
+        <div className="box-help-item">
+          <button
+            className={`box-place`}
+            style={{ borderRadius: 5, width: 20, height: 20 }}
+            disabled={true}
+          >
+            {/* <h1>{5}</h1> */}
+            <p>{"B"}</p>
+          </button>
+          <h2> - вверхняя полка</h2>
+        </div>
+
+        <div className="box-help-item">
+          <button
+            className={`box-place`}
+            style={{ borderRadius: 5, width: 20, height: 20 }}
+            disabled={true}
+          >
+            {/* <h1>{5}</h1> */}
+            <p>{"Н"}</p>
+          </button>
+          <h2> - нижняя полка</h2>
+        </div>
+      </div>
+
       {flight?.flights?.carrriages.map((item, index) => {
         if (selectWagon === item.carriageNumber) {
           return (
