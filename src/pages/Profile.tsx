@@ -85,7 +85,7 @@ const Profile = () => {
     navigate("/");
   };
 
-  if (tickets === undefined) return <Loader />;
+  // if (tickets === undefined) return <Loader />;
 
   return (
     <div className="container box-profile-page ">
