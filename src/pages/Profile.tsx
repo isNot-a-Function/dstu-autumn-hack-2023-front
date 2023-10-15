@@ -17,53 +17,30 @@ import Case from "../components/Main/TrainCard";
 import Pagination from "../components/Pagination/Pagination";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import UpdateProfileModal from "../components/Main/UpdateProfile";
+import { flightApi } from "../store";
+import TrainCard from "../components/Main/TrainCard";
 
 const sortListEx = [
   {
     id: 1,
-    label: "ОТКЛИКИ",
+    label: "МОИ БИЛЕТЫ",
     value: "responses",
   },
-  {
-    id: 2,
-    label: "В ПРОЦЕССЕ",
-    value: "processed",
-  },
-  {
-    id: 3,
-    label: "ВЫПОЛНЕННЫЕ",
-    value: "done",
-  },
+  // {
+  //   id: 2,
+  //   label: "В ПРОЦЕССЕ",
+  //   value: "processed",
+  // },
+  // {
+  //   id: 3,
+  //   label: "ВЫПОЛНЕННЫЕ",
+  //   value: "done",
+  // },
 ];
-const sortListCustomer = [
-  {
-    id: 1,
-    label: "АКТИВНЫЕ",
-    value: "active",
-  },
-  {
-    id: 2,
-    label: "В ПРОЦЕССЕ",
-    value: "processed",
-  },
-  {
-    id: 5,
-    label: "НА ПРОВЕРКЕ",
-    value: "checked",
-  },
-  {
-    id: 3,
-    label: "ВЫПОЛНЕННЫЕ",
-    value: "done",
-  },
-  {
-    id: 4,
-    label: "АРХИВИРОВАННЫЕ",
-    value: "archived",
-  },
-];
+
 const Profile = () => {
   const navigate = useNavigate();
+  const { data: tickets } = flightApi.useGetMyTicketQuery();
   const userLocal =
     localStorage.getItem("user") !== null
       ? //@ts-ignore
@@ -77,12 +54,12 @@ const Profile = () => {
     }
   }, []);
 
+  console.log("tickets", tickets);
+
   const { data: user } = userApi.useGetUserQuery();
   const [changePhoto] = userApi.useChangePhotoMutation();
   // const [checkFile] = casesApi.useCheckFileMutation();
-  const [sortValue, setSortValue] = useState<string>(
-    (user?.user.role === "customer" ? sortListCustomer : sortListEx)[0].value
-  );
+  const [sortValue, setSortValue] = useState<string>(sortListEx[0].value);
   const [changeRole] = userApi.useChangeRoleMutation();
   const [page, setPage] = useState(1);
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
@@ -110,14 +87,11 @@ const Profile = () => {
     localStorage.clear();
     navigate("/");
   };
-  const getRating = () => {
-    return user?.user.role === "customer"
-      ? user?.user.custoremInfo.rating
-      : user?.user.executorInfo.rating;
-  };
+
+  if (tickets === undefined) return <Loader />;
 
   return (
-    <div className="container box-deal-page ">
+    <div className="container box-profile-page ">
       {isShowConfirmationModal && (
         <ConfirmationModal
           setIsActive={setIsShowConfirmationModal}
@@ -136,10 +110,7 @@ const Profile = () => {
       <div className="body-deal-page">
         <div className="content-deal-page " style={{ border: "none" }}>
           <div className="box-list-sort">
-            {(user?.user.role === "customer"
-              ? sortListCustomer
-              : sortListEx
-            ).map((sort: any, index: number) => {
+            {sortListEx.map((sort: any, index: number) => {
               return (
                 <button
                   className={`${
@@ -161,30 +132,17 @@ const Profile = () => {
         </div>
         <div>
           <div className="box-list-cases">
-            {/* {orders?.orders.map((order: any) => (
-              <Case
-                key={order.id}
-                id={order.id}
-                title={order.title}
-                createdAt={order.createdAt}
-                views={order.views}
-                cost={order.cost}
-                costType={order.costType}
-                responsesCount={order.responsesCount}
-                tags={order.tags}
-              />
-            ))} */}
+            {tickets?.tickets?.map((item: any) => {
+              return (
+                <TrainCard
+                  data={item.flightPlace.flight}
+                  isHaveTicket={true}
+                  place={item.flightPlace.place}
+                  cost={item.flightPlace.cost}
+                />
+              );
+            })}
           </div>
-          {/* {orders?.orders?.length !== 0 ? (
-            <Pagination
-              currentPage={page}
-              setCurrentPage={setPage}
-              pagesAmount={orders?.count || 1}
-              perPage={15}
-            />
-          ) : (
-            <h1>Список пуст</h1>
-          )} */}
         </div>
       </div>
 
@@ -200,47 +158,13 @@ const Profile = () => {
                 justifyContent: "center",
                 cursor: "pointer",
               }}
-            >
-              <input
-                type="file"
-                id="imgupload"
-                onChange={handlerChangePhoto}
-                style={{ display: "none", cursor: "pointer" }}
-              />
-              <label htmlFor="imgupload">
-                {!user?.user.logo ? (
-                  <Avatar style={{ cursor: "pointer" }} />
-                ) : (
-                  <img
-                    src={user?.user.logo}
-                    className="avatar-customer"
-                    style={{ cursor: "pointer" }}
-                  />
-                )}
-              </label>
-            </div>
+            ></div>
 
             <p>
               {user?.user.family
                 ? user.user.family + " " + user?.user.name
                 : user?.user.id}
             </p>
-          </div>
-
-          <div className="box-rating">
-            {getRating() !== 0 ? (
-              <ScaleOnline
-                //@ts-ignore
-                rating={
-                  user?.user.role === "customer"
-                    ? user?.user.custoremInfo.rating
-                    : user?.user.executorInfo.rating
-                }
-                maxPlayers={5}
-              />
-            ) : (
-              <p>У вас пока нет оценок</p>
-            )}
           </div>
         </div>
 
@@ -253,34 +177,6 @@ const Profile = () => {
           ИЗМЕНИТЬ ПРОФИЛЬ
         </button>
 
-        <button
-          className="lightBtn btn"
-          onClick={() => {
-            changeRole().then((data: any) => {
-              const token = data?.data.token;
-              if (token != undefined) {
-                localStorage.setItem("accessToken", token);
-              }
-            });
-          }}
-        >
-          ПЕРЕЙТИ В ЛИЧНЫЙ КАБИНЕТ{" "}
-          {user?.user.role === "customer" ? "ИСПОЛНИТЕЛЯ" : "ЗАКАЗЧИКА"}
-        </button>
-        {/* {user?.user.role !== "customer" && (
-          <div className="info-of-customer">
-            <p>СПЕЦИАЛИЗАЦИЯ</p>
-            <p>МОБИЛЬНОЕ ПРИЛОЖЕНИЕ</p>
-          </div>
-        )} */}
-        <button
-          className="bezBtn btn"
-          onClick={() => {
-            navigate("/balance");
-          }}
-        >
-          ИСТОРИЯ БАЛАНСА
-        </button>
         <button
           className="lightBtn btn"
           onClick={() => {

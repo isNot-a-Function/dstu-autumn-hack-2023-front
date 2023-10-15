@@ -5,6 +5,7 @@ import res3 from "../../assets/img/wagons/res3.jpg";
 import { useState } from "react";
 import { ReactComponent as Toilet } from "../../assets/img/wagons/toilet.svg";
 import { flightPlace } from "../../types/flightTypes";
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 interface ReservedWagonProps {
   data: {
@@ -23,14 +24,13 @@ interface ReservedWagonProps {
     }[];
     type: string;
   };
+  setSelectPlace: (value: number) => void;
 }
 
-const SvWagon = ({ data }: ReservedWagonProps) => {
-  // const arr = [
-  //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-  //   22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-  //   41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
-  // ];
+const SvWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
+  const changePlace = (value: number) => {
+    setSelectPlace(value);
+  };
 
   return (
     <>
@@ -59,9 +59,13 @@ const SvWagon = ({ data }: ReservedWagonProps) => {
                         ? "place-good"
                         : ""
                     }`}
+                    onClick={() => {
+                      changePlace(it?.placeNumber);
+                    }}
                     disabled={it.ticketId !== null}
                   >
                     <h1>{it?.placeNumber}</h1>
+                    <p> {it?.cost + "p"}</p>
                     {/* <p> {it?.position === "up" ? "B" : "H"}</p> */}
                   </button>
                 </div>

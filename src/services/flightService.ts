@@ -29,6 +29,26 @@ export const flightApi = createApi({
         method: "GET",
       }),
     }),
+    buyTicket: build.mutation<
+      any,
+      {
+        flightPlaceId: number;
+        withAnimals: boolean;
+        withChildren: boolean;
+      }
+    >({
+      query: (body) => ({
+        url: `/ticket/`,
+        method: "POST",
+        body: body,
+      }),
+    }),
+    getMyTicket: build.query<any, void>({
+      query: () => ({
+        url: `/ticket/my`,
+        method: "GET",
+      }),
+    }),
 
     /////
 

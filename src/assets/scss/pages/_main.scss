@@ -164,7 +164,11 @@ p.section-list-filter {
   background-color: #87501d;
 }
 .box-active-item-sort {
-  background-color: #384661;
+  background-color: #ff0000;
+  color: white;
+  p {
+    color: white;
+  }
 }
 .arrow-symbol {
   padding-left: 8px;

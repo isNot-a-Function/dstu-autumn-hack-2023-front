@@ -23,15 +23,38 @@ h1.header-deal-page {
     color: #111111;
   }
 }
+
+.box-profile-page {
+  padding-top: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 0.8fr 0.2fr;
+  gap: 20px;
+  a {
+    color: #734319;
+  }
+  .lightBtn {
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 12px;
+  }
+  h2,
+  p {
+    color: #111111;
+  }
+}
+
 .info-of-customer {
   width: 100%;
   height: min-content;
   // min-height: 100px;
-  border: 2px solid #734319;
+  border: 2px solid #111111;
   border-radius: 8px;
   padding: 12px;
   p {
-    color: #734319;
+    color: #111111;
   }
   display: flex;
   align-items: center;
@@ -140,6 +163,13 @@ h1.header-deal-page {
     padding: 12px;
   }
 }
+.box-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 8px;
+}
 .avatar-customer {
   border-radius: 50%;
   height: 100px;
@@ -149,6 +179,7 @@ h1.header-deal-page {
   width: 100%;
   height: 100%;
 }
+
 .item-response {
   width: 100%;
   height: auto;
@@ -187,7 +218,7 @@ h1.header-deal-page {
     font-size: 16px;
   }
   p {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 
@@ -211,7 +242,7 @@ h1.header-deal-page {
     font-size: 16px;
   }
   p {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 .box-place-bottom {
@@ -233,7 +264,7 @@ h1.header-deal-page {
     font-size: 16px;
   }
   p {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 .box-wagon {
@@ -375,7 +406,7 @@ h1.header-deal-page {
   opacity: 0.8;
 }
 .place-good {
-  background-color: #425a6a7b;
+  background-color: #59819d99;
   opacity: 0.8;
 }
 .help-info-flight {
@@ -427,6 +458,20 @@ h1.header-deal-page {
     font-size: 16px;
   }
   p {
-    font-size: 12px;
+    font-size: 10px;
   }
+}
+
+.place-card {
+  width: 100%;
+  min-height: 200px;
+  height: max-content;
+  border-radius: 12px;
+  background-color: #f3f3f3;
+  cursor: pointer;
+  margin-top: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

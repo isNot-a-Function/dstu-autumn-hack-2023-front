@@ -13,10 +13,13 @@ import TrainCard from "../components/Main/TrainCard";
 const Flight = () => {
   const flightId = window.location.pathname.replace("/flight/", "");
   const { data: flight, isLoading } = flightApi.useGetFlightQuery(flightId);
+  const [buy] = flightApi.useBuyTicketMutation();
   const [selectWagon, setSelectWagon] = useState<number>(
     flight?.flights?.carrriages[0].carriageNumber || 0
   );
   const [selectPlace, setSelectPlace] = useState(0);
+  const [haveChildren, setHaveChildren] = useState(false);
+  const [haveAnimals, setHaveAnimals] = useState(false);
 
   const [isShowResponseModal, setIsShowResponseModal] = useState(false);
   const [isShowUpdateModal, setIsShowUpdateModal] = useState(false);
@@ -34,6 +37,10 @@ const Flight = () => {
         JSON.parse(localStorage.getItem("user"))
       : undefined;
 
+  useEffect(() => {
+    setSelectPlace(0);
+  }, [selectWagon]);
+
   if (isLoading || !flight?.flights.carrriages) return <Loader />;
   return (
     <div className="container box-deal-page ">
@@ -42,18 +49,6 @@ const Flight = () => {
       </div>
 
       <div className="help-info-flight">
-        <div className="box-help-item">
-          <button
-            className={`box-place place-busy`}
-            style={{ borderRadius: 5, width: 20, height: 20 }}
-            disabled={true}
-          >
-            {/* <h1>{10}</h1>
-            <p>{"H"}</p> */}
-          </button>
-          <h2> - место уже куплено</h2>
-        </div>
-
         <div className="box-help-item">
           <button
             className={`box-place place-bad`}
@@ -76,30 +71,6 @@ const Flight = () => {
             <p>{"H"}</p> */}
           </button>
           <h2> - место соответствует вашим предпочтениям</h2>
-        </div>
-
-        <div className="box-help-item">
-          <button
-            className={`box-place`}
-            style={{ borderRadius: 5, width: 20, height: 20 }}
-            disabled={true}
-          >
-            {/* <h1>{5}</h1> */}
-            <p>{"B"}</p>
-          </button>
-          <h2> - вверхняя полка</h2>
-        </div>
-
-        <div className="box-help-item">
-          <button
-            className={`box-place`}
-            style={{ borderRadius: 5, width: 20, height: 20 }}
-            disabled={true}
-          >
-            {/* <h1>{5}</h1> */}
-            <p>{"Н"}</p>
-          </button>
-          <h2> - нижняя полка</h2>
         </div>
       </div>
 
@@ -169,12 +140,88 @@ const Flight = () => {
                 </button>
               </div>
 
-              {item.type === "reserved" && <ReservedWagon data={item} />}
-              {item.type === "coupe" && <CoupeWagon data={item} />}
-              {item.type === "sv" && <SvWagon data={item} />}
-              {item.type === "lux" && <LuxWagon data={item} />}
+              {item.type === "reserved" && (
+                <ReservedWagon data={item} setSelectPlace={setSelectPlace} />
+              )}
+              {item.type === "coupe" && (
+                <CoupeWagon data={item} setSelectPlace={setSelectPlace} />
+              )}
+              {item.type === "sv" && (
+                <SvWagon data={item} setSelectPlace={setSelectPlace} />
+              )}
+              {item.type === "lux" && (
+                <LuxWagon data={item} setSelectPlace={setSelectPlace} />
+              )}
 
-              {selectPlace != 0 && <div>Место : </div>}
+              {selectPlace !== 0 && (
+                <div className="place-card">
+                  <h1>Место: {selectPlace}</h1>
+                  <p>
+                    Вагон: {flight?.flights.carrriages[index].carriageNumber}
+                  </p>{" "}
+                  <p>
+                    Тип:{" "}
+                    {flight?.flights.carrriages[index].type === "reserved"
+                      ? "Плацкартный"
+                      : flight?.flights.carrriages[index].type === "coupe"
+                      ? "Купейный"
+                      : flight?.flights.carrriages[index].type === "sv"
+                      ? "CВ"
+                      : flight?.flights.carrriages[index].type === "lux"
+                      ? "Люкс"
+                      : ""}
+                  </p>
+                  <p>
+                    {flight?.flights?.carrriages[index]?.places[selectPlace - 1]
+                      ?.position === "up"
+                      ? "Bерхняя полка"
+                      : "Hижняя полка"}
+                  </p>
+                  <p>
+                    Цена:
+                    {" " +
+                      flight?.flights?.carrriages[index]?.places[
+                        selectPlace - 1
+                      ].cost}
+                    руб
+                  </p>
+                  <div className="box-checkbox">
+                    <input
+                      type="checkbox"
+                      checked={haveAnimals}
+                      onChange={() => {
+                        setHaveAnimals(!haveAnimals);
+                      }}
+                    ></input>
+                    <p>Я буду с животными</p>
+                  </div>
+                  <div className="box-checkbox">
+                    <input
+                      type="checkbox"
+                      checked={haveChildren}
+                      onChange={() => {
+                        setHaveChildren(!haveChildren);
+                      }}
+                    ></input>
+                    <p>Я буду с детьми</p>
+                  </div>
+                  <button
+                    className="lightBtn btn"
+                    onClick={() => {
+                      buy({
+                        flightPlaceId:
+                          flight?.flights?.carrriages[index]?.places[
+                            selectPlace - 1
+                          ].id,
+                        withAnimals: haveAnimals,
+                        withChildren: haveChildren,
+                      });
+                    }}
+                  >
+                    Купить
+                  </button>
+                </div>
+              )}
             </div>
           );
         }

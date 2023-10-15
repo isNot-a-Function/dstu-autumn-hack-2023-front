@@ -9,8 +9,18 @@ import { flightsDataItem } from "../../types/flightTypes";
 
 interface CaseProps {
   data: flightsDataItem;
+  isHaveTicket?: boolean;
+  place?: {
+    carriage: {
+      carriageNumber: number;
+    };
+    placeNumber: number;
+    position: string;
+    side: boolean;
+  };
+  cost?: number;
 }
-const TrainCard = ({ data }: CaseProps) => {
+const TrainCard = ({ data, isHaveTicket = false, place, cost }: CaseProps) => {
   const navigate = useNavigate();
 
   const getTags = () => {
@@ -33,7 +43,23 @@ const TrainCard = ({ data }: CaseProps) => {
     return tags;
   };
 
-  console.log("data", data);
+  const getPlacesTags = () => {
+    let tags = [];
+    if (place?.placeNumber) {
+      tags.push(`Номер места | ${place?.placeNumber} `);
+    }
+    if (place?.carriage?.carriageNumber) {
+      tags.push(`Номер вагона | ${place?.carriage?.carriageNumber}`);
+    }
+    if (place?.position) {
+      tags.push(place?.position === "up" ? "Вверхняя полка" : "Нижняя полка");
+    }
+    if (place?.side === true) {
+      tags.push(`Боковое`);
+    }
+
+    return tags;
+  };
 
   return (
     <div className="box-case" onClick={() => navigate(`/flight/${data.id}`)}>
@@ -41,7 +67,7 @@ const TrainCard = ({ data }: CaseProps) => {
         <span>{data?.train?.name || data?.trainName}</span>
         <div className="box-price">
           <Money />
-          <p>от 500 р</p>
+          <p>{isHaveTicket ? cost : "от 500 р"}</p>
         </div>
       </div>
       <div className="body-train-card">
@@ -72,7 +98,10 @@ const TrainCard = ({ data }: CaseProps) => {
         <div className="box-free-place">
           <p>Cвободные места</p>
           <div className="box-list-tags">
-            {getTags().map((tag) => (
+            {(data?.freePlacesCount === undefined
+              ? getPlacesTags()
+              : getTags()
+            ).map((tag) => (
               <p className="box-tags" key={tag}>
                 {tag}
               </p>

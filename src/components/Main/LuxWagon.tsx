@@ -23,14 +23,18 @@ interface ReservedWagonProps {
     }[];
     type: string;
   };
+  setSelectPlace: (value: number) => void;
 }
 
-const LuxWagon = ({ data }: ReservedWagonProps) => {
+const LuxWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
   // const arr = [
   //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
   //   22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
   //   41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
   // ];
+  const changePlace = (value: number) => {
+    setSelectPlace(value);
+  };
   let value = 0;
   return (
     <>
@@ -52,9 +56,12 @@ const LuxWagon = ({ data }: ReservedWagonProps) => {
                   : ""
               }`}
               disabled={data.places[1]?.ticketId !== null}
+              onClick={() => {
+                changePlace(data.places[1]?.placeNumber);
+              }}
             >
               <h1>{data.places[1]?.placeNumber}</h1>
-              <p>{data.places[1]?.position === "up" ? "B" : "H"}</p>
+              <p> {data.places[1]?.cost + "p"}</p>
             </button>
             <button
               className={`box-place-bottom ${
@@ -67,9 +74,12 @@ const LuxWagon = ({ data }: ReservedWagonProps) => {
                   : ""
               }`}
               disabled={data.places[0]?.ticketId !== null}
+              onClick={() => {
+                changePlace(data.places[0]?.placeNumber);
+              }}
             >
               <h1>{data.places[0]?.placeNumber}</h1>
-              <p> {data.places[0]?.position === "up" ? "B" : "H"}</p>
+              <p> {data.places[0]?.cost + "p"}</p>
             </button>
           </div>
         </div>
@@ -99,11 +109,12 @@ const LuxWagon = ({ data }: ReservedWagonProps) => {
                           : ""
                       }`}
                       disabled={data.places[index + 1]?.ticketId !== null}
+                      onClick={() => {
+                        changePlace(data.places[index + 1]?.placeNumber);
+                      }}
                     >
                       <h1>{data.places[index + 1]?.placeNumber}</h1>
-                      <p>
-                        {data.places[index + 1]?.position === "up" ? "B" : "H"}
-                      </p>
+                      <p> {data.places[index + 1]?.cost + "p"}</p>
                     </button>
                     <button
                       className={`box-place-bottom ${
@@ -116,9 +127,12 @@ const LuxWagon = ({ data }: ReservedWagonProps) => {
                           : ""
                       }`}
                       disabled={it.ticketId !== null}
+                      onClick={() => {
+                        changePlace(it?.placeNumber);
+                      }}
                     >
                       <h1>{it?.placeNumber}</h1>
-                      <p> {it?.position === "up" ? "B" : "H"}</p>
+                      <p> {it?.cost + "p"}</p>
                     </button>
                   </div>
                 </div>
@@ -140,13 +154,12 @@ const LuxWagon = ({ data }: ReservedWagonProps) => {
                               : ""
                           }`}
                           disabled={data.places[index + 3]?.ticketId !== null}
+                          onClick={() => {
+                            changePlace(data.places[index + 3]?.placeNumber);
+                          }}
                         >
                           <h1>{data.places[index + 3]?.placeNumber}</h1>
-                          <p>
-                            {data.places[index + 3]?.position === "up"
-                              ? "B"
-                              : "H"}
-                          </p>
+                          <p> {data.places[index + 3]?.cost + "p"}</p>
                         </button>
                         <button
                           className={`box-place-bottom ${
@@ -159,13 +172,12 @@ const LuxWagon = ({ data }: ReservedWagonProps) => {
                               : ""
                           }`}
                           disabled={data.places[index + 2]?.ticketId !== null}
+                          onClick={() => {
+                            changePlace(data.places[index + 2]?.placeNumber);
+                          }}
                         >
                           <h1>{data.places[index + 2]?.placeNumber}</h1>
-                          <p>
-                            {data.places[index + 2]?.position === "up"
-                              ? "B"
-                              : "H"}
-                          </p>
+                          <p> {data.places[index + 2]?.cost + "p"}</p>
                         </button>
                       </div>
                     </div>
