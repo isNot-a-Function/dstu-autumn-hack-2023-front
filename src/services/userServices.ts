@@ -63,10 +63,13 @@ export const userApi = createApi({
       }),
       providesTags: () => ["user"],
     }),
-    updateUser: build.mutation<any, { name: string; family: string }>({
+    updateUser: build.mutation<
+      any,
+      { email?: string; firstname?: string; lastname?: string; phone?: string }
+    >({
       query: (body) => ({
-        url: `/user/update`,
-        method: "POST",
+        url: `user/`,
+        method: "PUT",
         body: body,
       }),
       invalidatesTags: () => ["user"],

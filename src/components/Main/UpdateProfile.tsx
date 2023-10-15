@@ -48,19 +48,19 @@ const UpdateProfileModal = ({
     <Modal
       isActive={isActive}
       setIsActive={setIsActive}
-      headerTitle={"Подтвердите успешное выполнение заказа"}
+      headerTitle={"Изменение профиля"}
       className="monitoringModal"
     >
       <>
         <div className="monitoringModalContainer">
           <Formik
-            initialValues={{ name: "", family: "" }}
+            initialValues={{ name: "", family: "", email: "", phone: "" }}
             // validate={(values) => {
             //   const errors = {};
-            //   if (!values.name) {
-            //     //@ts-ignore
-            //     errors.name = "Заполните имя";
-            //   }
+            //   // if (!values.name) {
+            //   //   //@ts-ignore
+            //   //   errors.name = "Заполните имя";
+            //   // }
             //   if (!/^([А-Я]|[а-я]|\s|,|[A-Z]|[a-z]){0,30}$/.test(values.tags)) {
             //     //@ts-ignore
             //     errors.name =
@@ -71,8 +71,10 @@ const UpdateProfileModal = ({
             // }}
             onSubmit={(values, { setSubmitting }) => {
               updateUser({
-                name: values.name,
-                family: values.family,
+                firstname: values.name,
+                lastname: values.family,
+                email: values.email,
+                phone: values.phone,
               });
               setIsActive(false);
             }}
@@ -111,6 +113,28 @@ const UpdateProfileModal = ({
                       className="input"
                       onChange={handleChange}
                       value={values.family}
+                    />
+                  </div>
+
+                  <div>
+                    <p>ТЕЛЕФОН</p>
+                    <input
+                      type="phone"
+                      name="phone"
+                      className="input"
+                      onChange={handleChange}
+                      value={values.phone}
+                    />
+                  </div>
+
+                  <div>
+                    <p>EMAIL</p>
+                    <input
+                      type="email"
+                      name="email"
+                      className="input"
+                      onChange={handleChange}
+                      value={values.email}
                     />
                   </div>
 

@@ -19,6 +19,7 @@ import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import UpdateProfileModal from "../components/Main/UpdateProfile";
 import { flightApi } from "../store";
 import TrainCard from "../components/Main/TrainCard";
+import ChangeParametrsModal from "../components/Main/ChangeParametrsModal";
 
 const sortListEx = [
   {
@@ -64,11 +65,7 @@ const Profile = () => {
   const [page, setPage] = useState(1);
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
-
-  // const { data: orders } = casesApi.useGetMyOrdersQuery({
-  //   filter: sortValue,
-  //   page: page,
-  // });
+  const [isShowChangeParametrs, setIsShowChangeParametrs] = useState(false);
 
   const handlerChangePhoto = async (e: any) => {
     const formData = new FormData();
@@ -104,6 +101,13 @@ const Profile = () => {
         <UpdateProfileModal
           isActive={isShowConfirmationModal}
           setIsActive={setIsShowUpdateUserModal}
+        />
+      )}
+
+      {isShowChangeParametrs && (
+        <ChangeParametrsModal
+          isActive={isShowChangeParametrs}
+          setIsActive={setIsShowChangeParametrs}
         />
       )}
 
@@ -175,6 +179,15 @@ const Profile = () => {
           }}
         >
           ИЗМЕНИТЬ ПРОФИЛЬ
+        </button>
+
+        <button
+          className="lightBtn btn"
+          onClick={() => {
+            setIsShowChangeParametrs(true);
+          }}
+        >
+          ИЗМЕНИТЬ ПРЕДПОЧТЕНИЯ
         </button>
 
         <button
