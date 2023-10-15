@@ -55,6 +55,7 @@ h1.header-deal-page {
   padding: 12px;
   p {
     color: #111111;
+    text-align: center;
   }
   display: flex;
   align-items: center;
@@ -126,6 +127,7 @@ h1.header-deal-page {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-top: 20px;
   .lightBtn {
     margin-top: 0px;
   }

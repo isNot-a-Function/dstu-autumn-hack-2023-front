@@ -368,22 +368,6 @@ const ChangeParametrsModal = ({
                   </div>
 
                   <div>
-                    <p>РЕЛИГИЯ</p>
-                    <CustomSelect
-                      value={selectRelig}
-                      options={select_relig}
-                      onChange={setSelectRelig}
-                      isHaveIcon={false}
-                      width={"100%"}
-                      heightSelect={45}
-                      paddingIndicator={0}
-                      paddingContainer={12}
-                      backgroundColor={"#171226"}
-                      menuPlacement={"bottom"}
-                    />
-                  </div>
-
-                  <div>
                     <p>ПОЛ</p>
                     <CustomSelect
                       value={selectSex}

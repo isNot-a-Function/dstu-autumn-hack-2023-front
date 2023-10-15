@@ -10,11 +10,12 @@ export const userApi = createApi({
   endpoints: (build) => ({
     getUser: build.query<{ user: user }, void>({
       query: () => ({
-        url: `/user/`,
+        url: `/user/me`,
         method: "GET",
       }),
       providesTags: () => ["user"],
     }),
+
     changePhoto: build.mutation<any, any>({
       query: (body) => ({
         url: `/user/logo`,
@@ -30,19 +31,21 @@ export const userApi = createApi({
       }),
       invalidatesTags: () => ["user"],
     }),
+
     addBalance: build.mutation<
       any,
       {
-        sum: number;
+        balance: number;
       }
     >({
       query: (body) => ({
-        url: `/balance/topup`,
+        url: `/user/balance`,
         method: "POST",
         body: body,
       }),
       invalidatesTags: () => ["user"],
     }),
+
     decreaseBalance: build.mutation<
       any,
       {
