@@ -10,7 +10,6 @@ import { ReactComponent as Avatar } from "../assets/img/default-avatar.svg";
 import Loader from "../components/Loader";
 import { getHours } from "../utils/getHours";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
-import User from "../components/Main/User";
 import { userApi } from "../store";
 import { useNavigate } from "react-router-dom";
 import Case from "../components/Main/TrainCard";
@@ -85,7 +84,7 @@ const Profile = () => {
     navigate("/");
   };
 
-  // if (tickets === undefined) return <Loader />;
+  if (tickets === undefined) return <Loader />;
 
   return (
     <div className="container box-profile-page ">
@@ -139,10 +138,10 @@ const Profile = () => {
             {tickets?.tickets?.map((item: any) => {
               return (
                 <TrainCard
-                  data={item.flightPlace.flight}
+                  data={item?.flightPlace?.flight}
                   isHaveTicket={true}
-                  place={item.flightPlace.place}
-                  cost={item.flightPlace.cost}
+                  place={item?.flightPlace?.place}
+                  cost={item?.flightPlace?.cost}
                 />
               );
             })}

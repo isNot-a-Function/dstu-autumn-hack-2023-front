@@ -41,7 +41,7 @@ const Flight = () => {
     setSelectPlace(0);
   }, [selectWagon]);
 
-  if (isLoading || !flight?.flights.carrriages) return <Loader />;
+  if (isLoading || !flight?.flights?.carrriages) return <Loader />;
   return (
     <div className="container box-deal-page ">
       <div className="info-train">

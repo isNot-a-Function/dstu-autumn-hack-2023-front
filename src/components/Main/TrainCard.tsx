@@ -74,24 +74,24 @@ const TrainCard = ({ data, isHaveTicket = false, place, cost }: CaseProps) => {
         <div className="box-places">
           <div className="place-item-card">
             <h1>07:00</h1>
-            <p>{data.departureDate}</p>
-            <p>{data.departurePoint}</p>
+            <p>{data?.departureDate}</p>
+            <p>{data?.departurePoint}</p>
           </div>
           <div className="place-item-card">
             <h1>-</h1>
           </div>
           <div className="place-item-card">
-            <h1>{data.arrivalTime}</h1>
-            <p>{data.arrivalDate}</p>
-            <p>{data.arrivalPoint}</p>
+            <h1>{data?.arrivalTime}</h1>
+            <p>{data?.arrivalDate}</p>
+            <p>{data?.arrivalPoint}</p>
           </div>
         </div>
         <div className="box-free-place">
           <p>В пути:</p>
           <p>
-            {Math.floor(data.travelTime / 60)} ч{" "}
-            {data.travelTime - Math.floor(data.travelTime / 60) !== 0 &&
-              data.travelTime - Math.floor(data.travelTime / 60) * 60 + "м"}
+            {Math.floor(data?.travelTime / 60)} ч{" "}
+            {data?.travelTime - Math.floor(data?.travelTime / 60) !== 0 &&
+              data?.travelTime - Math.floor(data?.travelTime / 60) * 60 + "м"}
           </p>
         </div>
 
