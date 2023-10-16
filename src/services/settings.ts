@@ -46,9 +46,11 @@ export const baseQuery: BaseQueryFn<
   }
   console.log("result.error", result.error);
   if (
-    (result.error && result.error.status === 401) ||
+    result.error &&
+    result.error.status === 401
+    // ||
     //@ts-ignore
-    (result.error && result.error.originalStatus === 401)
+    // (result.error && result.error.originalStatus === 401)
   ) {
     console.log("401 ошибка!!");
     // checking whether the mutex is locked

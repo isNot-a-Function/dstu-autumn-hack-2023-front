@@ -15,6 +15,38 @@ export const userApi = createApi({
       }),
       providesTags: () => ["user"],
     }),
+    changeFactor: build.mutation<
+      any,
+      {
+        age?: number;
+        allergyToAnimals?: boolean;
+        carriageType?: string;
+        dislikeForChildren?: boolean;
+        familyStatus?: string;
+        hobbies?: string[];
+        language?: string[];
+        placePosition?: string;
+        psychotype?: string;
+        sex?: string;
+        snore?: boolean;
+      }
+    >({
+      query: (body) => ({
+        url: `/profile/`,
+        method: "PUT",
+        body: body,
+      }),
+      invalidatesTags: () => ["user"],
+    }),
+
+    getProfileId: build.query<{ user: user }, number | string>({
+      query: (id) => ({
+        url: `/user/${id}`,
+        method: "GET",
+      }),
+      providesTags: () => ["user"],
+    }),
+    ////////
 
     changePhoto: build.mutation<any, any>({
       query: (body) => ({

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ReactComponent as Toilet } from "../../assets/img/wagons/toilet.svg";
 import { flightPlace } from "../../types/flightTypes";
 import { setSelectionRange } from "@testing-library/user-event/dist/utils";
+import { useNavigate } from "react-router-dom";
 
 interface ReservedWagonProps {
   data: {
@@ -31,6 +32,7 @@ const SvWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
   const changePlace = (value: number) => {
     setSelectPlace(value);
   };
+  const navigate = useNavigate();
 
   return (
     <>
@@ -60,9 +62,13 @@ const SvWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
                         : ""
                     }`}
                     onClick={() => {
-                      changePlace(it?.placeNumber);
+                      if (it.ticketId === null) {
+                        changePlace(it?.placeNumber);
+                      } else {
+                        navigate(`/profile/${it.ticket.user.id}`);
+                      }
                     }}
-                    disabled={it.ticketId !== null}
+                    // disabled={it.ticketId !== null}
                   >
                     <h1>{it?.placeNumber}</h1>
                     <p> {it?.cost + "p"}</p>

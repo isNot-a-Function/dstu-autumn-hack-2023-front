@@ -5,6 +5,7 @@ import res3 from "../../assets/img/wagons/res3.jpg";
 import { useState } from "react";
 import { ReactComponent as Toilet } from "../../assets/img/wagons/toilet.svg";
 import { flightPlace } from "../../types/flightTypes";
+import { useNavigate } from "react-router-dom";
 
 interface ReservedWagonProps {
   data: {
@@ -35,6 +36,7 @@ const CoupeWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
   const changePlace = (value: number) => {
     setSelectPlace(value);
   };
+  const navigate = useNavigate();
 
   return (
     <>
@@ -64,9 +66,13 @@ const CoupeWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
                           ? "place-good"
                           : ""
                       }`}
-                      disabled={data.places[index + 1]?.ticketId !== null}
+                      // disabled={data.places[index + 1]?.ticketId !== null}
                       onClick={() => {
-                        changePlace(data.places[index + 1]?.placeNumber);
+                        if (it.ticketId === null) {
+                          changePlace(it?.placeNumber);
+                        } else {
+                          navigate(`/profile/${it.ticket.user.id}`);
+                        }
                       }}
                     >
                       <h1>{data.places[index + 1]?.placeNumber}</h1>
@@ -82,9 +88,13 @@ const CoupeWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
                           ? "place-good"
                           : ""
                       }`}
-                      disabled={it.ticketId !== null}
+                      // disabled={it.ticketId !== null}
                       onClick={() => {
-                        changePlace(it?.placeNumber);
+                        if (it.ticketId === null) {
+                          changePlace(it?.placeNumber);
+                        } else {
+                          navigate(`/profile/${it.ticket.user.id}`);
+                        }
                       }}
                     >
                       <h1>{it?.placeNumber}</h1>

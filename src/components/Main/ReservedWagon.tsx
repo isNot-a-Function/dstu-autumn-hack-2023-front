@@ -5,6 +5,7 @@ import res3 from "../../assets/img/wagons/res3.jpg";
 import { useState } from "react";
 import { ReactComponent as Toilet } from "../../assets/img/wagons/toilet.svg";
 import { flightPlace } from "../../types/flightTypes";
+import { useNavigate } from "react-router-dom";
 
 interface ReservedWagonProps {
   data: {
@@ -36,6 +37,8 @@ const ReservedWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
     setSelectPlace(value);
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="box-wagon">
@@ -65,9 +68,14 @@ const ReservedWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
                           : ""
                       }`}
                       onClick={() => {
-                        changePlace(data.places[index + 1]?.placeNumber);
+                        if (data.places[index + 1]?.ticketId === null) {
+                          changePlace(data.places[index + 1]?.placeNumber);
+                        } else {
+                          navigate(
+                            `/profile/${data.places[index + 1]?.ticket.user.id}`
+                          );
+                        }
                       }}
-                      disabled={data.places[index + 1]?.ticketId !== null}
                     >
                       <h1>{data.places[index + 1]?.placeNumber}</h1>
 
@@ -83,10 +91,18 @@ const ReservedWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
                           ? "place-good"
                           : ""
                       }`}
+                      // onClick={() => {
+                      //   changePlace(it?.placeNumber);
+                      // }}
+
                       onClick={() => {
-                        changePlace(it?.placeNumber);
+                        if (it?.ticketId === null) {
+                          changePlace(it?.placeNumber);
+                        } else {
+                          navigate(`/profile/${it?.ticket.user.id}`);
+                        }
                       }}
-                      disabled={it.ticketId !== null}
+                      // disabled={it.ticketId !== null}
                     >
                       <h1>{it?.placeNumber}</h1>
                       <p> {it?.cost + "p"}</p>
@@ -105,16 +121,34 @@ const ReservedWagon = ({ data, setSelectPlace }: ReservedWagonProps) => {
                         ? "place-good"
                         : ""
                     }`}
-                    disabled={
-                      data.places[data.places.length - 1 - index / 2]
-                        .ticketId !== null
-                    }
+                    // disabled={
+                    //   data.places[data.places.length - 1 - index / 2]
+                    //     .ticketId !== null
+                    // }
                     onClick={() => {
-                      changePlace(
+                      if (
                         data.places[data.places.length - 1 - index / 2]
-                          ?.placeNumber
-                      );
+                          .ticketId === null
+                      ) {
+                        changePlace(
+                          data.places[data.places.length - 1 - index / 2]
+                            ?.placeNumber
+                        );
+                      } else {
+                        navigate(
+                          `/profile/${
+                            data.places[data.places.length - 1 - index / 2]
+                              ?.ticket.user.id
+                          }`
+                        );
+                      }
                     }}
+                    // onClick={() => {
+                    //   changePlace(
+                    //     data.places[data.places.length - 1 - index / 2]
+                    //       ?.placeNumber
+                    //   );
+                    // }}
                   >
                     <h1>
                       {

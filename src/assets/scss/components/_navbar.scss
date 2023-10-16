@@ -123,6 +123,10 @@
       background: #556481;
       background-position-x: 200px;
     }
+
+    @media (max-width: 1000px) {
+      font-size: 14px;
+    }
   }
 
   &__icon {

@@ -44,6 +44,10 @@ h1.header-deal-page {
   p {
     color: #111111;
   }
+  @media (max-width: 1000px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }
 
 .info-of-customer {
