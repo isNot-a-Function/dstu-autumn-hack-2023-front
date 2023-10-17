@@ -1,6 +1,6 @@
 import "../../assets/scss/components/main/_case.scss";
 import { ReactComponent as Trash } from "../../assets/img/trash.svg";
-import { casesApi } from "../../store";
+import { flightApi } from "../../store";
 import { useEffect, useState } from "react";
 
 interface MenuProps {
@@ -15,7 +15,7 @@ const Menu = ({
   openSection,
   setOpenSection,
 }: MenuProps) => {
-  const { data: specializations } = casesApi.useGetSpecializationsQuery();
+  const { data: specializations } = flightApi.useGetSpecializationsQuery();
   const [sectionList, setSectionList] = useState([]);
 
   const handlerClickSection = (title: string) => {

@@ -5,7 +5,7 @@ import { Formik, Field, useFormik, FormikProvider } from "formik";
 
 import CustomSelect from "../UI/CustomSelect";
 import Loader from "../Loader";
-import { casesApi } from "../../store";
+import { flightApi } from "../../store";
 
 interface MonitoringModalProps {
   isActive: boolean;
@@ -18,7 +18,7 @@ const CreateResponseModal = ({
   setIsActive,
   orderId,
 }: MonitoringModalProps) => {
-  const [createResponse] = casesApi.useСreateResponseMutation();
+  const [createResponse] = flightApi.useСreateResponseMutation();
 
   const [description, setDescription] = useState("");
 

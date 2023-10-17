@@ -9,6 +9,8 @@ import { useWindowSize } from "../hooks/useWindowSize";
 import { userApi } from "../store";
 import avatar from "../assets/img/default-avatar.svg";
 import TopUpModal from "./Modals/TopUpModal";
+import { ReactComponent as Burger } from "../assets/img/navbarIcons/burger_menu.svg";
+import Train from "./Train";
 const Navbar = () => {
   const token = useGetToken();
   // const user = getUser();
@@ -39,7 +41,7 @@ const Navbar = () => {
   const sections = [
     {
       id: 1,
-      name: "ЗАКАЗЫ",
+      name: "КУПИТЬ БИЛЕТ",
       url: "/store",
     },
     // {
@@ -60,7 +62,21 @@ const Navbar = () => {
               className="logo_img"
               onClick={() => setActiveNavbarItem(0)}
             >
-              <p>DELO</p>
+              {dimensions.width < 1000 ? (
+                <></>
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  В<div className="train-logo"></div>
+                  <span style={{ color: "#ff0000" }}>ПУТЬ</span>
+                </div>
+              )}
             </Link>
 
             <nav className="navbar">

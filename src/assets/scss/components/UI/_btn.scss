@@ -33,18 +33,18 @@
 }
 
 .lightBtn {
-  background-color: #384661;
-  color: #f2f3ee;
+  background-color: #3d5d6d;
+  color: white;
   background-size: 200% 100%;
   background-position: right bottom;
   transition: all 0.5s ease-out;
 
   &:hover {
     background-position: left bottom;
-    background-color: #3f5071;
+    background-color: #466d80;
   }
   span {
-    color: #f2f3ee;
+    color: white;
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../assets/scss/pages/_deal.scss";
+import "../assets/scss/pages/_flight.scss";
 import ScaleOnline from "../components/Footer/ScaleOnline";
 import { ReactComponent as Download } from "../assets/img/download.svg";
 import { ReactComponent as Eye } from "../assets/img/eye.svg";
@@ -10,10 +10,9 @@ import { ReactComponent as Avatar } from "../assets/img/default-avatar.svg";
 import Loader from "../components/Loader";
 import { getHours } from "../utils/getHours";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
-import User from "../components/Main/User";
-import { userApi, casesApi } from "../store";
+import { userApi } from "../store";
 import { useNavigate } from "react-router-dom";
-import Case from "../components/Main/Case";
+import Case from "../components/Main/TrainCard";
 import Pagination from "../components/Pagination/Pagination";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import TopUpModal from "../components/Modals/TopUpModal";
@@ -35,7 +34,7 @@ const HistoryBalance = () => {
   const [page, setPage] = useState(1);
   const { data: user } = userApi.useGetUserQuery();
   const [changePhoto] = userApi.useChangePhotoMutation();
-  const [checkFile] = casesApi.useCheckFileMutation();
+  // const [checkFile] = casesApi.useCheckFileMutation();
   const { data: history, isLoading } = userApi.useGetHistoryBalanceQuery({
     page: page,
   });
@@ -64,11 +63,11 @@ const HistoryBalance = () => {
   const handlerChangePhoto = async (e: any) => {
     const formData = new FormData();
     formData.append("files", e.target.files[0]);
-    checkFile(formData).then((data: any) => {
-      if (data?.data.files !== undefined) {
-        changePhoto({ logo: data?.data.files[0] });
-      }
-    });
+    // checkFile(formData).then((data: any) => {
+    //   if (data?.data.files !== undefined) {
+    //     changePhoto({ logo: data?.data.files[0] });
+    //   }
+    // });
   };
   useEffect(() => {
     console.log("user", user);

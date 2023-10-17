@@ -53,7 +53,7 @@ const CustomSelect = ({
   value = options[0],
   isHaveIcon = false,
   width = "100%",
-  paddingIndicator = 8,
+  paddingIndicator = 20,
   paddingContainer = 8,
   backgroundColor = "white",
   menuPlacement = "bottom",
@@ -62,15 +62,15 @@ const CustomSelect = ({
     container: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
       width: width,
-      // maxWidth: "200px",
+      maxWidth: "200px",
       cursor: "pointer",
-      border: "1px solid #87501d",
-      borderRadius: "12px",
+      border: "2px solid #ff0000",
+      borderRadius: "8px",
     }),
     option: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
       top: 0,
-      color: state.isFocused ? "#87501d" : "#87501d",
+      color: state.isFocused ? "#011111" : "#011111",
       backgroundColor: state.isFocused ? "#f2f3ee" : "white",
       fontSize: "14px",
       cursor: "pointer",
@@ -81,8 +81,12 @@ const CustomSelect = ({
     }),
     indicators: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
-      padding: 0,
+      padding: 12,
       cursor: "pointer",
+    }),
+    indicatorsContainer: (defaultStyles: any, state: any) => ({
+      ...defaultStyles,
+      paddingRight: 12,
     }),
     control: (defaultStyles: any) => ({
       ...defaultStyles,
@@ -114,7 +118,7 @@ const CustomSelect = ({
     }),
     singleValue: (defaultStyles: any) => ({
       ...defaultStyles,
-      color: "#87501d",
+      color: "#011111",
     }),
   };
 

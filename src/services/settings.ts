@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const mutex = new Mutex();
 const baseQueryDefault = fetchBaseQuery({
   baseUrl: "https://nikko-develop.space/api/",
-  credentials: "include",
+  // credentials: "include",
   prepareHeaders: async (headers) => {
     const token = localStorage.getItem("accessToken");
     const lang = localStorage.getItem("lang")?.toLowerCase();
@@ -44,8 +44,15 @@ export const baseQuery: BaseQueryFn<
   if (!result.error) {
     toast.success(message);
   }
-
-  if (result.error && result.error.status === 401) {
+  console.log("result.error", result.error);
+  if (
+    result.error &&
+    result.error.status === 401
+    // ||
+    //@ts-ignore
+    // (result.error && result.error.originalStatus === 401)
+  ) {
+    console.log("401 ошибка!!");
     // checking whether the mutex is locked
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();

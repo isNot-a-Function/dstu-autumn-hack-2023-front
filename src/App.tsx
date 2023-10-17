@@ -7,8 +7,10 @@ import MainLayout from "./layout/MainLayout";
 import ScrollToTop from "./utils/scrollToTop";
 import { useEffect } from "react";
 import Login from "./pages/Login";
-import Deal from "./pages/Deal";
+import Flight from "./pages/Flight";
 import HistoryBalance from "./pages/HistoryBalance";
+import User from "./pages/UserPage";
+import Chat from "./pages/Chat";
 
 function App() {
   let vh = window.innerHeight * 0.01;
@@ -26,12 +28,14 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<Navigate to={"/orders"} />} />
-          <Route path="orders" element={<Main />} />
+          <Route path="/" element={<Navigate to={"/store"} />} />
+          <Route path="store" element={<Main />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="profile/:id" element={<User />} />
           <Route path="login" element={<Login />} />
-          <Route path="order/:id" element={<Deal />} />
+          <Route path="flight/:id" element={<Flight />} />
           <Route path="balance" element={<HistoryBalance />} />
+          <Route path="chat" element={<Chat />} />
         </Route>
         <Route path="*" element={<Navigate to={"/"} replace />} />
       </Routes>

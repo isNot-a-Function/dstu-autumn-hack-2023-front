@@ -7,12 +7,58 @@ import {
   createResponseProps,
   archiveOrder,
 } from "../types/casesTypes";
+import { flightsData, flightsDataItem } from "../types/flightTypes";
 
-export const casesApi = createApi({
+export const flightApi = createApi({
   reducerPath: "casesApi",
   baseQuery,
   tagTypes: ["orders", "order"],
   endpoints: (build) => ({
+    getFlights: build.query<
+      flightsData,
+      { place1: string; place2: string; date: string }
+    >({
+      query: ({ place1, place2, date }) => ({
+        url: `flight/?arrivalPoint=${place1}&departurePoint=${place2}&date=${date}`,
+        method: "GET",
+      }),
+    }),
+    getFlight: build.query<{ flights: flightsDataItem }, number | string>({
+      query: (id) => ({
+        url: `flight/${id}`,
+        method: "GET",
+      }),
+    }),
+    buyTicket: build.mutation<
+      any,
+      {
+        flightPlaceId: number;
+        withAnimals: boolean;
+        withChildren: boolean;
+      }
+    >({
+      query: (body) => ({
+        url: `/ticket/`,
+        method: "POST",
+        body: body,
+      }),
+    }),
+    getMyTicket: build.query<any, void>({
+      query: () => ({
+        url: `/ticket/my`,
+        method: "GET",
+      }),
+    }),
+    updateParametrs: build.mutation<any, any>({
+      query: (body) => ({
+        url: `/profile/`,
+        method: "POST",
+        body: body,
+      }),
+    }),
+
+    /////
+
     getSpecializations: build.query<getSpecializationsData, void>({
       query: () => ({
         url: `/specialization/`,

@@ -88,7 +88,7 @@ const TopUpModal = ({ setIsActive, isTopUp = true }: TopUpModalProps) => {
   const handlerButton = async () => {
     if (amountInput && +amountInput > 0) {
       if (isTopUp) {
-        await addBalance({ sum: +amountInput });
+        await addBalance({ balance: +amountInput });
       } else {
         await decreaseBalance({ sum: +amountInput });
       }

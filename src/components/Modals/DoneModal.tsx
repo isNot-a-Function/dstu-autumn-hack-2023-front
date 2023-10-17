@@ -5,7 +5,7 @@ import { Formik, Field, useFormik, FormikProvider } from "formik";
 
 import CustomSelect from "../UI/CustomSelect";
 import Loader from "../Loader";
-import { casesApi } from "../../store";
+import { flightApi } from "../../store";
 
 interface MonitoringModalProps {
   isActive: boolean;
@@ -25,8 +25,8 @@ const DoneModal = ({
   orderId,
   isHaveCost = true,
 }: MonitoringModalProps) => {
-  const [done] = casesApi.useDoneExecutorMutation();
-  const [approve] = casesApi.useCustomerApproveMutation();
+  const [done] = flightApi.useDoneExecutorMutation();
+  const [approve] = flightApi.useCustomerApproveMutation();
 
   const select_cost_type = [
     {

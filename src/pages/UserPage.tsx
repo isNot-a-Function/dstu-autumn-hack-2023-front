@@ -7,17 +7,11 @@ import { ReactComponent as Speech } from "../assets/img/speech.svg";
 import { ReactComponent as Time } from "../assets/img/time.svg";
 import { ReactComponent as Money } from "../assets/img/money.svg";
 import { ReactComponent as Avatar } from "../assets/img/default-avatar.svg";
-import Loader from "../components/Loader";
-import { getHours } from "../utils/getHours";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
-import { userApi } from "../store";
+import { chatApi, userApi } from "../store";
 import { useNavigate } from "react-router-dom";
-import Case from "../components/Main/TrainCard";
-import Pagination from "../components/Pagination/Pagination";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import UpdateProfileModal from "../components/Main/UpdateProfile";
-import { flightApi } from "../store";
-import TrainCard from "../components/Main/TrainCard";
 import ChangeParametrsModal from "../components/Main/ChangeParametrsModal";
 
 const sortListEx = [
@@ -38,10 +32,12 @@ const sortListEx = [
   // },
 ];
 
-const Profile = () => {
-  const navigate = useNavigate();
-  const { data: tickets } = flightApi.useGetMyTicketQuery();
+const UserPage = () => {
+  const userId = window.location.pathname.replace("/profile/", "");
+  const { data: user } = userApi.useGetProfileIdQuery(userId);
+  console.log("userID", userId);
 
+  const navigate = useNavigate();
   const userLocal =
     localStorage.getItem("user") !== null
       ? //@ts-ignore
@@ -53,11 +49,11 @@ const Profile = () => {
       localStorage.clear();
       navigate("/");
     }
+    if (userLocal.id == userId) {
+      navigate("profile");
+    }
   }, []);
 
-  console.log("tickets", tickets);
-
-  const { data: user } = userApi.useGetUserQuery();
   const [changePhoto] = userApi.useChangePhotoMutation();
   // const [checkFile] = casesApi.useCheckFileMutation();
   const [sortValue, setSortValue] = useState<string>(sortListEx[0].value);
@@ -66,6 +62,8 @@ const Profile = () => {
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
   const [isShowChangeParametrs, setIsShowChangeParametrs] = useState(false);
+
+  const [createChat] = chatApi.useRequestChatMutation();
 
   const handlerChangePhoto = async (e: any) => {
     const formData = new FormData();
@@ -85,7 +83,7 @@ const Profile = () => {
     navigate("/");
   };
 
-  if (tickets === undefined) return <Loader />;
+  // if (tickets === undefined) return <Loader />;
 
   return (
     <div className="container box-profile-page ">
@@ -134,25 +132,12 @@ const Profile = () => {
             })}
           </div>
         </div>
-        <div>
-          <div className="box-list-cases">
-            {tickets?.tickets?.map((item: any) => {
-              return (
-                <TrainCard
-                  data={item?.flightPlace?.flight}
-                  isHaveTicket={true}
-                  place={item?.flightPlace?.place}
-                  cost={item?.flightPlace?.cost}
-                />
-              );
-            })}
-          </div>
-        </div>
+        <div></div>
       </div>
 
       <div className="box-dop-info">
         <div className="info-of-customer">
-          <p> ЛИЧНЫЙ КАБИНЕТ</p>
+          <p> СТРАНИЦА ПОЛЬЗОВАТЕЛЯ</p>
           <div className="box-avatar-in-deal">
             <div
               style={{
@@ -175,32 +160,14 @@ const Profile = () => {
         <button
           className="lightBtn btn"
           onClick={() => {
-            setIsShowUpdateUserModal(true);
+            createChat({ userId: Number(userId) });
           }}
         >
-          ИЗМЕНИТЬ ПРОФИЛЬ
-        </button>
-
-        <button
-          className="lightBtn btn"
-          onClick={() => {
-            setIsShowChangeParametrs(true);
-          }}
-        >
-          ИЗМЕНИТЬ ПРЕДПОЧТЕНИЯ
-        </button>
-
-        <button
-          className="lightBtn btn"
-          onClick={() => {
-            setIsShowConfirmationModal(true);
-          }}
-        >
-          ВЫЙТИ
+          ЗАЯВКА НА ОБЩЕНИЕ
         </button>
       </div>
     </div>
   );
 };
 
-export default Profile;
+export default UserPage;
