@@ -8,11 +8,12 @@ import { ReactComponent as Time } from "../assets/img/time.svg";
 import { ReactComponent as Money } from "../assets/img/money.svg";
 import { ReactComponent as Avatar } from "../assets/img/default-avatar.svg";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
-import { chatApi, userApi } from "../store";
+import { chatApi, flightApi, userApi } from "../store";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import UpdateProfileModal from "../components/Main/UpdateProfile";
 import ChangeParametrsModal from "../components/Main/ChangeParametrsModal";
+import DoneModal from "../components/Modals/DoneModal";
 
 const sortListEx = [
   {
@@ -62,6 +63,9 @@ const UserPage = () => {
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
   const [isShowChangeParametrs, setIsShowChangeParametrs] = useState(false);
+  const [isShowRaitingModal, setIsShowRaitingModal] = useState(false);
+
+  const [addRaiting] = flightApi.useAddRaitingMutation();
 
   const [createChat] = chatApi.useRequestChatMutation();
 
@@ -106,6 +110,14 @@ const UserPage = () => {
         <ChangeParametrsModal
           isActive={isShowChangeParametrs}
           setIsActive={setIsShowChangeParametrs}
+        />
+      )}
+
+      {isShowRaitingModal && (
+        <DoneModal
+          isActive={isShowRaitingModal}
+          setIsActive={setIsShowRaitingModal}
+          userId={userId}
         />
       )}
 
@@ -164,6 +176,15 @@ const UserPage = () => {
           }}
         >
           ЗАЯВКА НА ОБЩЕНИЕ
+        </button>
+
+        <button
+          className="lightBtn btn"
+          onClick={() => {
+            setIsShowRaitingModal(true);
+          }}
+        >
+          ПОСТАВИТЬ ОЦЕНКУ
         </button>
       </div>
     </div>

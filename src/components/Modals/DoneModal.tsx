@@ -15,6 +15,7 @@ interface MonitoringModalProps {
   children?: React.ReactNode;
   orderId?: string;
   isHaveCost?: boolean;
+  userId: string;
 }
 
 const DoneModal = ({
@@ -24,9 +25,12 @@ const DoneModal = ({
   info = null,
   orderId,
   isHaveCost = true,
+  userId,
 }: MonitoringModalProps) => {
   const [done] = flightApi.useDoneExecutorMutation();
   const [approve] = flightApi.useCustomerApproveMutation();
+
+  const [addRaiting] = flightApi.useAddRaitingMutation();
 
   const select_cost_type = [
     {
@@ -64,7 +68,7 @@ const DoneModal = ({
     <Modal
       isActive={isActive}
       setIsActive={setIsActive}
-      headerTitle={"Подтвердите успешное выполнение заказа"}
+      headerTitle={"Поcтавьте оценку попутчику"}
       className="monitoringModal"
     >
       <>
@@ -116,7 +120,7 @@ const DoneModal = ({
                 className="box-form-create-case-modal"
               >
                 <>
-                  <div>
+                  {/* <div>
                     <p>КОММЕНТАРИЙ</p>
                     <textarea
                       name={"description"}
@@ -126,10 +130,10 @@ const DoneModal = ({
                       onChange={(e) => setDescription(e.target.value)}
                       value={description}
                     ></textarea>
-                  </div>
+                  </div> */}
 
                   <div>
-                    <p>ОЦЕНКА {isExecutor ? "ЗАКАЗЧИКА" : "ИСПОЛНИТЕЛЯ"}</p>
+                    <p>ОЦЕНКА ПОПУТЧИКА </p>
 
                     <CustomSelect
                       value={rating}
@@ -161,9 +165,15 @@ const DoneModal = ({
                   <button
                     type="submit"
                     // disabled={isSubmitting}
+                    onClick={() => {
+                      addRaiting({
+                        toWhomId: Number(userId),
+                        rating: Number(rating.value),
+                      });
+                    }}
                     className="lightBtn btn"
                   >
-                    ПОДТВЕРДИТЬ
+                    ОЦЕНИТЬ
                   </button>
                   {/* {errors.name && touched.name && errors.name} */}
                 </>

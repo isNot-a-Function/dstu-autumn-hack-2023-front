@@ -10,7 +10,7 @@ interface CustomSelectProps {
   label?: optionsItem;
   value?: optionsItem;
   options: optionsItem[];
-  heightSelect?: number;
+  heightSelect?: number | string;
   isHaveIcon?: boolean;
   onChange: (value: any) => void;
   width?: number | string;
@@ -18,6 +18,7 @@ interface CustomSelectProps {
   paddingIndicator?: number;
   backgroundColor?: string;
   menuPlacement?: any;
+  isMulti?: boolean;
 }
 
 const DropdownIndicator = (props: any) => {
@@ -57,6 +58,7 @@ const CustomSelect = ({
   paddingContainer = 8,
   backgroundColor = "white",
   menuPlacement = "bottom",
+  isMulti = false,
 }: CustomSelectProps) => {
   const customStyles = {
     container: (defaultStyles: any, state: any) => ({
@@ -66,6 +68,7 @@ const CustomSelect = ({
       cursor: "pointer",
       border: "2px solid #ff0000",
       borderRadius: "8px",
+      heigth: "100%",
     }),
     option: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
@@ -109,12 +112,14 @@ const CustomSelect = ({
     dropdownIndicator: (provided: any) => ({
       ...provided,
       padding: paddingIndicator,
+      color: "#011111",
     }),
     ropdownIndicator: (provided: any, state: any) => ({
       ...provided,
       transition: "all .2s ease",
       transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
-      background: `url('../../../img/customSelect/arrow-down.png') no-repeat right #87501d `,
+      background: `url('../../../img/customSelect/arrow-down.png') no-repeat right #011111  `,
+      color: "#011111",
     }),
     singleValue: (defaultStyles: any) => ({
       ...defaultStyles,
@@ -132,6 +137,7 @@ const CustomSelect = ({
         menuPlacement={menuPlacement}
         isSearchable={false}
         formatOptionLabel={(item) => formatOptionLabel(item, isHaveIcon)}
+        isMulti={isMulti}
         // menuShouldBlockScroll={true}
         maxMenuHeight={150}
         styles={customStyles}

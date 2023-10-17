@@ -56,6 +56,19 @@ export const flightApi = createApi({
         body: body,
       }),
     }),
+    addRaiting: build.mutation<
+      any,
+      {
+        rating: number;
+        toWhomId: number;
+      }
+    >({
+      query: (body) => ({
+        url: `/rating/`,
+        method: "POST",
+        body: body,
+      }),
+    }),
 
     /////
 
