@@ -66,3 +66,5 @@ export interface Place {
   position: string;
   side: boolean;
 }
+
+

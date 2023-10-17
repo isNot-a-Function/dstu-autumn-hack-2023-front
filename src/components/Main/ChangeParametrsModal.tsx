@@ -170,6 +170,44 @@ const ChangeParametrsModal = ({
     },
   ];
 
+  const select_lang = [
+    {
+      value: "russian",
+      label: "Русский",
+    },
+    {
+      value: "armenian",
+      label: "Армянский",
+    },
+    {
+      value: "english",
+      label: "Английский",
+    },
+  ];
+
+  const select_hobby = [
+    {
+      value: "Программирование",
+      label: "Программирование",
+    },
+    {
+      value: "Музыка",
+      label: "Музыка",
+    },
+    {
+      value: "Кино",
+      label: "Кино",
+    },
+    {
+      value: "Спорт",
+      label: "Спорт",
+    },
+    {
+      value: "Путешествия",
+      label: "Путешествия",
+    },
+  ];
+
   const [selectWagonType, setSelectWagonType] = useState(select_wagon_type[0]);
   const [selectFamilyStatus, setSelectFamilyStatus] = useState(
     select_family_status[0]
@@ -178,6 +216,8 @@ const ChangeParametrsModal = ({
   const [selectPsy, setSelectPsy] = useState(select_psy[0]);
   const [selectRelig, setSelectRelig] = useState(select_relig[0]);
   const [selectSex, setSelectSex] = useState(select_sex[0]);
+  const [selectLang, setSelectLang] = useState(select_lang[0]);
+  const [selectHobbies, setSelectHobbies] = useState([select_hobby[0]]);
 
   // const handleFileChange = async (e: any) => {
   //   const formData = new FormData();
@@ -218,30 +258,15 @@ const ChangeParametrsModal = ({
               lang: "",
               snore: false,
             }}
-            // validate={(values) => {
-            //   const errors = {};
-            //   if (!values.name) {
-            //     //@ts-ignore
-            //     errors.name = "Заполните имя";
-            //   }
-            //   if (!/^([А-Я]|[а-я]|\s|,|[A-Z]|[a-z]){0,30}$/.test(values.tags)) {
-            //     //@ts-ignore
-            //     errors.name =
-            //       "Для создания тегов используйте русские и латинские буквы, а также запятую";
-            //   }
-            //   console.log("errors", errors);
-            //   return errors;
-            // }}
             onSubmit={(values, { setSubmitting }) => {
-              console.log("values", values.allergyToAnimals);
               updateParametrs({
                 age: Number(values.age),
                 allergyToAnimals: values.allergyToAnimals,
                 carriageType: selectWagonType.value,
                 dislikeForChildren: values.dislikeForChildren,
                 familyStatus: selectFamilyStatus.value,
-                hobbies: values.hobbies.split(",").map((it: any) => it.trim()),
-                language: values.lang.split(",").map((it: any) => it.trim()),
+                hobbies: selectHobbies.map((it: any) => it.value),
+                language: selectLang.value,
                 placePosition: placePosition.value,
                 psychotype: selectPsy.value,
                 sex: selectSex.value,
@@ -311,24 +336,50 @@ const ChangeParametrsModal = ({
 
                   <div>
                     <p>ХОББИ(введите через запятую)</p>
-                    <input
+                    <CustomSelect
+                      //@ts-ignore
+                      value={selectHobbies}
+                      options={select_hobby}
+                      onChange={setSelectHobbies}
+                      isHaveIcon={false}
+                      width={"100%"}
+                      isMulti={true}
+                      heightSelect={"100%"}
+                      paddingIndicator={0}
+                      paddingContainer={12}
+                      // backgroundColor={"#171226"}
+                      menuPlacement={"bottom"}
+                    />
+                    {/* <input
                       type="string"
                       name="hobbies"
                       className="input"
                       onChange={handleChange}
                       value={values.hobbies}
-                    />
+                    /> */}
                   </div>
 
                   <div>
                     <p>ЯЗЫКИ, КОТОРЫЕ ВЫ ЗНАЕТЕ(введите через запятую)</p>
-                    <input
+                    <CustomSelect
+                      value={selectLang}
+                      options={select_lang}
+                      onChange={setSelectLang}
+                      isHaveIcon={false}
+                      width={"100%"}
+                      heightSelect={45}
+                      paddingIndicator={0}
+                      paddingContainer={12}
+                      backgroundColor={"#171226"}
+                      menuPlacement={"bottom"}
+                    />
+                    {/* <input
                       type="string"
                       name="lang"
                       className="input"
                       onChange={handleChange}
                       value={values.lang}
-                    />
+                    /> */}
                   </div>
 
                   <div>
@@ -472,7 +523,7 @@ const ChangeParametrsModal = ({
                     // disabled={isSubmitting}
                     className="lightBtn btn"
                   >
-                    {isUpdate ? "ИЗМЕНИТЬ ЗАКАЗ" : "CОЗДАТЬ ЗАКАЗ"}
+                    ИЗМЕНИТЬ
                   </button>
                   {errors.name && touched.name && errors.name}
                 </>
