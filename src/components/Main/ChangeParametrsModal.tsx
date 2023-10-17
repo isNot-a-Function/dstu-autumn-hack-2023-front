@@ -71,21 +71,6 @@ const ChangeParametrsModal = ({
     },
   ];
 
-  const select_hobbies = [
-    {
-      value: "dance",
-      label: "танцы",
-    },
-    {
-      value: "single",
-      label: "вокал",
-    },
-    {
-      value: "paint",
-      label: "рисование",
-    },
-  ];
-
   const select_place_position = [
     {
       value: "up",
@@ -323,7 +308,7 @@ const ChangeParametrsModal = ({
                     <CustomSelect
                       value={selectFamilyStatus}
                       options={select_family_status}
-                      onChange={setSelectWagonType}
+                      onChange={setSelectFamilyStatus}
                       isHaveIcon={false}
                       width={"100%"}
                       heightSelect={45}

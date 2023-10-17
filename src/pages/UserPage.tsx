@@ -51,7 +51,7 @@ const UserPage = () => {
       navigate("/");
     }
     if (userLocal.id == userId) {
-      navigate("profile");
+      navigate("/profile");
     }
   }, []);
 

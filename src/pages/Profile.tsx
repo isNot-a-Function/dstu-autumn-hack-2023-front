@@ -191,6 +191,16 @@ const Profile = () => {
         </button>
 
         <button
+          className="info-of-customer"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/chat");
+          }}
+        >
+          ЧАТЫ
+        </button>
+
+        <button
           className="lightBtn btn"
           onClick={() => {
             setIsShowConfirmationModal(true);
