@@ -19,13 +19,11 @@ const Chat = () => {
   });
   const [sendMessage] = chatApi.useSendMessageMutation();
 
-  console.log("chats", chats);
-
   if (chats === undefined) return <Loader />;
   return (
     <div className="container box-chat-page ">
       <div className="list-group">
-        <h1>Cписок чатов</h1>
+        <h1>СПИСОК ЧАТОВ</h1>
         {chats.groups.map((item: any) => (
           <div
             className="item-list-group"
@@ -42,100 +40,106 @@ const Chat = () => {
           </div>
         ))}
       </div>
-      <div className="box-chat">
-        <div className="header-chat">
-          <p>
-            {
-              chats?.groups?.filter((item: any) => item.id === selectGroup)[0]
-                ?.title
-            }
-          </p>
-        </div>
-        {chats?.groups?.filter((item: any) => item.id === selectGroup)[0]
-          ?.active === false ? (
-          <button
-            className="lightBtn btn"
-            style={{
-              paddingTop: 12,
-              paddingBottom: 12,
-              paddingLeft: 9,
-              paddingRight: 8,
-              marginTop: 10,
-              marginRight: 10,
-            }}
-            onClick={() => {
-              if (
+      {chats.groups.length !== 0 && (
+        <div className="box-chat">
+          <div className="header-chat">
+            <p>
+              {
                 chats?.groups?.filter((item: any) => item.id === selectGroup)[0]
-                  ?.active === false &&
-                chats?.groups?.filter((item: any) => item.id === selectGroup)[0]
-                  ?.creatorId !== userLocal?.id
-              ) {
-                if (selectGroup != undefined) {
-                  acceptRequest({ groupId: selectGroup });
-                }
+                  ?.title
               }
-            }}
-          >
-            {chats?.groups?.filter((item: any) => item.id === selectGroup)[0]
-              ?.active === false
-              ? chats?.groups?.filter((item: any) => item.id === selectGroup)[0]
-                  ?.creatorId !== userLocal?.id
-                ? "Подтвердите заявку на общение"
-                : "Ожидайте подтверждения заявки"
-              : ""}
-          </button>
-        ) : (
-          <>
-            <div className="box-messages">
-              {messages?.messages.map((item: any) => {
-                return (
-                  <div
-                    className={`item-message ${
-                      userLocal.id === item.senderId
-                        ? "my-message"
-                        : "nomy-message"
-                    }`}
-                  >
-                    <p>{item.text}</p>
-                    <p style={{ fontSize: 12 }}>
-                      {new Date(item.createdAt).toLocaleDateString() +
-                        "   " +
-                        new Date(item.createdAt).toLocaleTimeString()}
-                    </p>
-                  </div>
-                );
-              })}
+            </p>
+          </div>
+          {chats?.groups?.filter((item: any) => item.id === selectGroup)[0]
+            ?.active === false ? (
+            <button
+              className="lightBtn btn"
+              style={{
+                paddingTop: 12,
+                paddingBottom: 12,
+                paddingLeft: 9,
+                paddingRight: 8,
+                marginTop: 10,
+                marginRight: 10,
+              }}
+              onClick={() => {
+                if (
+                  chats?.groups?.filter(
+                    (item: any) => item.id === selectGroup
+                  )[0]?.active === false &&
+                  chats?.groups?.filter(
+                    (item: any) => item.id === selectGroup
+                  )[0]?.creatorId !== userLocal?.id
+                ) {
+                  if (selectGroup != undefined) {
+                    acceptRequest({ groupId: selectGroup });
+                  }
+                }
+              }}
+            >
+              {chats?.groups?.filter((item: any) => item.id === selectGroup)[0]
+                ?.active === false
+                ? chats?.groups?.filter(
+                    (item: any) => item.id === selectGroup
+                  )[0]?.creatorId !== userLocal?.id
+                  ? "Подтвердите заявку на общение"
+                  : "Ожидайте подтверждения заявки"
+                : ""}
+            </button>
+          ) : (
+            <>
+              <div className="box-messages">
+                {messages?.messages.map((item: any) => {
+                  return (
+                    <div
+                      className={`item-message ${
+                        userLocal.id === item.senderId
+                          ? "my-message"
+                          : "nomy-message"
+                      }`}
+                    >
+                      <p>{item.text}</p>
+                      <p style={{ fontSize: 12 }}>
+                        {new Date(item.createdAt).toLocaleDateString() +
+                          "   " +
+                          new Date(item.createdAt).toLocaleTimeString()}
+                      </p>
+                    </div>
+                  );
+                })}
 
-              {/* <div className="item-message nomy-message">
+                {/* <div className="item-message nomy-message">
                 <p>Привет! Я только за! Во что будет играть?</p>
                 <p style={{ fontSize: 12 }}>12.03.2023 16:40</p>
               </div> */}
-            </div>
-            <div className="send-messages">
-              <input
-                className="input-chat"
-                value={message}
-                onChange={(e) => {
-                  setMessage(e.target.value);
-                }}
-              />
-              <button
-                className="lightBtn"
-                onClick={() => {
-                  if (selectGroup != undefined) {
-                    sendMessage({
-                      groupId: selectGroup,
-                      text: message,
-                    }).then(() => setMessage(""));
-                  }
-                }}
-              >
-                Отправить
-              </button>
-            </div>
-          </>
-        )}
-      </div>
+              </div>
+              <div className="send-messages">
+                <input
+                  className="input-chat"
+                  value={message}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                  }}
+                />
+                <button
+                  className="lightBtn"
+                  onClick={() => {
+                    if (selectGroup != undefined) {
+                      sendMessage({
+                        groupId: selectGroup,
+                        text: message,
+                      }).then(() => setMessage(""));
+                    }
+                  }}
+                >
+                  Отправить
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+      {chats.groups.length === 0 && <h1>У ВАС ПОКА НЕТ ЧАТОВ</h1>}
     </div>
   );
 };

@@ -12,7 +12,7 @@ import { flightsData, flightsDataItem } from "../types/flightTypes";
 export const flightApi = createApi({
   reducerPath: "casesApi",
   baseQuery,
-  tagTypes: ["orders", "order"],
+  tagTypes: ["orders", "order", "train"],
   endpoints: (build) => ({
     getFlights: build.query<
       flightsData,
@@ -28,6 +28,7 @@ export const flightApi = createApi({
         url: `flight/${id}`,
         method: "GET",
       }),
+      providesTags: () => ["train"],
     }),
     buyTicket: build.mutation<
       any,
@@ -42,6 +43,7 @@ export const flightApi = createApi({
         method: "POST",
         body: body,
       }),
+      invalidatesTags: () => ["train"],
     }),
     getMyTicket: build.query<any, void>({
       query: () => ({
