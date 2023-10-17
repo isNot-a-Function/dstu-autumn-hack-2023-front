@@ -40,7 +40,7 @@ const Chat = () => {
           </div>
         ))}
       </div>
-      {chats.groups.length !== 0 && (
+      {chats.groups.length !== 0 && selectGroup != undefined && (
         <div className="box-chat">
           <div className="header-chat">
             <p>
@@ -61,6 +61,7 @@ const Chat = () => {
                 paddingRight: 8,
                 marginTop: 10,
                 marginRight: 10,
+                width: "100%",
               }}
               onClick={() => {
                 if (
@@ -122,7 +123,7 @@ const Chat = () => {
                   }}
                 />
                 <button
-                  className="lightBtn"
+                  className="lightBtn btn chatBtn"
                   onClick={() => {
                     if (selectGroup != undefined) {
                       sendMessage({
@@ -140,6 +141,7 @@ const Chat = () => {
         </div>
       )}
       {chats.groups.length === 0 && <h1>У ВАС ПОКА НЕТ ЧАТОВ</h1>}
+      {selectGroup === undefined && <h1>ВЫБЕРИТЕ ЧАТ</h1>}
     </div>
   );
 };
