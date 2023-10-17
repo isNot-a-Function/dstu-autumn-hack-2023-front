@@ -9,6 +9,7 @@ export interface flightsDataItem {
   departureDate: string;
   departurePoint: string;
   distance: number;
+  minCost: number;
   carrriages: {
     carriageNumber: number;
     id: number;

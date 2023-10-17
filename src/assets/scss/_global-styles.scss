@@ -264,6 +264,11 @@ input[type="number"]:focus {
   transform: skew(-10deg) rotateX(45deg);
 }
 
+#root {
+  height: 100%;
+  width: 100%;
+}
+
 .track:before {
   content: "";
   position: absolute;

@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Flight from "./pages/Flight";
 import HistoryBalance from "./pages/HistoryBalance";
 import User from "./pages/UserPage";
+import Chat from "./pages/Chat";
 
 function App() {
   let vh = window.innerHeight * 0.01;
@@ -34,6 +35,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="flight/:id" element={<Flight />} />
           <Route path="balance" element={<HistoryBalance />} />
+          <Route path="chat" element={<Chat />} />
         </Route>
         <Route path="*" element={<Navigate to={"/"} replace />} />
       </Routes>

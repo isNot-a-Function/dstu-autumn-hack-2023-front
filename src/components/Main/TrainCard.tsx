@@ -67,7 +67,7 @@ const TrainCard = ({ data, isHaveTicket = false, place, cost }: CaseProps) => {
         <span>{data?.train?.name || data?.trainName}</span>
         <div className="box-price">
           <Money />
-          <p>{isHaveTicket ? cost : "от 500 р"}</p>
+          <p>{isHaveTicket ? cost : data.minCost + "р" || "от 500 р"}</p>
         </div>
       </div>
       <div className="body-train-card">
