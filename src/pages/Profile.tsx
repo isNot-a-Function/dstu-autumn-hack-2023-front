@@ -41,6 +41,7 @@ const sortListEx = [
 const Profile = () => {
   const navigate = useNavigate();
   const { data: tickets } = flightApi.useGetMyTicketQuery();
+  const [updateParametrs] = flightApi.useUpdateParametrsMutation();
   const userLocal =
     localStorage.getItem("user") !== null
       ? //@ts-ignore

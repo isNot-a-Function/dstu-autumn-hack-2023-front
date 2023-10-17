@@ -49,6 +49,9 @@ const UserPage = () => {
       localStorage.clear();
       navigate("/");
     }
+    if (userLocal.id == userId) {
+      navigate("profile");
+    }
   }, []);
 
   const [changePhoto] = userApi.useChangePhotoMutation();

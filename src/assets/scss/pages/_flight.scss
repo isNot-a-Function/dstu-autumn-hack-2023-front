@@ -135,6 +135,9 @@ h1.header-deal-page {
   .lightBtn {
     margin-top: 0px;
   }
+  @media (max-width: 1000px) {
+    padding-top: 300px;
+  }
 }
 .item-dop-info {
   display: flex;
@@ -278,7 +281,7 @@ h1.header-deal-page {
   max-width: 100vw;
   overflow-x: auto;
   min-height: 150px;
-  height: 100%;
+  // height: 100%;
   display: flex;
   flex-direction: row;
   background-color: #f3f3f3;
@@ -393,7 +396,7 @@ h1.header-deal-page {
   }
 }
 .info-train {
-  height: 100%;
+  // height: 100%;
   width: 100%;
   margin-top: 12px;
   margin-bottom: 12px;
@@ -417,7 +420,7 @@ h1.header-deal-page {
 }
 .help-info-flight {
   width: 100%;
-  height: 100%;
+  // height: 100%;
   display: flex;
   flex-direction: row;
   gap: 10px;

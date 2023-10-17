@@ -49,6 +49,13 @@ export const flightApi = createApi({
         method: "GET",
       }),
     }),
+    updateParametrs: build.mutation<any, any>({
+      query: (body) => ({
+        url: `/profile/`,
+        method: "POST",
+        body: body,
+      }),
+    }),
 
     /////
 

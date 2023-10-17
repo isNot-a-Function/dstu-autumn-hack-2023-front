@@ -31,6 +31,8 @@ const ChangeParametrsModal = ({
     info === null ? [] : info.files
   );
 
+  const [updateParametrs] = flightApi.useUpdateParametrsMutation();
+
   const select_wagon_type = [
     {
       value: "coupe",
@@ -232,26 +234,20 @@ const ChangeParametrsModal = ({
             // }}
             onSubmit={(values, { setSubmitting }) => {
               console.log("values", values.allergyToAnimals);
-              // !isUpdate
-              //   ? createCase({
-              //       title: values.name,
-              //       description: description,
-              //       files: linkFiles,
-              //       tags: values.tags.split(",").map((it: any) => it.trim()),
-              //       costType: costType.value,
-              //       cost: Number(cost),
-              //       specialization: specializations.value,
-              //     })
-              //   : updateCase({
-              //       title: values.name,
-              //       description: description,
-              //       files: linkFiles,
-              //       tags: values.tags.split(",").map((it: any) => it.trim()),
-              //       costType: costType.value,
-              //       cost: Number(cost),
-              //       specialization: specializations.value,
-              //       orderId: orderId,
-              //     });
+              updateParametrs({
+                age: Number(values.age),
+                allergyToAnimals: values.allergyToAnimals,
+                carriageType: selectWagonType.value,
+                dislikeForChildren: values.dislikeForChildren,
+                familyStatus: selectFamilyStatus.value,
+                hobbies: values.hobbies.split(",").map((it: any) => it.trim()),
+                language: values.lang.split(",").map((it: any) => it.trim()),
+                placePosition: placePosition.value,
+                psychotype: selectPsy.value,
+                sex: selectSex.value,
+                snore: values.snore,
+              });
+
               setIsActive(false);
             }}
           >
@@ -274,10 +270,10 @@ const ChangeParametrsModal = ({
                     <p>ВОЗРАСТ</p>
                     <input
                       type="string"
-                      name="name"
+                      name="age"
                       className="input"
                       onChange={handleChange}
-                      value={values.name}
+                      value={values.age}
                     />
                   </div>
 
@@ -317,7 +313,7 @@ const ChangeParametrsModal = ({
                     <p>ХОББИ(введите через запятую)</p>
                     <input
                       type="string"
-                      name="tags"
+                      name="hobbies"
                       className="input"
                       onChange={handleChange}
                       value={values.hobbies}
@@ -328,7 +324,7 @@ const ChangeParametrsModal = ({
                     <p>ЯЗЫКИ, КОТОРЫЕ ВЫ ЗНАЕТЕ(введите через запятую)</p>
                     <input
                       type="string"
-                      name="tags"
+                      name="lang"
                       className="input"
                       onChange={handleChange}
                       value={values.lang}
