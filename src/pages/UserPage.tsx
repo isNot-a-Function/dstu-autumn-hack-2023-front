@@ -8,7 +8,7 @@ import { ReactComponent as Time } from "../assets/img/time.svg";
 import { ReactComponent as Money } from "../assets/img/money.svg";
 import { ReactComponent as Avatar } from "../assets/img/default-avatar.svg";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
-import { userApi } from "../store";
+import { chatApi, userApi } from "../store";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import UpdateProfileModal from "../components/Main/UpdateProfile";
@@ -62,6 +62,8 @@ const UserPage = () => {
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
   const [isShowChangeParametrs, setIsShowChangeParametrs] = useState(false);
+
+  const [createChat] = chatApi.useRequestChatMutation();
 
   const handlerChangePhoto = async (e: any) => {
     const formData = new FormData();
@@ -158,7 +160,7 @@ const UserPage = () => {
         <button
           className="lightBtn btn"
           onClick={() => {
-            setIsShowUpdateUserModal(true);
+            createChat({ userId: Number(userId) });
           }}
         >
           ЗАЯВКА НА ОБЩЕНИЕ

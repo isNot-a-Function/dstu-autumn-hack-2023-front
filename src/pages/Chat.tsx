@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import "../assets/scss/pages/_chat.scss";
 import { chatApi } from "../store";
+import Loader from "../components/Loader";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
   const { data: chats } = chatApi.useGetGroupsQuery();
+  const [selectGroup, setSelectGroup] = useState(-1);
+  console.log("chats", chats);
+
+  if (chats === undefined) return <Loader />;
   return (
     <div className="container box-chat-page ">
       <div className="list-group">
         <h1>Cписок чатов</h1>
         {chats.groups.map((item: any) => (
           <div className="item-list-group">
-            <p>Василий Пупкин</p>
+            <p>{item.title}</p>
           </div>
         ))}
       </div>
