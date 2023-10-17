@@ -27,12 +27,38 @@ export const chatApi = createApi({
         body: body,
       }),
     }),
-    getMessages: build.query<any, number | string>({
+    getMessages: build.query<any, number | string | undefined>({
       query: (groupId) => ({
-        url: `  /api/chat/${groupId}`,
+        url: `/chat/${groupId}`,
         method: "GET",
       }),
       providesTags: () => ["message"],
+    }),
+
+    acceptRequet: build.mutation<
+      any,
+      {
+        groupId: number;
+      }
+    >({
+      query: (body) => ({
+        url: `/chat/accept`,
+        method: "POST",
+        body: body,
+      }),
+    }),
+    sendMessage: build.mutation<
+      any,
+      {
+        groupId: number;
+        text: string;
+      }
+    >({
+      query: (body) => ({
+        url: `/chat/send`,
+        method: "POST",
+        body: body,
+      }),
     }),
   }),
 });
