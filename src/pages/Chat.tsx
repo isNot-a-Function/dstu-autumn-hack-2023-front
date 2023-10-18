@@ -141,7 +141,9 @@ const Chat = () => {
         </div>
       )}
       {chats.groups.length === 0 && <h1>У ВАС ПОКА НЕТ ЧАТОВ</h1>}
-      {selectGroup === undefined && <h1>ВЫБЕРИТЕ ЧАТ</h1>}
+      {chats.groups.length !== 0 && selectGroup === undefined && (
+        <h1>ВЫБЕРИТЕ ЧАТ</h1>
+      )}
     </div>
   );
 };

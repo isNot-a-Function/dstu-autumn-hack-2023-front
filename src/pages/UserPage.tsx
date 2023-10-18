@@ -16,11 +16,11 @@ import ChangeParametrsModal from "../components/Main/ChangeParametrsModal";
 import DoneModal from "../components/Modals/DoneModal";
 
 const sortListEx = [
-  {
-    id: 1,
-    label: "МОИ БИЛЕТЫ",
-    value: "responses",
-  },
+  // {
+  //   id: 1,
+  //   label: "МОИ БИЛЕТЫ",
+  //   value: "responses",
+  // },
   // {
   //   id: 2,
   //   label: "В ПРОЦЕССЕ",
@@ -57,7 +57,6 @@ const UserPage = () => {
 
   const [changePhoto] = userApi.useChangePhotoMutation();
   // const [checkFile] = casesApi.useCheckFileMutation();
-  const [sortValue, setSortValue] = useState<string>(sortListEx[0].value);
   const [changeRole] = userApi.useChangeRoleMutation();
   const [page, setPage] = useState(1);
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
@@ -122,28 +121,7 @@ const UserPage = () => {
       )}
 
       <div className="body-deal-page">
-        <div className="content-deal-page " style={{ border: "none" }}>
-          <div className="box-list-sort">
-            {sortListEx.map((sort: any, index: number) => {
-              return (
-                <button
-                  className={`${
-                    sortValue === sort.value ? "box-active-item-sort" : ""
-                  } box-item-sort`}
-                  onClick={() => setSortValue(sort.value)}
-                  key={index}
-                >
-                  <p>{sort.label}</p>
-                  {/* {sortValue === sort.value && (
-                    <p className="arrow-symbol">
-                      {directionSort === "asc" ? "↑" : "↓"}
-                    </p>
-                  )} */}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        <div className="content-deal-page " style={{ border: "none" }}></div>
         <div></div>
       </div>
 
