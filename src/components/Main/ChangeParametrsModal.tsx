@@ -320,7 +320,7 @@ const ChangeParametrsModal = ({
                   </div>
 
                   <div>
-                    <p>ХОББИ(введите через запятую)</p>
+                    <p>ХОББИ</p>
                     <CustomSelect
                       //@ts-ignore
                       value={selectHobbies}
@@ -345,7 +345,7 @@ const ChangeParametrsModal = ({
                   </div>
 
                   <div>
-                    <p>ЯЗЫКИ, КОТОРЫЕ ВЫ ЗНАЕТЕ(введите через запятую)</p>
+                    <p>ЯЗЫКИ, КОТОРЫЕ ВЫ ЗНАЕТЕ</p>
                     <CustomSelect
                       value={selectLang}
                       options={select_lang}
