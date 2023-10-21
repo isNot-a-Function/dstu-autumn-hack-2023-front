@@ -4,8 +4,8 @@ import { flightApi } from "../../store";
 import { useEffect, useState } from "react";
 
 interface MenuProps {
-  activeSection: string[];
-  setActiveSection: (value: string[]) => void;
+  activeSection: string | undefined;
+  setActiveSection: (value: string | undefined) => void;
   openSection: number | null;
   setOpenSection: (value: number | null) => void;
 }
@@ -15,7 +15,6 @@ const Menu = ({
   openSection,
   setOpenSection,
 }: MenuProps) => {
-  const { data: specializations } = flightApi.useGetSpecializationsQuery();
   const listSection = [
     "BackEnd",
     "FrontEnd",

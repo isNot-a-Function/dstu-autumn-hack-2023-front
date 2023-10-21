@@ -234,9 +234,9 @@ export const flightApi = createApi({
     }),
 
     ////
-    getTasks: build.query<any, any>({
-      query: ({ filter, page }) => ({
-        url: `/direction/?specialization=<>&type=<"internship" | "practice"`,
+    getTasks: build.query<any, { sp: string; type: string }>({
+      query: ({ sp, type }) => ({
+        url: `/direction/?specialization=${sp}&type=${type}`,
         method: "GET",
       }),
       providesTags: () => ["orders"],

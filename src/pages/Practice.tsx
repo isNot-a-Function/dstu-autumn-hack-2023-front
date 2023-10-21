@@ -11,7 +11,7 @@ import CustomSelect from "../components/UI/CustomSelect";
 import "../assets/scss/pages/_trainee.scss";
 import Case from "../components/Main/Case";
 
-const Trainee = () => {
+const Practice = () => {
   const [activeSection, setActiveSection] = useState<string | undefined>(
     undefined
   );
@@ -19,7 +19,7 @@ const Trainee = () => {
   const { data: cases } = flightApi.useGetTasksQuery({
     //@ts-ignore
     sp: activeSection,
-    type: "internship",
+    type: "practice",
   });
 
   return (
@@ -42,4 +42,4 @@ const Trainee = () => {
   );
 };
 
-export default Trainee;
+export default Practice;
