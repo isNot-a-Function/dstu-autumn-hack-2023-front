@@ -1,4 +1,10 @@
+import { flightApi } from "../store";
+
 const CasePage = () => {
+  const caseId = window.location.pathname.replace("/case/", "");
+  const { data: task } = flightApi.useGetTaskQuery({ id: caseId });
+  console.log("task", task);
+
   return (
     <div className="container box-case-page">
       <div className="title-case-page">

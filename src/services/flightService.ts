@@ -241,6 +241,20 @@ export const flightApi = createApi({
       }),
       providesTags: () => ["orders"],
     }),
+    getTask: build.query<any, { id: string }>({
+      query: ({ id }) => ({
+        url: `/direction/${id}`,
+        method: "GET",
+      }),
+      providesTags: () => ["orders"],
+    }),
+    getMyTask: build.query<any, void>({
+      query: () => ({
+        url: `/direction/my`,
+        method: "GET",
+      }),
+      providesTags: () => ["orders"],
+    }),
     createTask: build.mutation<
       any,
       {
