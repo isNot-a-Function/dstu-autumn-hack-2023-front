@@ -16,7 +16,7 @@ interface MonitoringModalProps {
   orderId?: string;
 }
 
-const CreateQuestionsDescription = ({
+const CreateQuestionsCode = ({
   isActive,
   setIsActive,
   isUpdate = false,
@@ -36,7 +36,7 @@ const CreateQuestionsDescription = ({
     <Modal
       isActive={isActive}
       setIsActive={setIsActive}
-      headerTitle={"Cоздание развёрнутого вопроса"}
+      headerTitle={"Cоздание вопроса с кодом"}
       className="monitoringModal"
     >
       <>
@@ -57,7 +57,7 @@ const CreateQuestionsDescription = ({
             // }}
             onSubmit={(values, { setSubmitting }) => {
               createTask({
-                type: "detailedResponse",
+                type: "codeResponse",
                 question: values.name,
                 variants: [],
                 correctAnswer: [],
@@ -109,4 +109,4 @@ const CreateQuestionsDescription = ({
   );
 };
 
-export default CreateQuestionsDescription;
+export default CreateQuestionsCode;

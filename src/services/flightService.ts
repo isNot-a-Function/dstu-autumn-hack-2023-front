@@ -232,6 +232,15 @@ export const flightApi = createApi({
       }),
       invalidatesTags: () => ["orders", "order"],
     }),
+
+    ////
+    getTasks: build.query<any, any>({
+      query: ({ filter, page }) => ({
+        url: `/direction/?specialization=<>&type=<"internship" | "practice"`,
+        method: "GET",
+      }),
+      providesTags: () => ["orders"],
+    }),
     createTask: build.mutation<
       any,
       {

@@ -16,6 +16,8 @@ import ChangeParametrsModal from "../components/Main/ChangeParametrsModal";
 import DoneModal from "../components/Modals/DoneModal";
 import CreateQuestionsTest1 from "../components/Main/CreateQuestionsTest1";
 import CreateQuestionsTestMulti from "../components/Main/CreateQuestionsDescription";
+import CreateQuestionsDescription from "../components/Main/CreateQuestionsDescription";
+import CreateQuestionsCode from "../components/Main/CreateQuestionsCode";
 
 const CreateQuestions = () => {
   //   const userId = window.location.pathname.replace("/profile/", "");
@@ -32,6 +34,12 @@ const CreateQuestions = () => {
   const [isShowCreateQuestionsTest1, setIsShowCreateQuestionsTest1] =
     useState(false);
   const [isShowCreateQuestionsTestMulti, setIsShowCreateQuestionsTestMulti] =
+    useState(false);
+  const [
+    isShowCreateQuestionsDescription,
+    setIsShowCreateQuestionsDescription,
+  ] = useState(false);
+  const [isShowCreateQuestionsCode, setIsShowCreateQuestionsCode] =
     useState(false);
 
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
@@ -56,28 +64,6 @@ const CreateQuestions = () => {
 
   return (
     <div className="container box-profile-page ">
-      {/* {isShowConfirmationModal && (
-        <ConfirmationModal
-          setIsActive={setIsShowConfirmationModal}
-          modalTitle="Вы действительно хотите выйти?"
-          func={logOut}
-        />
-      )} */}
-
-      {/* {isShowUpdateUserModal && (
-        <UpdateProfileModal
-          isActive={isShowConfirmationModal}
-          setIsActive={setIsShowUpdateUserModal}
-        />
-      )} */}
-
-      {isShowChangeParametrs && (
-        <ChangeParametrsModal
-          isActive={isShowChangeParametrs}
-          setIsActive={setIsShowChangeParametrs}
-        />
-      )}
-
       {isShowCreateQuestionsTest1 && (
         <CreateQuestionsTest1
           isActive={isShowCreateQuestionsTest1}
@@ -89,6 +75,20 @@ const CreateQuestions = () => {
         <CreateQuestionsTestMulti
           isActive={isShowCreateQuestionsTestMulti}
           setIsActive={setIsShowCreateQuestionsTestMulti}
+        />
+      )}
+
+      {isShowCreateQuestionsDescription && (
+        <CreateQuestionsDescription
+          isActive={isShowCreateQuestionsDescription}
+          setIsActive={setIsShowCreateQuestionsDescription}
+        />
+      )}
+
+      {isShowCreateQuestionsCode && (
+        <CreateQuestionsCode
+          isActive={isShowCreateQuestionsCode}
+          setIsActive={setIsShowCreateQuestionsCode}
         />
       )}
 
@@ -127,7 +127,7 @@ const CreateQuestions = () => {
         <button
           className="lightBtn btn"
           onClick={() => {
-            setIsShowRaitingModal(true);
+            setIsShowCreateQuestionsDescription(true);
           }}
         >
           CОЗДАТЬ ВОПРОС С РАЗВЁРНУТОМ ОТВЕТОМ
@@ -136,7 +136,7 @@ const CreateQuestions = () => {
         <button
           className="lightBtn btn"
           onClick={() => {
-            setIsShowRaitingModal(true);
+            setIsShowCreateQuestionsCode(true);
           }}
         >
           CОЗДАТЬ ВОПРОС С КОДОМ

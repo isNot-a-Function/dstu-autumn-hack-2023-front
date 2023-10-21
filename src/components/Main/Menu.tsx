@@ -16,128 +16,46 @@ const Menu = ({
   setOpenSection,
 }: MenuProps) => {
   const { data: specializations } = flightApi.useGetSpecializationsQuery();
-  const [sectionList, setSectionList] = useState([]);
-
-  const handlerClickSection = (title: string) => {
-    setActiveSection(
-      activeSection.includes(title)
-        ? activeSection.filter((item) => item !== title)
-        : [...activeSection, title]
-    );
-  };
-
-  const checkArray = (arr1: any, arr2: any) => {
-    const res1 = arr1.filter((el: any) => arr2.includes(el));
-    const res2 = arr1.filter((el: any) => !arr2.includes(el));
-
-    if (res1.length === 0) {
-      return 0; //нет вхождений вообще
-    } else if (res1.length > 0 && res2.length != 0) {
-      return 1; //что-то входит, но не всё
-    } else if (res1.length > 0 && res2.length == 0) {
-      return 2; ///входит всё
-    }
-  };
-
-  const handlerAddSubSections = (el: any) => {
-    const titleSubSections = el.subsections.map((e: any) => e.title);
-    if (
-      checkArray(
-        el.subsections.map((e: any) => e.title),
-        activeSection
-      ) === 2
-    ) {
-      setActiveSection(
-        activeSection.filter((item) => !titleSubSections.includes(item))
-      );
-    } else if (
-      checkArray(
-        el.subsections.map((e: any) => e.title),
-        activeSection
-      ) === 1
-    ) {
-      const arr = activeSection.filter(
-        (item) => !titleSubSections.includes(item)
-      );
-      setActiveSection([...arr, ...titleSubSections]);
-    } else {
-      setActiveSection([...activeSection, ...titleSubSections]);
-    }
-  };
+  const listSection = [
+    "BackEnd",
+    "FrontEnd",
+    "DevOps",
+    "Системная аналитика",
+    "Разработчик баз данных",
+  ];
 
   const handlerOpenSubSection = (index: number) => {
     setOpenSection(openSection === index ? null : index);
   };
 
-  useEffect(() => {
-    if (specializations != undefined) {
-      let sections: any = [];
-      specializations.specializations.map((it, index) => {
-        if (!sections.includes(it.topLevelTitle)) {
-          sections = [...sections, it.topLevelTitle];
-        }
-      });
-      const arr = sections.map((item: any, index: any) => {
-        return {
-          label: item,
-          subsections: specializations.specializations.filter((it, index) => {
-            if (it.topLevelTitle === item) {
-              return it;
-            }
-          }),
-        };
-      });
-      setSectionList(arr);
-    }
-  }, [specializations]);
-
   return (
     <div className="list-filter">
       <div className="header-box-filter">
         <h1>CПЕЦИАЛИЗАЦИИ</h1>
-        {activeSection.length !== 0 && (
-          <p
-            onClick={() => {
-              setActiveSection([]);
-            }}
-          >
-            <Trash />
-          </p>
-        )}
       </div>
 
-      {sectionList?.map((section: any, index: number) => {
+      {listSection?.map((section: any, index: number) => {
         return (
           <div key={index}>
             <p
               key={index}
-              className={`${
-                checkArray(
-                  section.subsections.map((e: any) => e.title),
-                  activeSection
-                ) === 2
-                  ? "active-section-list-filter"
-                  : "section-list-filter"
-              }`}
+              className={`
+               active-section-list-filter section-list-filter
+              `}
             >
               <div
-                onClick={() => handlerAddSubSections(section)}
+                onClick={() => setActiveSection(section)}
                 className={`${
-                  checkArray(
-                    section.subsections.map((e: any) => e.title),
-                    activeSection
-                  ) === 2
-                    ? "active-flag-section"
-                    : ""
+                  activeSection === section ? "active-flag-section" : ""
                 } flag-section`}
               >
-                {checkArray(
+                {/* {checkArray(
                   section.subsections.map((e: any) => e.title),
                   activeSection
-                ) === 1 && <div className="active-flag-center"></div>}
+                ) === 1 && <div className="active-flag-center"></div>} */}
               </div>
-              <div onClick={() => handlerOpenSubSection(section.label)}>
-                {section?.label}
+              <div onClick={() => handlerOpenSubSection(section)}>
+                {section}
               </div>
             </p>
           </div>
