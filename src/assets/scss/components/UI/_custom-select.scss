@@ -8,8 +8,7 @@
   font-weight: 600;
   border: none;
   padding: 12px;
-  background: url("../../../img/customSelect/arrow-down.png") no-repeat right
-    white;
+  // background: url("../../../img/customSelect/down.png") no-repeat right white;
 
   option {
     color: white;
@@ -24,9 +23,13 @@
   }
 }
 .arrowUp {
+  width: 10px;
+  height: 10px;
 }
 .arrowDown {
   transform: rotate(180deg);
+  width: 10px;
+  height: 10px;
 }
 .option-with-img {
   display: flex;

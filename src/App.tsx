@@ -8,11 +8,12 @@ import ScrollToTop from "./utils/scrollToTop";
 import { useEffect } from "react";
 import Login from "./pages/Login";
 import Flight from "./pages/Flight";
-import HistoryBalance from "./pages/HistoryBalance";
+// import HistoryBalance from "./pages/HistoryBalance";
 import User from "./pages/UserPage";
 import Chat from "./pages/Chat";
 import Trainee from "./pages/Trainee";
 import CasePage from "./pages/CasePage";
+import CreateQuestions from "./pages/СreateQuestions";
 
 function App() {
   let vh = window.innerHeight * 0.01;
@@ -38,7 +39,8 @@ function App() {
           <Route path="case/:id" element={<CasePage />} />
           <Route path="login" element={<Login />} />
           <Route path="flight/:id" element={<Flight />} />
-          <Route path="balance" element={<HistoryBalance />} />
+          <Route path="create/test" element={<CreateQuestions />} />
+          {/* <Route path="balance" element={<HistoryBalance />} /> */}
           <Route path="chat" element={<Chat />} />
         </Route>
         <Route path="*" element={<Navigate to={"/"} replace />} />

@@ -247,3 +247,10 @@ button.btnInUser {
     padding: 15px;
   }
 }
+
+.box-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+}

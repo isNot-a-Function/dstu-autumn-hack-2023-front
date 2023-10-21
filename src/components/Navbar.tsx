@@ -145,7 +145,11 @@ const Navbar = () => {
                   className="profile__icon"
                   onClick={() => setActiveNavbarItem(0)}
                 >
-                  <img alt="" src={avatar} className="avatar-in-navbar" />
+                  <img
+                    alt=""
+                    src={user?.user.logo}
+                    className="avatar-in-navbar"
+                  />
 
                   {/* <div className="lvlIconBlock">
                     <div className="lvlIcon">

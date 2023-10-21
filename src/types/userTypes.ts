@@ -227,31 +227,14 @@ export interface activateServiceParams {
 }
 
 export interface user {
-  id: string;
+  createdAt: string;
   email: string;
+  fullname: string;
+  id: number;
+  logo: string;
   passwordHash: string;
+  phone: string;
   role: string;
-  name: string | null;
-  family: string | null;
-  dateOfBirth: string | null;
-  city: string | null;
-  logo: string | null;
-  balance: number | null;
-  contact: string | null;
-  custoremInfo: {
-    id: string;
-    userId: string;
-    rating: number | null;
-  };
-  executorInfo: {
-    id: string;
-    userId: string;
-    rating: number | null;
-    description: null;
-    classification: null;
-    tags: string[];
-    expirience: string;
-    costType: string;
-    cost: null | number;
-  };
+  tgLink: string;
+  vkLink: string;
 }

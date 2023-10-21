@@ -71,7 +71,7 @@
   border-radius: 12px;
 
   overflow: auto;
-  background-color: #ffffff;
+  background-color: #333237;
   overflow-x: hidden;
   // transform: scale(0.5);
   // transition: 0.4s;
@@ -112,7 +112,7 @@
   left: 0;
   height: 200px;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #333237;
   color: #384661;
 }
 
@@ -129,7 +129,7 @@
 
   &Title {
     width: fit-content;
-    color: #ff0000;
+    color: white;
     font-size: 32px;
     font-weight: 700;
 
@@ -149,4 +149,8 @@
 .modalTest {
   width: 470px;
   height: fit-content;
+}
+
+.modal::-webkit-scrollbar {
+  display: none;
 }
