@@ -10,9 +10,8 @@ import ReactDatePicker from "react-datepicker";
 import CustomSelect from "../components/UI/CustomSelect";
 import "../assets/scss/pages/_trainee.scss";
 import Case from "../components/Main/Case";
-import Loader from "../components/Loader";
 
-const Trainee = () => {
+const Practice = () => {
   const [activeSection, setActiveSection] = useState<string | undefined>(
     undefined
   );
@@ -20,10 +19,9 @@ const Trainee = () => {
   const { data: cases } = flightApi.useGetTasksQuery({
     //@ts-ignore
     sp: activeSection,
-    type: "internship",
+    type: "practice",
   });
 
-  if (cases === undefined) return <Loader />;
   return (
     <div className="box-trainee-page container">
       <div className="box-list-cases">
@@ -31,9 +29,9 @@ const Trainee = () => {
           <Case
             title={item.title}
             tags={item.specialization.title}
-            isPractice={false}
+            isPractice={true}
             id={item.id}
-            link={`/trainee/${item.id}`}
+            link={`/practice/${item.id}`}
           />
         ))}
       </div>
@@ -50,4 +48,4 @@ const Trainee = () => {
   );
 };
 
-export default Trainee;
+export default Practice;

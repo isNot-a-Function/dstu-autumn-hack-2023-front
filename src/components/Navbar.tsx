@@ -48,7 +48,25 @@ const Navbar = () => {
     {
       id: 2,
       name: "ПРАКТИКАНТАМ",
-      url: "/trainee",
+      url: "/practice",
+    },
+    {
+      id: 3,
+      name: "ЧАТЫ",
+      url: "/chat",
+    },
+  ];
+
+  const section_hr = [
+    {
+      id: 1,
+      name: "СТАЖЁРЫ",
+      url: "responses/trainee",
+    },
+    {
+      id: 2,
+      name: "ПРАКТИКАНТЫ",
+      url: "responses/practice",
     },
     {
       id: 3,
@@ -88,7 +106,9 @@ const Navbar = () => {
                       marginTop: -75,
                     }}
                   >
-                    ДЛЯ СТАЖЁРОВ И ПРАКТИКАНТОВ
+                    {userLocal?.role == "hr"
+                      ? "ДЛЯ HR"
+                      : "ДЛЯ СТАЖЁРОВ И ПРАКТИКАНТОВ"}
                   </p>
 
                   {/* В<div className="train-logo"></div>
@@ -98,21 +118,23 @@ const Navbar = () => {
             </Link>
 
             <nav className="navbar">
-              {sections.map((item, index) => (
-                <Link
-                  to={item.url}
-                  className={`${
-                    activeNavbarItem === index + 1
-                      ? "navbar__itemActive"
-                      : "navbar__item"
-                  }`}
-                  key={item.id}
-                  onClick={() => setActiveNavbarItem(index + 1)}
-                >
-                  {/* <img src={item.icon} className="navbar__icon" /> */}
-                  <span>{item.name}</span>
-                </Link>
-              ))}
+              {(userLocal?.role == "hr" ? section_hr : sections).map(
+                (item, index) => (
+                  <Link
+                    to={item.url}
+                    className={`${
+                      activeNavbarItem === index + 1
+                        ? "navbar__itemActive"
+                        : "navbar__item"
+                    }`}
+                    key={item.id}
+                    onClick={() => setActiveNavbarItem(index + 1)}
+                  >
+                    {/* <img src={item.icon} className="navbar__icon" /> */}
+                    <span>{item.name}</span>
+                  </Link>
+                )
+              )}
             </nav>
 
             {/* {dimensions.width >= 1200 && (

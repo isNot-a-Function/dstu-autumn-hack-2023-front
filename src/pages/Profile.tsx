@@ -30,6 +30,7 @@ const sortListEx = [
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { data: tasks } = flightApi.useGetMyTaskQuery();
 
   const userLocal =
     localStorage.getItem("user") !== null

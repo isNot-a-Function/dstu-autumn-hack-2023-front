@@ -82,9 +82,9 @@
 
 p.active-section-list-filter {
   margin-left: 12px;
-  background-color: #f2f3ee;
+  // background-color: #f2f3ee;
 
-  color: #87501d;
+  color: white;
 
   width: max-content;
   padding: 3px;
@@ -94,7 +94,7 @@ p.section-list-filter {
   margin-left: 12px;
   width: max-content;
   padding: 3px;
-  color: #87501d;
+  color: white;
 }
 .section-list-filter,
 .active-section-list-filter {
@@ -115,12 +115,12 @@ p.section-list-filter {
 .flag-section {
   width: 16px;
   height: 16px;
-  border: 1px solid #87501d;
+  border: 1px solid white;
   border-radius: 5px;
   margin-right: 8px;
 }
 .active-flag-section {
-  background-color: #87501d;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;

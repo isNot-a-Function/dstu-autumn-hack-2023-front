@@ -12,7 +12,7 @@ import { flightsData, flightsDataItem } from "../types/flightTypes";
 export const flightApi = createApi({
   reducerPath: "casesApi",
   baseQuery,
-  tagTypes: ["orders", "order", "train"],
+  tagTypes: ["orders", "order", "train", "qa", "responses"],
   endpoints: (build) => ({
     getFlights: build.query<
       flightsData,
@@ -232,6 +232,81 @@ export const flightApi = createApi({
       }),
       invalidatesTags: () => ["orders", "order"],
     }),
+
+    ////
+    getTasks: build.query<any, { sp: string; type: string }>({
+      query: ({ sp, type }) => {
+        let url = "/direction/?";
+        if (sp === undefined) {
+          url = url + `type=${type}`;
+        } else {
+          url = `/direction/?specialization=${sp}&type=${type}`;
+        }
+        return {
+          url: url,
+          method: "GET",
+        };
+      },
+      providesTags: () => ["orders"],
+    }),
+    createTest: build.mutation<
+      any,
+      {
+        title: string;
+        tasks: number[];
+      }
+    >({
+      query: (body) => ({
+        url: `/test/`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["orders"],
+    }),
+
+    getTask: build.query<any, { id: string }>({
+      query: ({ id }) => ({
+        url: `/direction/${id}`,
+        method: "GET",
+      }),
+      providesTags: () => ["orders"],
+    }),
+    getMyTask: build.query<any, void>({
+      query: () => ({
+        url: `/direction/my`,
+        method: "GET",
+      }),
+      providesTags: () => ["orders"],
+    }),
+    getQuestions: build.query<any, string>({
+      query: (type) => ({
+        url: `/task/?type=${type}`,
+        method: "GET",
+      }),
+      providesTags: () => ["qa"],
+    }),
+    getResponses: build.query<any, { sp: string; type: string }>({
+      query: ({ sp, type }) => {
+        let url = "/response/?";
+        if (sp === undefined) {
+          url = url + `type=${type}`;
+        } else {
+          url = `/response/?specialization=${sp}&type=${type}`;
+        }
+        return {
+          url: url,
+          method: "GET",
+        };
+      },
+      providesTags: () => ["responses"],
+    }),
+    sendPractice: build.query<any, number | string>({
+      query: (id) => ({
+        url: `/response/send?directionId=${id}`,
+        method: "GET",
+      }),
+      providesTags: () => ["orders"],
+    }),
     createTask: build.mutation<
       any,
       {
@@ -250,6 +325,7 @@ export const flightApi = createApi({
         method: "POST",
         body: body,
       }),
+      invalidatesTags: () => ["qa"],
     }),
   }),
 });

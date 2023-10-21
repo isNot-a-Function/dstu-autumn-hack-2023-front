@@ -14,6 +14,10 @@ import Chat from "./pages/Chat";
 import Trainee from "./pages/Trainee";
 import CasePage from "./pages/CasePage";
 import CreateQuestions from "./pages/СreateQuestions";
+import Practice from "./pages/Practice";
+import ResponsesPractice from "./pages/ResponsesPractice";
+import ResponsesTrainee from "./pages/ResponsesTrainee";
+import UserPage from "./pages/UserPage";
 
 function App() {
   let vh = window.innerHeight * 0.01;
@@ -35,8 +39,14 @@ function App() {
           <Route path="store" element={<Main />} />
           <Route path="profile" element={<Profile />} />
           <Route path="profile/:id" element={<User />} />
+          <Route path="trainee/:id" element={<CasePage />} />
+          <Route path="practice/:id" element={<CasePage />} />
+          <Route path="responses/practice" element={<ResponsesPractice />} />
+          <Route path="responses/trainee" element={<ResponsesTrainee />} />
+          <Route path="responses/practice/:id" element={<UserPage />} />
+          <Route path="responses/trainee/:id" element={<UserPage />} />
           <Route path="trainee" element={<Trainee />} />
-          <Route path="case/:id" element={<CasePage />} />
+          <Route path="practice" element={<Practice />} />
           <Route path="login" element={<Login />} />
           <Route path="flight/:id" element={<Flight />} />
           <Route path="create/test" element={<CreateQuestions />} />
