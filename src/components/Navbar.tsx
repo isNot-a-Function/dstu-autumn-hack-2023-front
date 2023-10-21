@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../assets/scss/components/_navbar.scss";
 import { Link } from "react-router-dom";
-import { ReactComponent as Logo } from "../assets/img/logotype-white.svg";
+import { ReactComponent as Logo } from "../assets/img/logoBig.svg";
 import { ReactComponent as Plus } from "../assets/img/Plus.svg";
 import { ReactComponent as BurgerMenu } from "../assets/img/navbarIcons/burger_menu.svg";
 import { useGetToken } from "../hooks/useGetToken";
@@ -10,6 +10,7 @@ import { userApi } from "../store";
 import avatar from "../assets/img/default-avatar.svg";
 import TopUpModal from "./Modals/TopUpModal";
 import { ReactComponent as Burger } from "../assets/img/navbarIcons/burger_menu.svg";
+
 import Train from "./Train";
 const Navbar = () => {
   const token = useGetToken();
@@ -41,14 +42,19 @@ const Navbar = () => {
   const sections = [
     {
       id: 1,
-      name: "КУПИТЬ БИЛЕТ",
+      name: "СТАЖЁРАМ",
       url: "/store",
     },
-    // {
-    //   id: 2,
-    //   name: "УСЛУГИ",
-    //   url: "/balance",
-    // },
+    {
+      id: 2,
+      name: "ПРАКТИКАНТАМ",
+      url: "/balance",
+    },
+    {
+      id: 3,
+      name: "ЧАТЫ",
+      url: "/chat",
+    },
   ];
 
   return (
@@ -68,13 +74,25 @@ const Navbar = () => {
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    flexDirection: "column",
+                    alignItems: "start",
+                    justifyContent: "start",
+                    marginTop: -30,
                   }}
                 >
-                  В<div className="train-logo"></div>
-                  <span style={{ color: "#ff0000" }}>ПУТЬ</span>
+                  <Logo />
+                  <p
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 800,
+                      marginTop: -75,
+                    }}
+                  >
+                    ДЛЯ СТАЖЁРОВ И ПРАКТИКАНТОВ
+                  </p>
+
+                  {/* В<div className="train-logo"></div>
+                  <span style={{ color: "#ff0000" }}>ПУТЬ</span> */}
                 </div>
               )}
             </Link>
@@ -141,7 +159,7 @@ const Navbar = () => {
               <Link
                 to="/login"
                 className="profile"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", color: "white" }}
               >
                 ВОЙТИ
                 {/* <div className="lvlIconBlock">

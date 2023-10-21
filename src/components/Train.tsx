@@ -1,15 +1,15 @@
+import { ReactComponent as Logo } from "../assets/img/logo.svg";
 const Train = () => {
   return (
     <div className="box-train">
-      <div>
-        <p>В </p>
+      <div className="box-logo-login">
+        {" "}
+        <Logo />
       </div>
-      <div className="container-train">
-        <div className="track"></div>
-        <div className="train"></div>
-      </div>
-      <div>
-        <p style={{ color: "#ff0000" }}> ПУТЬ</p>
+
+      <div className="title-login">
+        <p style={{ color: "white" }}>ДЛЯ СТАЖЁРОВ</p>
+        <p style={{ color: "white" }}>И ПРАКТИКАНТОВ</p>
       </div>
     </div>
   );
