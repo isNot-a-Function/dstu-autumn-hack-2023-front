@@ -85,9 +85,9 @@ const Login = () => {
               : signUp({
                   email: values.email,
                   password: values.password,
-                  firstname: values.name,
-                  lastname: values.family,
-                  phone: values.phone,
+                  // firstname: values.name,
+                  // lastname: values.family,
+                  // phone: values.phone,
                 });
           }}
         >
@@ -128,7 +128,7 @@ const Login = () => {
                 />
               </div>
 
-              {!isLogIn && (
+              {/* {!isLogIn && (
                 <>
                   <div className="item-form-login">
                     <p>Номер телефона</p>
@@ -167,7 +167,7 @@ const Login = () => {
                     />
                   </div>
                 </>
-              )}
+              )} */}
 
               <div
                 className="box-sign-up"

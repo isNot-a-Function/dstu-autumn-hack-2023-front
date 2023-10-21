@@ -18,7 +18,8 @@ const baseQueryDefault = fetchBaseQuery({
       headers.set("authorization", `${token}`);
     }
     headers.set("accept", "application/json");
-    headers.set("Sec-Fetch-Site", "cross-site");
+    // headers.set("Access-Controll-Allow-Origin", "")
+    // headers.set("Sec-Fetch-Site", "cross-site");
 
     return headers;
   },

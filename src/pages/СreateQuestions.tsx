@@ -14,29 +14,13 @@ import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import UpdateProfileModal from "../components/Main/UpdateProfile";
 import ChangeParametrsModal from "../components/Main/ChangeParametrsModal";
 import DoneModal from "../components/Modals/DoneModal";
+import CreateQuestionsTest1 from "../components/Main/CreateQuestionsTest1";
+import CreateQuestionsTestMulti from "../components/Main/CreateQuestionsDescription";
 
-const sortListEx = [
-  // {
-  //   id: 1,
-  //   label: "МОИ БИЛЕТЫ",
-  //   value: "responses",
-  // },
-  // {
-  //   id: 2,
-  //   label: "В ПРОЦЕССЕ",
-  //   value: "processed",
-  // },
-  // {
-  //   id: 3,
-  //   label: "ВЫПОЛНЕННЫЕ",
-  //   value: "done",
-  // },
-];
-
-const UserPage = () => {
-  const userId = window.location.pathname.replace("/profile/", "");
-  const { data: user } = userApi.useGetProfileIdQuery(userId);
-  console.log("userID", userId);
+const CreateQuestions = () => {
+  //   const userId = window.location.pathname.replace("/profile/", "");
+  //   const { data: user } = userApi.useGetProfileIdQuery(userId);
+  //   console.log("userID", userId);
 
   const navigate = useNavigate();
   const userLocal =
@@ -45,11 +29,11 @@ const UserPage = () => {
         JSON.parse(localStorage.getItem("user"))
       : undefined;
 
-  const [changePhoto] = userApi.useChangePhotoMutation();
-  // const [checkFile] = casesApi.useCheckFileMutation();
-  const [changeRole] = userApi.useChangeRoleMutation();
-  const [page, setPage] = useState(1);
-  const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
+  const [isShowCreateQuestionsTest1, setIsShowCreateQuestionsTest1] =
+    useState(false);
+  const [isShowCreateQuestionsTestMulti, setIsShowCreateQuestionsTestMulti] =
+    useState(false);
+
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
   const [isShowChangeParametrs, setIsShowChangeParametrs] = useState(false);
   const [isShowRaitingModal, setIsShowRaitingModal] = useState(false);
@@ -61,15 +45,7 @@ const UserPage = () => {
   const handlerChangePhoto = async (e: any) => {
     const formData = new FormData();
     formData.append("files", e.target.files[0]);
-    // checkFile(formData).then((data: any) => {
-    //   if (data?.data.files !== undefined) {
-    //     changePhoto({ logo: data?.data.files[0] });
-    //   }
-    // });
   };
-  useEffect(() => {
-    console.log("user", user);
-  }, [user]);
 
   const logOut = () => {
     localStorage.clear();
@@ -80,20 +56,20 @@ const UserPage = () => {
 
   return (
     <div className="container box-profile-page ">
-      {isShowConfirmationModal && (
+      {/* {isShowConfirmationModal && (
         <ConfirmationModal
           setIsActive={setIsShowConfirmationModal}
           modalTitle="Вы действительно хотите выйти?"
           func={logOut}
         />
-      )}
+      )} */}
 
-      {isShowUpdateUserModal && (
+      {/* {isShowUpdateUserModal && (
         <UpdateProfileModal
           isActive={isShowConfirmationModal}
           setIsActive={setIsShowUpdateUserModal}
         />
-      )}
+      )} */}
 
       {isShowChangeParametrs && (
         <ChangeParametrsModal
@@ -102,11 +78,17 @@ const UserPage = () => {
         />
       )}
 
-      {isShowRaitingModal && (
-        <DoneModal
-          isActive={isShowRaitingModal}
-          setIsActive={setIsShowRaitingModal}
-          userId={userId}
+      {isShowCreateQuestionsTest1 && (
+        <CreateQuestionsTest1
+          isActive={isShowCreateQuestionsTest1}
+          setIsActive={setIsShowCreateQuestionsTest1}
+        />
+      )}
+
+      {isShowCreateQuestionsTestMulti && (
+        <CreateQuestionsTestMulti
+          isActive={isShowCreateQuestionsTestMulti}
+          setIsActive={setIsShowCreateQuestionsTestMulti}
         />
       )}
 
@@ -117,29 +99,29 @@ const UserPage = () => {
 
       <div className="box-dop-info">
         <div className="info-of-customer">
-          <p> СТРАНИЦА ПОЛЬЗОВАТЕЛЯ</p>
-          <div className="box-avatar-in-deal">
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                cursor: "pointer",
-              }}
-            ></div>
-
-            <p>{user?.user.fullname ? user.user.fullname : user?.user.id}</p>
-          </div>
+          <p> КОНСТРУКТОР ТЕСТОВ</p>
         </div>
+
+        <button className="lightBtn btn" onClick={() => {}}>
+          СОЗДАТЬ ТЕСТ
+        </button>
 
         <button
           className="lightBtn btn"
           onClick={() => {
-            createChat({ userId: Number(userId) });
+            setIsShowCreateQuestionsTest1(true);
           }}
         >
-          ЗАЯВКА НА ОБЩЕНИЕ
+          CОЗДАТЬ ТЕСТОВЫЙ ВОПРОС С ОДНИМ ВАРИАНТОМ ОТВЕТА
+        </button>
+
+        <button
+          className="lightBtn btn"
+          onClick={() => {
+            setIsShowCreateQuestionsTestMulti(true);
+          }}
+        >
+          CОЗДАТЬ ТЕСТОВЫЙ ВОПРОС С НЕСКОЛЬКИМИ ВАРИАНТАМИ ОТВЕТА
         </button>
 
         <button
@@ -148,11 +130,20 @@ const UserPage = () => {
             setIsShowRaitingModal(true);
           }}
         >
-          ПОСТАВИТЬ ОЦЕНКУ
+          CОЗДАТЬ ВОПРОС С РАЗВЁРНУТОМ ОТВЕТОМ
+        </button>
+
+        <button
+          className="lightBtn btn"
+          onClick={() => {
+            setIsShowRaitingModal(true);
+          }}
+        >
+          CОЗДАТЬ ВОПРОС С КОДОМ
         </button>
       </div>
     </div>
   );
 };
 
-export default UserPage;
+export default CreateQuestions;

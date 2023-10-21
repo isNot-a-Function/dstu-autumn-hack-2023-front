@@ -11,7 +11,7 @@ const Loader = ({ mt }: LoaderProps) => {
         height="80"
         width="80"
         radius="9"
-        color="#384661"
+        color="#3aaa35"
         //   wrapperClassName="loaderStyle"
         ariaLabel="three-dots-loading"
         wrapperStyle={{

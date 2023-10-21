@@ -232,5 +232,24 @@ export const flightApi = createApi({
       }),
       invalidatesTags: () => ["orders", "order"],
     }),
+    createTask: build.mutation<
+      any,
+      {
+        type:
+          | "singleResponse"
+          | "multipleResponse"
+          | "detailedResponse"
+          | "codeResponse";
+        question: string;
+        variants: string[];
+        correctAnswer?: number[];
+      }
+    >({
+      query: (body) => ({
+        url: `/task/`,
+        method: "POST",
+        body: body,
+      }),
+    }),
   }),
 });

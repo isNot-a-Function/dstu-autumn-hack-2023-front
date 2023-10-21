@@ -1,6 +1,6 @@
 import "../../assets/scss/components/UI/_custom-select.scss";
 import Select, { components } from "react-select";
-import dropDown from "../../assets/img/customSelect/arrow-down.png";
+import dropDown from "../../assets/img/customSelect/down.png";
 
 interface optionsItem {
   label: string;
@@ -66,7 +66,7 @@ const CustomSelect = ({
       width: width,
       maxWidth: "200px",
       cursor: "pointer",
-      border: "2px solid #ff0000",
+      border: "2px solid #3aaa35",
       borderRadius: "8px",
       heigth: "100%",
     }),
@@ -74,7 +74,7 @@ const CustomSelect = ({
       ...defaultStyles,
       top: 0,
       color: state.isFocused ? "#011111" : "#011111",
-      backgroundColor: state.isFocused ? "#f2f3ee" : "white",
+      backgroundColor: state.isFocused ? "transparent" : "transparent",
       fontSize: "14px",
       cursor: "pointer",
     }),
@@ -93,7 +93,7 @@ const CustomSelect = ({
     }),
     control: (defaultStyles: any) => ({
       ...defaultStyles,
-      backgroundColor: "#ffffff",
+      backgroundColor: "transparent",
       height: heightSelect ? heightSelect : 40,
       display: "flex",
       alignItems: "center",
@@ -112,18 +112,18 @@ const CustomSelect = ({
     dropdownIndicator: (provided: any) => ({
       ...provided,
       padding: paddingIndicator,
-      color: "#011111",
+      color: "white",
     }),
     ropdownIndicator: (provided: any, state: any) => ({
       ...provided,
       transition: "all .2s ease",
       transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
-      background: `url('../../../img/customSelect/arrow-down.png') no-repeat right #011111  `,
-      color: "#011111",
+      // background: `url('../../../img/customSelect/down.png') no-repeat right #011111  `,
+      color: "#white",
     }),
     singleValue: (defaultStyles: any) => ({
       ...defaultStyles,
-      color: "#011111",
+      color: "white",
     }),
   };
 

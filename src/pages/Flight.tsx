@@ -8,7 +8,7 @@ import CoupeWagon from "../components/Main/CoupeWagon";
 import ReservedWagon from "../components/Main/ReservedWagon";
 import SvWagon from "../components/Main/SvWagon";
 import LuxWagon from "../components/Main/LuxWagon";
-import TrainCard from "../components/Main/TrainCard";
+import TrainCard from "../components/Main/Case";
 
 const Flight = () => {
   const flightId = window.location.pathname.replace("/flight/", "");
@@ -44,9 +44,9 @@ const Flight = () => {
   if (isLoading || !flight?.flights?.carrriages) return <Loader />;
   return (
     <div className="container box-deal-page ">
-      <div className="info-train">
+      {/* <div className="info-train">
         <TrainCard data={flight?.flights} />
-      </div>
+      </div> */}
 
       <div className="help-info-flight">
         <div className="box-help-item">

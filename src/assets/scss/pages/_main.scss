@@ -65,12 +65,12 @@
   // background-color: #87501d;
   // margin-right: 12px;
   margin-top: 20px;
-  border: 2px solid #87501d;
+  border: 2px solid #3aaa35;
 
   h1 {
     padding-left: 12px;
-    color: #87501d;
-    font-size: 20px;
+    color: #3aaa35;
+    font-size: 18px;
   }
   p {
     cursor: pointer;
@@ -164,7 +164,7 @@ p.section-list-filter {
   background-color: #87501d;
 }
 .box-active-item-sort {
-  background-color: #ff0000;
+  background-color: #3aaa35;
   color: white;
   p {
     color: white;
@@ -189,7 +189,7 @@ p.section-list-filter {
   gap: 20px;
   padding-right: 12px;
   p {
-    color: #111111;
+    color: #fff;
     font-size: 12px;
     padding-bottom: 8px;
     padding-top: 8px;
@@ -264,4 +264,124 @@ input[type="file"] {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.img-main-1 {
+  width: 700px;
+  height: 700px;
+  margin-top: -100px;
+  margin-right: -50px;
+}
+.section-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  h1 {
+    color: #3aaa35;
+    font-size: 50px;
+  }
+  p {
+    font-size: 25px;
+  }
+  .lightBtn {
+    margin-top: 60px;
+    width: 400px;
+  }
+}
+.text-section-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  margin-top: 50px;
+}
+.dop-info-1 {
+  margin-top: 20px;
+}
+.img-main-2 {
+  width: 600px;
+  height: 600px;
+  margin-left: -40px;
+  margin-top: -150px;
+}
+
+.section-2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  h1 {
+    color: #3aaa35;
+    font-size: 50px;
+  }
+  p {
+    font-size: 25px;
+  }
+  .lightBtn {
+    margin-top: 60px;
+    width: 400px;
+  }
+  .blackBtn {
+    padding: 15px;
+    margin-top: 20px;
+    width: 200px;
+  }
+}
+
+.text-section-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: end;
+
+  h1 {
+    font-size: 30px;
+    color: white;
+  }
+  // margin-right: -40px;
+}
+.dop-info-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 100px;
+  p {
+    font-size: 20px;
+    text-align: end;
+  }
+}
+.section-3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -150px;
+  .lightBtn {
+    width: 200px;
+  }
+}
+.text-section-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  // justify-content: end;
+  text-align: start;
+  h1 {
+    color: white;
+  }
+}
+.img-main-3 {
+  width: 300px;
+  height: 600px;
+}
+.dop-info-3 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: -60px;
+  p {
+    font-size: 20px;
+    text-align: end;
+  }
 }

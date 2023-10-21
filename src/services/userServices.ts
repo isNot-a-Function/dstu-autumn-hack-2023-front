@@ -100,7 +100,13 @@ export const userApi = createApi({
     }),
     updateUser: build.mutation<
       any,
-      { email?: string; firstname?: string; lastname?: string; phone?: string }
+      {
+        tgLink: string;
+        vkLink: string;
+        phone: string;
+        fullname: string;
+        logo: string;
+      }
     >({
       query: (body) => ({
         url: `user/`,

@@ -12,35 +12,24 @@ import { getHours } from "../utils/getHours";
 import CreateResponseModal from "../components/Main/CreateResponseModal";
 import { userApi } from "../store";
 import { useNavigate } from "react-router-dom";
-import Case from "../components/Main/TrainCard";
+import Case from "../components/Main/Case";
 import Pagination from "../components/Pagination/Pagination";
 import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import UpdateProfileModal from "../components/Main/UpdateProfile";
 import { flightApi } from "../store";
-import TrainCard from "../components/Main/TrainCard";
+import TrainCard from "../components/Main/Case";
 import ChangeParametrsModal from "../components/Main/ChangeParametrsModal";
 
 const sortListEx = [
   {
     id: 1,
-    label: "МОИ БИЛЕТЫ",
+    label: "МОИ ОТКЛИКИ",
     value: "responses",
   },
-  // {
-  //   id: 2,
-  //   label: "В ПРОЦЕССЕ",
-  //   value: "processed",
-  // },
-  // {
-  //   id: 3,
-  //   label: "ВЫПОЛНЕННЫЕ",
-  //   value: "done",
-  // },
 ];
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { data: tickets } = flightApi.useGetMyTicketQuery();
 
   const userLocal =
     localStorage.getItem("user") !== null
@@ -55,13 +44,10 @@ const Profile = () => {
     }
   }, []);
 
-  console.log("tickets", tickets);
-
   const { data: user } = userApi.useGetUserQuery();
   const [changePhoto] = userApi.useChangePhotoMutation();
   // const [checkFile] = casesApi.useCheckFileMutation();
   const [sortValue, setSortValue] = useState<string>(sortListEx[0].value);
-  const [changeRole] = userApi.useChangeRoleMutation();
   const [page, setPage] = useState(1);
   const [isShowConfirmationModal, setIsShowConfirmationModal] = useState(false);
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
@@ -76,16 +62,11 @@ const Profile = () => {
     //   }
     // });
   };
-  useEffect(() => {
-    console.log("user", user);
-  }, [user]);
 
   const logOut = () => {
     localStorage.clear();
     navigate("/");
   };
-
-  if (tickets === undefined) return <Loader />;
 
   return (
     <div className="container box-profile-page ">
@@ -136,7 +117,7 @@ const Profile = () => {
         </div>
         <div>
           <div className="box-list-cases">
-            {tickets?.tickets?.map((item: any) => {
+            {/* {tickets?.tickets?.map((item: any) => {
               return (
                 <TrainCard
                   data={item?.flightPlace?.flight}
@@ -145,7 +126,7 @@ const Profile = () => {
                   cost={item?.flightPlace?.cost}
                 />
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>
@@ -164,10 +145,8 @@ const Profile = () => {
               }}
             ></div>
 
-            <p>
-              {user?.user.family
-                ? user.user.family + " " + user?.user.name
-                : user?.user.id}
+            <p style={{ color: "white", textDecoration: "uppercase" }}>
+              {user?.user.fullname ? user.user.fullname : user?.user.id}
             </p>
           </div>
         </div>
@@ -182,26 +161,7 @@ const Profile = () => {
         </button>
 
         <button
-          className="lightBtn btn"
-          onClick={() => {
-            setIsShowChangeParametrs(true);
-          }}
-        >
-          ИЗМЕНИТЬ ПРЕДПОЧТЕНИЯ
-        </button>
-
-        <button
-          className="info-of-customer"
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            navigate("/chat");
-          }}
-        >
-          ЧАТЫ
-        </button>
-
-        <button
-          className="lightBtn btn"
+          className="blackBtn btn"
           onClick={() => {
             setIsShowConfirmationModal(true);
           }}

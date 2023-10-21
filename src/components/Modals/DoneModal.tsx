@@ -27,8 +27,8 @@ const DoneModal = ({
   isHaveCost = true,
   userId,
 }: MonitoringModalProps) => {
-  const [done] = flightApi.useDoneExecutorMutation();
-  const [approve] = flightApi.useCustomerApproveMutation();
+  // const [done] = flightApi.useDoneExecutorMutation();
+  // const [approve] = flightApi.useCustomerApproveMutation();
 
   const [addRaiting] = flightApi.useAddRaitingMutation();
 
@@ -90,18 +90,10 @@ const DoneModal = ({
             //   return errors;
             // }}
             onSubmit={(values, { setSubmitting }) => {
-              isExecutor
-                ? done({
-                    orderId: String(orderId),
-                    comment: description,
-                    rating: Number(rating.value),
-                  })
-                : approve({
-                    orderId: String(orderId),
-                    comment: description,
-                    rating: Number(rating.value),
-                    cost: isHaveCost ? null : Number(values.cost),
-                  });
+              addRaiting({
+                toWhomId: Number(userId),
+                rating: Number(rating.value),
+              });
               setIsActive(false);
             }}
           >
@@ -165,12 +157,12 @@ const DoneModal = ({
                   <button
                     type="submit"
                     // disabled={isSubmitting}
-                    onClick={() => {
-                      addRaiting({
-                        toWhomId: Number(userId),
-                        rating: Number(rating.value),
-                      });
-                    }}
+                    // onClick={() => {
+                    //   addRaiting({
+                    //     toWhomId: Number(userId),
+                    //     rating: Number(rating.value),
+                    //   });
+                    // }}
                     className="lightBtn btn"
                   >
                     ОЦЕНИТЬ

@@ -26,6 +26,7 @@ export const chatApi = createApi({
         method: "POST",
         body: body,
       }),
+      invalidatesTags: () => ["groups"],
     }),
     getMessages: build.query<any, number | string | undefined>({
       query: (groupId) => ({
@@ -46,6 +47,7 @@ export const chatApi = createApi({
         method: "POST",
         body: body,
       }),
+      invalidatesTags: () => ["message", "groups"],
     }),
     sendMessage: build.mutation<
       any,
@@ -59,6 +61,7 @@ export const chatApi = createApi({
         method: "POST",
         body: body,
       }),
+      invalidatesTags: () => ["message"],
     }),
   }),
 });

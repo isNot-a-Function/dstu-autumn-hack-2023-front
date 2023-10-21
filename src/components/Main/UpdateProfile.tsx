@@ -18,7 +18,22 @@ const UpdateProfileModal = ({
   setIsActive,
 }: MonitoringModalProps) => {
   const [updateUser] = userApi.useUpdateUserMutation();
+  const [checkFile, { data: link, isSuccess }] =
+    flightApi.useCheckFileMutation();
+  const [linkFiles, setLinkFiles] = useState<any>([]);
+  const [fileList, setFileList] = useState<any>([]);
 
+  const handleFileChange = async (e: any) => {
+    const formData = new FormData();
+    formData.append("files", e.target.files[0]);
+    checkFile(formData).then((data: any) => {
+      console.log("data", data);
+      if (data?.data.files !== undefined) {
+        setFileList([...fileList, ...e.target.files]);
+        setLinkFiles([...linkFiles, ...data?.data.files]);
+      }
+    });
+  };
   const select_cost_type = [
     {
       value: "1",
@@ -54,7 +69,15 @@ const UpdateProfileModal = ({
       <>
         <div className="monitoringModalContainer">
           <Formik
-            initialValues={{ name: "", family: "", email: "", phone: "" }}
+            initialValues={{
+              name: "",
+              vk: "",
+              tg: "",
+              family: "",
+              email: "",
+              phone: "",
+              fullname: "",
+            }}
             // validate={(values) => {
             //   const errors = {};
             //   // if (!values.name) {
@@ -70,11 +93,13 @@ const UpdateProfileModal = ({
             //   return errors;
             // }}
             onSubmit={(values, { setSubmitting }) => {
+              console.log("linkFiles[0]", linkFiles);
               updateUser({
-                firstname: values.name,
-                lastname: values.family,
-                email: values.email,
+                tgLink: values.tg,
+                vkLink: values.vk,
                 phone: values.phone,
+                fullname: values.name,
+                logo: linkFiles[0],
               });
               setIsActive(false);
             }}
@@ -95,24 +120,13 @@ const UpdateProfileModal = ({
               >
                 <>
                   <div>
-                    <p>ИМЯ</p>
+                    <p>ИМЯ И ФАМИЛИЯ</p>
                     <input
                       type="string"
                       name="name"
                       className="input"
                       onChange={handleChange}
                       value={values.name}
-                    />
-                  </div>
-
-                  <div>
-                    <p>ФАМИЛИЯ</p>
-                    <input
-                      type="string"
-                      name="family"
-                      className="input"
-                      onChange={handleChange}
-                      value={values.family}
                     />
                   </div>
 
@@ -128,14 +142,40 @@ const UpdateProfileModal = ({
                   </div>
 
                   <div>
-                    <p>EMAIL</p>
+                    <p>TELEGRAM</p>
                     <input
-                      type="email"
-                      name="email"
+                      type="tg"
+                      name="tg"
                       className="input"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.tg}
                     />
+                  </div>
+
+                  <div>
+                    <p>VK</p>
+                    <input
+                      type="vk"
+                      name="vk"
+                      className="input"
+                      onChange={handleChange}
+                      value={values.vk}
+                    />
+                  </div>
+
+                  <div>
+                    <p>ФАЙЛЫ (до 4 шт)</p>
+                    <input
+                      type="file"
+                      name="files"
+                      className="input"
+                      onChange={handleFileChange}
+                    />
+                    <ul style={{ paddingTop: 12 }}>
+                      {fileList.map((file: any, i: any) => (
+                        <li key={i}>{file.name}</li>
+                      ))}
+                    </ul>
                   </div>
 
                   <button
