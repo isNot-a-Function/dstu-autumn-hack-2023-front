@@ -3,7 +3,11 @@ import { ReactComponent as Speech } from "../../assets/img/speech.svg";
 import { ReactComponent as Time } from "../../assets/img/time.svg";
 import { useNavigate } from "react-router-dom";
 
-const Case = () => {
+interface CaseProps {
+  title: string;
+  tags: string;
+}
+const Case = ({ title, tags }: CaseProps) => {
   const navigate = useNavigate();
   return (
     <div
@@ -13,13 +17,10 @@ const Case = () => {
       }}
     >
       <div className="header-box-case">
-        <span>
-          Убрать баг в форме с картой на реакте вызываемой web app телеграмм
-          sfбрать баг в форме с картой на реакте вызываемой web app телеграмм
-        </span>
+        <span>{title}</span>
       </div>
       <div className="box-list-tags">
-        <p className="box-tags">React</p>
+        <p className="box-tags">{tags}</p>
         <button className="btn blackBtn">ПОДРОБНЕЕ</button>
       </div>
     </div>

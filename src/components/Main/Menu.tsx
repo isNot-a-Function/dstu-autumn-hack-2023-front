@@ -31,6 +31,15 @@ const Menu = ({
     <div className="list-filter">
       <div className="header-box-filter">
         <h1>CПЕЦИАЛИЗАЦИИ</h1>
+        {activeSection !== undefined && (
+          <p
+            onClick={() => {
+              setActiveSection(undefined);
+            }}
+          >
+            <Trash />
+          </p>
+        )}
       </div>
 
       {listSection?.map((section: any, index: number) => {

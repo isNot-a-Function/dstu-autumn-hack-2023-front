@@ -18,6 +18,7 @@ import CreateQuestionsTest1 from "../components/Main/CreateQuestionsTest1";
 import CreateQuestionsTestMulti from "../components/Main/CreateQuestionsDescription";
 import CreateQuestionsDescription from "../components/Main/CreateQuestionsDescription";
 import CreateQuestionsCode from "../components/Main/CreateQuestionsCode";
+import CreateTest from "../components/Main/CreateTest";
 
 const CreateQuestions = () => {
   //   const userId = window.location.pathname.replace("/profile/", "");
@@ -41,6 +42,7 @@ const CreateQuestions = () => {
   ] = useState(false);
   const [isShowCreateQuestionsCode, setIsShowCreateQuestionsCode] =
     useState(false);
+  const [isShowCreateTest, setIsShowCreateTest] = useState(false);
 
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
   const [isShowChangeParametrs, setIsShowChangeParametrs] = useState(false);
@@ -92,6 +94,13 @@ const CreateQuestions = () => {
         />
       )}
 
+      {isShowCreateTest && (
+        <CreateTest
+          isActive={isShowCreateTest}
+          setIsActive={setIsShowCreateTest}
+        />
+      )}
+
       <div className="body-deal-page">
         <div className="content-deal-page " style={{ border: "none" }}></div>
         <div></div>
@@ -102,7 +111,12 @@ const CreateQuestions = () => {
           <p> КОНСТРУКТОР ТЕСТОВ</p>
         </div>
 
-        <button className="lightBtn btn" onClick={() => {}}>
+        <button
+          className="lightBtn btn"
+          onClick={() => {
+            setIsShowCreateTest(true);
+          }}
+        >
           СОЗДАТЬ ТЕСТ
         </button>
 

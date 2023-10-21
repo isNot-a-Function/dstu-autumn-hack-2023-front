@@ -255,3 +255,12 @@ button.btnInUser {
   align-items: center;
   justify-content: start;
 }
+
+.box-content-create-test {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  p {
+    color: white;
+  }
+}

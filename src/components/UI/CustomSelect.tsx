@@ -64,7 +64,7 @@ const CustomSelect = ({
     container: (defaultStyles: any, state: any) => ({
       ...defaultStyles,
       width: width,
-      maxWidth: "200px",
+      maxWidth: "480px",
       cursor: "pointer",
       border: "2px solid #3aaa35",
       borderRadius: "8px",
@@ -131,6 +131,7 @@ const CustomSelect = ({
     <>
       <Select
         defaultValue={value}
+        value={value}
         components={{ DropdownIndicator, IndicatorSeparator }}
         onChange={onChange}
         options={options}

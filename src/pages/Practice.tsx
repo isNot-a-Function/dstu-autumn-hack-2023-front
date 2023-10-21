@@ -25,8 +25,8 @@ const Practice = () => {
   return (
     <div className="box-trainee-page container">
       <div className="box-list-cases">
-        {[1, 2, 3].map((item) => (
-          <Case />
+        {cases?.directions?.map((item: any) => (
+          <Case title={item.title} tags={item.specialization.title} />
         ))}
       </div>
 

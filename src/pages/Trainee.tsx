@@ -10,6 +10,7 @@ import ReactDatePicker from "react-datepicker";
 import CustomSelect from "../components/UI/CustomSelect";
 import "../assets/scss/pages/_trainee.scss";
 import Case from "../components/Main/Case";
+import Loader from "../components/Loader";
 
 const Trainee = () => {
   const [activeSection, setActiveSection] = useState<string | undefined>(
@@ -22,11 +23,12 @@ const Trainee = () => {
     type: "internship",
   });
 
+  if (cases === undefined) return <Loader />;
   return (
     <div className="box-trainee-page container">
       <div className="box-list-cases">
-        {[1, 2, 3].map((item) => (
-          <Case />
+        {cases?.directions?.map((item: any) => (
+          <Case title={item.title} tags={item.specialization.title} />
         ))}
       </div>
 
