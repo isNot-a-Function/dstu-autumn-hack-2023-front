@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchInput from "../components/UI/SearchInput";
 import Menu from "../components/Main/Menu";
 import { ReactComponent as Trash } from "../assets/img/trashSort.svg";
-import TrainCard from "../components/Main/TrainCard";
+import TrainCard from "../components/Main/Case";
 import { flightApi } from "../store";
 import Pagination from "../components/Pagination/Pagination";
 import CreateCaseModal from "../components/Main/CreateCaseModal";
@@ -136,9 +136,9 @@ const Main = () => {
         </div>
 
         <div className="box-list-cases">
-          {flights?.flights.map((item) => (
+          {/* {flights?.flights.map((item) => (
             <TrainCard data={item} key={item?.id} />
-          ))}
+          ))} */}
         </div>
       </div>
       <div style={{ paddingRight: 12, top: 80 }}>

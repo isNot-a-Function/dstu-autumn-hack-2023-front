@@ -32,7 +32,7 @@ const Chat = () => {
             }}
           >
             <p>{item.title}</p>
-            <p style={{ fontSize: 12, color: "#ff0000" }}>
+            <p style={{ fontSize: 10, color: "#ff0000" }}>
               {item.active === false &&
                 item.creatorId !== userLocal?.id &&
                 "Требуется подтверждение"}
@@ -89,25 +89,27 @@ const Chat = () => {
             </button>
           ) : (
             <>
-              <div className="box-messages">
-                {messages?.messages.map((item: any) => {
-                  return (
-                    <div
-                      className={`item-message ${
-                        userLocal.id === item.senderId
-                          ? "my-message"
-                          : "nomy-message"
-                      }`}
-                    >
-                      <p>{item.text}</p>
-                      <p style={{ fontSize: 12 }}>
-                        {new Date(item.createdAt).toLocaleDateString() +
-                          "   " +
-                          new Date(item.createdAt).toLocaleTimeString()}
-                      </p>
-                    </div>
-                  );
-                })}
+              <div className="box-active-messages">
+                <div className="box-messages">
+                  {messages?.messages.map((item: any) => {
+                    return (
+                      <div
+                        className={`item-message ${
+                          userLocal.id === item.senderId
+                            ? "my-message"
+                            : "nomy-message"
+                        }`}
+                      >
+                        <p>{item.text}</p>
+                        <p style={{ fontSize: 10 }}>
+                          {new Date(item.createdAt).toLocaleDateString() +
+                            "       " +
+                            new Date(item.createdAt).toLocaleTimeString()}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
 
                 {/* <div className="item-message nomy-message">
                 <p>Привет! Я только за! Во что будет играть?</p>
@@ -140,10 +142,12 @@ const Chat = () => {
           )}
         </div>
       )}
-      {chats.groups.length === 0 && <h1>У ВАС ПОКА НЕТ ЧАТОВ</h1>}
-      {chats.groups.length !== 0 && selectGroup === undefined && (
-        <h1>ВЫБЕРИТЕ ЧАТ</h1>
+      {chats.groups.length === 0 && (
+        <h1 style={{ color: "white", fontSize: 20 }}>У ВАС ПОКА НЕТ ЧАТОВ</h1>
       )}
+      {/* {chats.groups.length !== 0 && selectGroup === undefined && (
+        <h1>ВЫБЕРИТЕ ЧАТ</h1>
+      )} */}
     </div>
   );
 };

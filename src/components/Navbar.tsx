@@ -43,12 +43,12 @@ const Navbar = () => {
     {
       id: 1,
       name: "СТАЖЁРАМ",
-      url: "/store",
+      url: "/trainee",
     },
     {
       id: 2,
       name: "ПРАКТИКАНТАМ",
-      url: "/balance",
+      url: "/trainee",
     },
     {
       id: 3,

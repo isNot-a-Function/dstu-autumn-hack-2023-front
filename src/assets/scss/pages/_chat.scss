@@ -11,7 +11,8 @@
   padding-left: 20px;
   gap: 10px;
   h1 {
-    color: #ff0000;
+    color: #3aaa35;
+    font-size: 20px;
   }
   @media (max-width: 1000px) {
     h1 {
@@ -23,10 +24,13 @@
 }
 
 .box-chat {
-  background-color: #f3f3f3;
+  background-color: #2a292e;
   height: calc(100vh - 150px);
   width: 100%;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .box-chat-page {
   display: grid;
@@ -39,20 +43,23 @@
   gap: 10px;
 }
 .item-list-group {
-  height: 80px;
-  min-height: 80px;
+  height: 40px;
+  min-height: 40px;
   width: 100%;
 
   border-radius: 8px;
-  background-color: #f3f3f3;
+  background-color: #2a292e;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background-color: #403f46;
+  }
   p {
     text-align: center;
-    font-size: 20px;
-    color: #111111;
+    font-size: 16px;
+    color: white;
   }
   cursor: pointer;
 }
@@ -71,9 +78,12 @@
   text-align: center;
   align-items: center;
   justify-content: start;
-  background-color: #111111;
+  background-color: #2a292e;
   padding-left: 12px;
-  border-radius: 12px;
+  border-bottom: 2px solid #333237;
+  // border-radius: 12px;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
 }
 
 .list-group::-webkit-scrollbar {
@@ -96,7 +106,9 @@
   padding-left: 12px;
   padding-right: 12px;
   margin-bottom: 20px;
-  display: flex;
+  display: grid;
+  height: min-content;
+  // justify-content: space-between;
   flex-direction: column;
   gap: 10px;
 }
@@ -117,7 +129,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: #f3f3f3;
+  background-color: #2a292e;
   border-radius: 8px;
 }
 .item-message {
@@ -126,10 +138,15 @@
   padding-left: 8px;
   padding-right: 8px;
   border-radius: 8px;
+  max-width: 50%;
+  min-width: 100px;
+  width: auto;
 }
+
 .my-message {
-  background-color: #425a6a;
+  background-color: #3c3b40;
   justify-content: end;
+  justify-self: end;
   p {
     text-align: end;
   }
@@ -138,6 +155,8 @@
 .nomy-message {
   background-color: white;
   justify-content: start;
+  justify-self: start;
+
   p {
     text-align: start;
     color: #111111;
@@ -148,4 +167,10 @@
   // padding-bottom: 8px;
   // padding-left: ;
   padding: 8px;
+}
+.box-active-messages {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }

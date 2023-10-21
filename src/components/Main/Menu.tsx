@@ -94,7 +94,7 @@ const Menu = ({
   return (
     <div className="list-filter">
       <div className="header-box-filter">
-        <h1>CФЕРЫ ДЕЯТЕЛЬНОСТИ</h1>
+        <h1>CПЕЦИАЛИЗАЦИИ</h1>
         {activeSection.length !== 0 && (
           <p
             onClick={() => {
@@ -140,29 +140,6 @@ const Menu = ({
                 {section?.label}
               </div>
             </p>
-            <div className="list-subsection">
-              {openSection === section.label &&
-                section?.subsections?.map((it: any) => (
-                  <p
-                    onClick={() => handlerClickSection(it.title)}
-                    key={index}
-                    className={`${
-                      activeSection.includes(it.title)
-                        ? "active-section-list-filter"
-                        : "section-list-filter"
-                    }`}
-                  >
-                    <div
-                      className={`${
-                        activeSection.includes(it.title)
-                          ? "active-flag-section"
-                          : ""
-                      } flag-section`}
-                    ></div>
-                    <div>{it?.title}</div>
-                  </p>
-                ))}
-            </div>
           </div>
         );
       })}

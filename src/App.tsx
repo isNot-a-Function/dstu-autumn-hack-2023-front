@@ -11,6 +11,8 @@ import Flight from "./pages/Flight";
 import HistoryBalance from "./pages/HistoryBalance";
 import User from "./pages/UserPage";
 import Chat from "./pages/Chat";
+import Trainee from "./pages/Trainee";
+import CasePage from "./pages/CasePage";
 
 function App() {
   let vh = window.innerHeight * 0.01;
@@ -32,6 +34,8 @@ function App() {
           <Route path="store" element={<Main />} />
           <Route path="profile" element={<Profile />} />
           <Route path="profile/:id" element={<User />} />
+          <Route path="trainee" element={<Trainee />} />
+          <Route path="case/:id" element={<CasePage />} />
           <Route path="login" element={<Login />} />
           <Route path="flight/:id" element={<Flight />} />
           <Route path="balance" element={<HistoryBalance />} />
