@@ -36,9 +36,10 @@ function App() {
           <Route path="store" element={<Main />} />
           <Route path="profile" element={<Profile />} />
           <Route path="profile/:id" element={<User />} />
+          <Route path="trainee/:id" element={<CasePage />} />
+          <Route path="practice/:id" element={<CasePage />} />
           <Route path="trainee" element={<Trainee />} />
           <Route path="practice" element={<Practice />} />
-          <Route path="case/:id" element={<CasePage />} />
           <Route path="login" element={<Login />} />
           <Route path="flight/:id" element={<Flight />} />
           <Route path="create/test" element={<CreateQuestions />} />

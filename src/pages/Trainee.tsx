@@ -28,7 +28,12 @@ const Trainee = () => {
     <div className="box-trainee-page container">
       <div className="box-list-cases">
         {cases?.directions?.map((item: any) => (
-          <Case title={item.title} tags={item.specialization.title} />
+          <Case
+            title={item.title}
+            tags={item.specialization.title}
+            isPractice={false}
+            id={item.id}
+          />
         ))}
       </div>
 

@@ -6,14 +6,20 @@ import { useNavigate } from "react-router-dom";
 interface CaseProps {
   title: string;
   tags: string;
+  isPractice?: boolean;
+  id: string | number;
 }
-const Case = ({ title, tags }: CaseProps) => {
+const Case = ({ title, tags, isPractice = false, id }: CaseProps) => {
   const navigate = useNavigate();
   return (
     <div
       className="box-case"
       onClick={() => {
-        navigate("/case/1");
+        if (isPractice) {
+          navigate(`/practice/${id}`);
+        } else {
+          navigate(`/trainee/${id}`);
+        }
       }}
     >
       <div className="header-box-case">
