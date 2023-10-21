@@ -14,6 +14,7 @@ import ConfirmationModal from "../components/Modals/ConfirmationModal";
 import UpdateProfileModal from "../components/Main/UpdateProfile";
 import ChangeParametrsModal from "../components/Main/ChangeParametrsModal";
 import DoneModal from "../components/Modals/DoneModal";
+import Loader from "../components/Loader";
 
 const sortListEx = [
   // {
@@ -34,8 +35,12 @@ const sortListEx = [
 ];
 
 const UserPage = () => {
-  const userId = window.location.pathname.replace("/profile/", "");
+  const userId = window.location.pathname
+    .replace("/profile/", "")
+    .replace("/responses/trainee/", "")
+    .replace("/responses/practice/", "");
   const { data: user } = userApi.useGetProfileIdQuery(userId);
+
   console.log("userID", userId);
 
   const navigate = useNavigate();
@@ -76,40 +81,10 @@ const UserPage = () => {
     navigate("/");
   };
 
-  // if (tickets === undefined) return <Loader />;
+  if (user === undefined) return <Loader />;
 
   return (
     <div className="container box-profile-page ">
-      {isShowConfirmationModal && (
-        <ConfirmationModal
-          setIsActive={setIsShowConfirmationModal}
-          modalTitle="Вы действительно хотите выйти?"
-          func={logOut}
-        />
-      )}
-
-      {isShowUpdateUserModal && (
-        <UpdateProfileModal
-          isActive={isShowConfirmationModal}
-          setIsActive={setIsShowUpdateUserModal}
-        />
-      )}
-
-      {isShowChangeParametrs && (
-        <ChangeParametrsModal
-          isActive={isShowChangeParametrs}
-          setIsActive={setIsShowChangeParametrs}
-        />
-      )}
-
-      {isShowRaitingModal && (
-        <DoneModal
-          isActive={isShowRaitingModal}
-          setIsActive={setIsShowRaitingModal}
-          userId={userId}
-        />
-      )}
-
       <div className="body-deal-page">
         <div className="content-deal-page " style={{ border: "none" }}></div>
         <div></div>
@@ -127,9 +102,30 @@ const UserPage = () => {
                 justifyContent: "center",
                 cursor: "pointer",
               }}
-            ></div>
+            >
+              <img src={user?.user.logo} className="avatar-in-user-page" />
+            </div>
 
-            <p>{user?.user.fullname ? user.user.fullname : user?.user.id}</p>
+            <p style={{ color: "white", marginTop: 10 }}>
+              {user?.user.fullname !== null
+                ? user.user.fullname
+                : "ID: " + user?.user.id}
+            </p>
+            {user.user.email && (
+              <p style={{ color: "white", marginTop: 10 }}>
+                {"EMAIL: " + user.user.email}
+              </p>
+            )}
+            {user.user.tgLink && (
+              <p style={{ color: "white", marginTop: 10 }}>
+                {"TG: " + user.user.tgLink}
+              </p>
+            )}
+            {user.user.vkLink && (
+              <p style={{ color: "white", marginTop: 10 }}>
+                {"VK: " + user.user.vkLink}
+              </p>
+            )}
           </div>
         </div>
 
@@ -142,14 +138,14 @@ const UserPage = () => {
           ЗАЯВКА НА ОБЩЕНИЕ
         </button>
 
-        <button
+        {/* <button
           className="lightBtn btn"
           onClick={() => {
             setIsShowRaitingModal(true);
           }}
         >
           ПОСТАВИТЬ ОЦЕНКУ
-        </button>
+        </button> */}
       </div>
     </div>
   );

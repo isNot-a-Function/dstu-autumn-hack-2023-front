@@ -1,39 +1,33 @@
 import React, { useState, useEffect } from "react";
-import SearchInput from "../components/UI/SearchInput";
 import Menu from "../components/Main/Menu";
-import { ReactComponent as Trash } from "../assets/img/trashSort.svg";
-import TrainCard from "../components/Main/Case";
 import { flightApi } from "../store";
-import Pagination from "../components/Pagination/Pagination";
-import CreateCaseModal from "../components/Main/CreateCaseModal";
-import ReactDatePicker from "react-datepicker";
-import CustomSelect from "../components/UI/CustomSelect";
 import "../assets/scss/pages/_trainee.scss";
 import Case from "../components/Main/Case";
-import Loader from "../components/Loader";
 
-const Trainee = () => {
+const ResponsesPractice = () => {
   const [activeSection, setActiveSection] = useState<string | undefined>(
     undefined
   );
   const [openSection, setOpenSection] = useState<number | null>(null);
-  const { data: cases } = flightApi.useGetTasksQuery({
+  const { data: responses } = flightApi.useGetResponsesQuery({
     //@ts-ignore
     sp: activeSection,
-    type: "internship",
+    type: "practice",
   });
 
-  if (cases === undefined) return <Loader />;
   return (
     <div className="box-trainee-page container">
       <div className="box-list-cases">
-        {cases?.directions?.map((item: any) => (
+        {responses?.responses?.map((item: any) => (
           <Case
-            title={item.title}
-            tags={item.specialization.title}
-            isPractice={false}
+            title={
+              item.user.id +
+              " " +
+              (item.user.fullname !== null ? item.user.fullname : "")
+            }
+            tags={item?.direction?.specialization.title}
             id={item.id}
-            link={`/trainee/${item.id}`}
+            link={`/responses/practice/${item.id}`}
           />
         ))}
       </div>
@@ -50,4 +44,4 @@ const Trainee = () => {
   );
 };
 
-export default Trainee;
+export default ResponsesPractice;

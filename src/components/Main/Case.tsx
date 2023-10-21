@@ -8,18 +8,16 @@ interface CaseProps {
   tags: string;
   isPractice?: boolean;
   id: string | number;
+  link: string;
 }
-const Case = ({ title, tags, isPractice = false, id }: CaseProps) => {
+const Case = ({ title, tags, isPractice = false, id, link }: CaseProps) => {
   const navigate = useNavigate();
   return (
     <div
       className="box-case"
       onClick={() => {
-        if (isPractice) {
-          navigate(`/practice/${id}`);
-        } else {
-          navigate(`/trainee/${id}`);
-        }
+        console.log("link", link);
+        navigate(link);
       }}
     >
       <div className="header-box-case">

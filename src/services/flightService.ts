@@ -12,7 +12,7 @@ import { flightsData, flightsDataItem } from "../types/flightTypes";
 export const flightApi = createApi({
   reducerPath: "casesApi",
   baseQuery,
-  tagTypes: ["orders", "order", "train", "qa"],
+  tagTypes: ["orders", "order", "train", "qa", "responses"],
   endpoints: (build) => ({
     getFlights: build.query<
       flightsData,
@@ -284,6 +284,28 @@ export const flightApi = createApi({
         method: "GET",
       }),
       providesTags: () => ["qa"],
+    }),
+    getResponses: build.query<any, { sp: string; type: string }>({
+      query: ({ sp, type }) => {
+        let url = "/response/?";
+        if (sp === undefined) {
+          url = url + `type=${type}`;
+        } else {
+          url = `/response/?specialization=${sp}&type=${type}`;
+        }
+        return {
+          url: url,
+          method: "GET",
+        };
+      },
+      providesTags: () => ["responses"],
+    }),
+    sendPractice: build.query<any, number | string>({
+      query: (id) => ({
+        url: `/response/send?directionId=${id}`,
+        method: "GET",
+      }),
+      providesTags: () => ["orders"],
     }),
     createTask: build.mutation<
       any,

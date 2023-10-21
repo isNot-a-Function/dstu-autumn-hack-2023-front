@@ -10,30 +10,31 @@ import ReactDatePicker from "react-datepicker";
 import CustomSelect from "../components/UI/CustomSelect";
 import "../assets/scss/pages/_trainee.scss";
 import Case from "../components/Main/Case";
-import Loader from "../components/Loader";
 
-const Trainee = () => {
+const ResponsesTrainee = () => {
   const [activeSection, setActiveSection] = useState<string | undefined>(
     undefined
   );
   const [openSection, setOpenSection] = useState<number | null>(null);
-  const { data: cases } = flightApi.useGetTasksQuery({
+  const { data: responses } = flightApi.useGetResponsesQuery({
     //@ts-ignore
     sp: activeSection,
     type: "internship",
   });
 
-  if (cases === undefined) return <Loader />;
   return (
     <div className="box-trainee-page container">
       <div className="box-list-cases">
-        {cases?.directions?.map((item: any) => (
+        {responses?.responses?.map((item: any) => (
           <Case
-            title={item.title}
-            tags={item.specialization.title}
-            isPractice={false}
+            title={
+              item.user.id +
+              " " +
+              (item.user.fullname !== null ? item.user.fullname : "")
+            }
+            tags={item?.direction?.specialization.title}
             id={item.id}
-            link={`/trainee/${item.id}`}
+            link={`/responses/trainee/${item.id}`}
           />
         ))}
       </div>
@@ -50,4 +51,4 @@ const Trainee = () => {
   );
 };
 
-export default Trainee;
+export default ResponsesTrainee;

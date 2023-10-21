@@ -31,6 +31,7 @@ const Practice = () => {
             tags={item.specialization.title}
             isPractice={true}
             id={item.id}
+            link={`/practice/${item.id}`}
           />
         ))}
       </div>
