@@ -136,10 +136,10 @@ const Navbar = () => {
 
             {token !== null ? (
               <div className="profile">
-                <div className="balanse" onClick={() => setIsActiveModal(true)}>
+                {/* <div className="balanse" onClick={() => setIsActiveModal(true)}>
                   <span>{user?.user?.balance} ₽</span>
                   <Plus />
-                </div>
+                </div> */}
                 <Link
                   to="/profile"
                   className="profile__icon"

@@ -15,20 +15,20 @@
 
 .blackBtn {
   background-color: transparent;
-  border: 2px solid $purple;
-  color: $lightPurple;
+  border: 2px solid #3aaa35;
+  color: #3aaa35;
   transition: 0.2s;
 
   &:hover {
-    border-color: $lightBorderForBlackBtn;
+    border-color: #43c43d;
   }
   &:disabled {
     &:hover {
-      border-color: $purple;
+      border-color: #43c43d;
     }
   }
   span {
-    color: $lightPurple;
+    color: #3aaa35;
   }
 }
 
