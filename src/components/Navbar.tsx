@@ -73,6 +73,11 @@ const Navbar = () => {
       name: "ЧАТЫ",
       url: "/chat",
     },
+    {
+      id: 4,
+      name: "СОЗДАНИЕ ТЕСТОВ",
+      url: "/create/test",
+    },
   ];
 
   return (
