@@ -63,5 +63,18 @@ export const chatApi = createApi({
       }),
       invalidatesTags: () => ["message"],
     }),
+    requestConnect: build.mutation<
+      any,
+      {
+        userId: number;
+      }
+    >({
+      query: (body) => ({
+        url: `/chat/start`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["message"],
+    }),
   }),
 });

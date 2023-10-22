@@ -27,6 +27,7 @@ const ResponsesTrainee = () => {
       <div className="box-list-cases">
         {responses?.responses?.map((item: any) => (
           <Case
+            key={item.id}
             title={
               item.user.id +
               " " +
