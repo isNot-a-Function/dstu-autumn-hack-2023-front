@@ -81,7 +81,7 @@ const TestModal1 = ({
             menuPlacement={"bottom"}
           />
         </div>
-        <div className="box-qa">
+        {/* <div className="box-qa">
           <p>{data?.test?.tasks[1].question}</p>
           <p></p>
           <CustomSelect
@@ -132,8 +132,8 @@ const TestModal1 = ({
             backgroundColor={"#171226"}
             menuPlacement={"bottom"}
           />
-        </div>
-        <div className="box-qa">
+        </div> */}
+        {/* <div className="box-qa">
           <p>{data?.test?.tasks[3].question}</p>
           <div className="box-checkbox-test">
             <input
@@ -206,9 +206,9 @@ const TestModal1 = ({
             ></input>
             {data?.test?.tasks[3].variants[3]}
           </div>
-        </div>
+        </div> */}
 
-        <div className="box-qa">
+        {/* <div className="box-qa">
           <p>{data?.test?.tasks[4].question}</p>
 
           <div className="box-checkbox-test">
@@ -270,9 +270,9 @@ const TestModal1 = ({
             ></input>
             {data?.test?.tasks[4].variants[3]}
           </div>
-        </div>
+        </div> */}
 
-        <div className="box-qa">
+        {/* <div className="box-qa">
           <p>{data?.test?.tasks[5].question}</p>
 
           <div className="box-checkbox-test">
@@ -334,7 +334,7 @@ const TestModal1 = ({
             ></input>
             {data?.test?.tasks[5].variants[3]}
           </div>
-        </div>
+        </div> */}
 
         <div className="box-qa">
           <p>{data?.test?.tasks[6].question}</p>
@@ -399,7 +399,7 @@ const TestModal1 = ({
             {data?.test?.tasks[6].variants[3]}
           </div>
         </div>
-        <div className="box-qa">
+        {/* <div className="box-qa">
           <p>{data?.test?.tasks[7]?.question}</p>
           <input
             className="input"
@@ -409,7 +409,7 @@ const TestModal1 = ({
               setq8(e.target.value);
             }}
           />
-        </div>
+        </div> */}
         <div className="box-qa">
           <p>{data?.test?.tasks[8]?.question}</p>
           <input
@@ -420,7 +420,7 @@ const TestModal1 = ({
             }}
           />
         </div>
-        <div className="box-qa">
+        {/* <div className="box-qa">
           <p>{data?.test?.tasks[9]?.question}</p>
           <input
             className="input"
@@ -429,7 +429,7 @@ const TestModal1 = ({
               setq10(e.target.value);
             }}
           />
-        </div>
+        </div> */}
         <button
           className="btn lightBtn"
           onClick={() => {
