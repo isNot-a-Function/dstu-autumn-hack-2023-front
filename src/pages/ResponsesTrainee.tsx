@@ -35,7 +35,7 @@ const ResponsesTrainee = () => {
             }
             tags={item?.direction?.specialization.title}
             id={item.id}
-            link={`/responses/trainee/${item.id}`}
+            link={`/responses/trainee/${item.user.id}`}
           />
         ))}
       </div>
