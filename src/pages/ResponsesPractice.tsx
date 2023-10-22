@@ -27,7 +27,7 @@ const ResponsesPractice = () => {
             }
             tags={item?.direction?.specialization.title}
             id={item.id}
-            link={`/responses/practice/${item.id}`}
+            link={`/responses/practice/${item.user.id}`}
           />
         ))}
       </div>
