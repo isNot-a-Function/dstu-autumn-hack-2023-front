@@ -19,6 +19,7 @@ import UpdateProfileModal from "../components/Main/UpdateProfile";
 import { flightApi } from "../store";
 import TrainCard from "../components/Main/Case";
 import ChangeParametrsModal from "../components/Main/ChangeParametrsModal";
+import TestModal from "../components/Main/TestModal1";
 
 const sortListEx = [
   {
@@ -54,6 +55,10 @@ const Profile = () => {
   const [isShowUpdateUserModal, setIsShowUpdateUserModal] = useState(false);
   const [isShowChangeParametrs, setIsShowChangeParametrs] = useState(false);
 
+  const [selectTest, setSelectTest] = useState(undefined);
+
+  const [isShowTestModal, setIsShowtestModal] = useState(false);
+
   const handlerChangePhoto = async (e: any) => {
     const formData = new FormData();
     formData.append("files", e.target.files[0]);
@@ -68,6 +73,8 @@ const Profile = () => {
     localStorage.clear();
     navigate("/");
   };
+
+  if (tasks?.user.responses === undefined) return <Loader />;
 
   return (
     <div className="container box-profile-page ">
@@ -90,6 +97,17 @@ const Profile = () => {
         <ChangeParametrsModal
           isActive={isShowChangeParametrs}
           setIsActive={setIsShowChangeParametrs}
+        />
+      )}
+
+      {isShowTestModal && selectTest !== undefined && (
+        <TestModal
+          //@ts-ignore
+          testId={selectTest?.direction?.testId}
+          //@ts-ignore
+          directionId={selectTest?.direction?.id}
+          isActive={isShowTestModal}
+          setIsActive={setIsShowtestModal}
         />
       )}
 
@@ -118,16 +136,24 @@ const Profile = () => {
         </div>
         <div>
           <div className="box-list-cases">
-            {/* {tickets?.tickets?.map((item: any) => {
+            {tasks?.user.responses.map((item: any) => {
               return (
-                <TrainCard
-                  data={item?.flightPlace?.flight}
-                  isHaveTicket={true}
-                  place={item?.flightPlace?.place}
-                  cost={item?.flightPlace?.cost}
+                <Case
+                  title={item?.direction?.title}
+                  tags={item?.direction?.specialization?.title}
+                  id={item.id}
+                  link={
+                    item?.direction?.type === "internship"
+                      ? `/trainee/${item?.direction?.id}`
+                      : `/practice/${item?.direction?.id}`
+                  }
+                  onChange={() => {
+                    setIsShowtestModal(true);
+                    setSelectTest(item);
+                  }}
                 />
               );
-            })} */}
+            })}
           </div>
         </div>
       </div>

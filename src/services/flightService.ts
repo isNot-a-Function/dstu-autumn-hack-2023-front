@@ -307,6 +307,28 @@ export const flightApi = createApi({
       }),
       providesTags: () => ["orders"],
     }),
+    getTest: build.query<any, number | string>({
+      query: (id) => ({
+        url: `/test/${id}`,
+        method: "GET",
+      }),
+      providesTags: () => ["orders"],
+    }),
+    saveQa: build.mutation<
+      any,
+      {
+        testId: number;
+        directionId: number;
+        answers: (number | number[] | string)[];
+      }
+    >({
+      query: (body) => ({
+        url: `/answer/`,
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: () => ["qa"],
+    }),
     createTask: build.mutation<
       any,
       {

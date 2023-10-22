@@ -199,3 +199,14 @@
   width: 100px;
   margin-top: 12px;
 }
+
+.box-qa {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 8px;
+  color: white;
+  p {
+    color: #3aaa35;
+  }
+}

@@ -9,15 +9,25 @@ interface CaseProps {
   isPractice?: boolean;
   id: string | number;
   link: string;
+  onChange?: (value: any) => void;
 }
-const Case = ({ title, tags, isPractice = false, id, link }: CaseProps) => {
+const Case = ({
+  title,
+  tags,
+  isPractice = false,
+  id,
+  link,
+  onChange,
+}: CaseProps) => {
   const navigate = useNavigate();
   return (
     <div
       className="box-case"
       onClick={() => {
-        console.log("link", link);
-        navigate(link);
+        if (onChange === undefined) {
+          console.log("link", link);
+          navigate(link);
+        }
       }}
     >
       <div className="header-box-case">
@@ -25,7 +35,9 @@ const Case = ({ title, tags, isPractice = false, id, link }: CaseProps) => {
       </div>
       <div className="box-list-tags">
         <p className="box-tags">{tags}</p>
-        <button className="btn blackBtn">ПОДРОБНЕЕ</button>
+        <button className="btn blackBtn" onClick={onChange}>
+          {onChange === undefined ? "ПОДРОБНЕЕ" : "ПРОЙТИ ТЕСТИРОВАНИЕ"}
+        </button>
       </div>
     </div>
   );

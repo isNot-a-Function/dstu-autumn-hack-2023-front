@@ -61,7 +61,7 @@ const UserPage = () => {
 
   const [addRaiting] = flightApi.useAddRaitingMutation();
 
-  const [createChat] = chatApi.useRequestChatMutation();
+  const [createChat] = chatApi.useRequestConnectMutation();
 
   const handlerChangePhoto = async (e: any) => {
     const formData = new FormData();
@@ -81,7 +81,7 @@ const UserPage = () => {
     navigate("/");
   };
 
-  if (user === undefined) return <Loader />;
+  if (user?.user === undefined) return <Loader />;
 
   return (
     <div className="container box-profile-page ">
@@ -103,41 +103,43 @@ const UserPage = () => {
                 cursor: "pointer",
               }}
             >
-              <img src={user?.user.logo} className="avatar-in-user-page" />
+              <img src={user?.user?.logo} className="avatar-in-user-page" />
             </div>
 
             <p style={{ color: "white", marginTop: 10 }}>
-              {user?.user.fullname !== null
-                ? user.user.fullname
+              {user?.user?.fullname !== null
+                ? user?.user?.fullname
                 : "ID: " + user?.user.id}
             </p>
-            {user.user.email && (
+            {user?.user?.email && (
               <p style={{ color: "white", marginTop: 10 }}>
-                {"EMAIL: " + user.user.email}
+                {"EMAIL: " + user?.user?.email}
               </p>
             )}
-            {user.user.tgLink && (
+            {user?.user?.tgLink && (
               <p style={{ color: "white", marginTop: 10 }}>
-                {"TG: " + user.user.tgLink}
+                {"TG: " + user?.user?.tgLink}
               </p>
             )}
-            {user.user.vkLink && (
+            {user?.user?.vkLink && (
               <p style={{ color: "white", marginTop: 10 }}>
                 {"VK: " + user.user.vkLink}
               </p>
             )}
           </div>
         </div>
-
+        
         <button
           className="lightBtn btn"
+          style={{ cursor: "pointer" }}
           onClick={() => {
+            console.log("dsfds");
             createChat({ userId: Number(userId) });
           }}
         >
           ЗАЯВКА НА ОБЩЕНИЕ
         </button>
-
+        
         {/* <button
           className="lightBtn btn"
           onClick={() => {

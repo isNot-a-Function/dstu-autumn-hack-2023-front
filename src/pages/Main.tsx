@@ -11,6 +11,7 @@ import CustomSelect from "../components/UI/CustomSelect";
 import img1 from "../assets/img/main/3.png";
 import img2 from "../assets/img/main/21.png";
 import img3 from "../assets/img/main/2.png";
+import { useNavigate } from "react-router-dom";
 
 const cityes = [
   {
@@ -36,20 +37,28 @@ const cityes = [
 ];
 
 const Main = () => {
+  const navigate = useNavigate();
   const [sortValue, setSortValue] = useState<string | null>(null);
   const [directionSort, setDirectionSort] = useState("asc"); //asc - по возрастанию, desc - по убыванию
 
   return (
     <div className="box-main-page container">
       <div className="section-1">
-        <div className="text-section-1">
+        <div
+          className="text-section-1"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
           <h1>ПРИЛОЖЕНИЕ ДЛЯ ОТБОРА СТАЖЁРОВ</h1>
           <h1>И ПРАКТИКАНТОВ</h1>
           <div className="dop-info-1">
             <p>КОТОРОЕ ДЕЛАЕТ ПРОЦЕСС ПРОСТЫМ И ПОНЯТНЫМ</p>
             <p>ДЛЯ КАНДИДАТОВ И HR</p>
           </div>
-          <button className="btn lightBtn">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+          <button className="btn lightBtn" style={{ cursor: "pointer" }}>
+            ЗАРЕГИСТРИРОВАТЬСЯ
+          </button>
         </div>
 
         <img src={img1} className="img-main-1" />
